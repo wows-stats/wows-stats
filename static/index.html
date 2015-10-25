@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>World of Warship Statistics</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body ng-app="wows-stats">
+  <div class="wrapper">
+  	<div class="content" ng-controller="TeamStatsCtrl">
+	  	<h1 ng-hide="inGame">No active game</h1>
+	  	<div class="stats" ng-show="inGame">
+	  	  <h1>{{ data.mapDisplayName }}</h1>
+	  	  <h2>{{ data.gameLogic }}</h2>
+	  	  <div class="teams">
+	  	    <div id="friendly" class="team">
+	  	      <h3>Our Team</h3>
+	  	      <ul>
+	  	      	<li ng-repeat="(key, value) in friendly">
+	  	      	  <div class="player">
+  	      		    <div class="name"><a href="http://worldofwarships.com/en/community/accounts/{{ value.uri }}/" target="_blank">{{value.name}}</a></div>
+  	      		    <div class="data">
+      		          <span class="key">Victories / Battles</span>
+      		          <span class="value {{value.winRateClass}}">{{value.winRate}}</span>
+      		        </div>
+  	      		    <div class="data">
+      		          <span class="key">Average Damage Caused per Battle</span>
+      		          <span class="value">{{value.avgDmg}}</span>
+      		        </div>
+      		        <div class="data">
+      		          <span class="key">Kill / Death Ratio</span>
+      		          <span class="value">{{value.kdRatio}}</span>
+      		        </div>
+      		        <div class="data">
+      		          <span class="key">Battles Fought</span>
+      		          <span class="value">{{value.battles}}</span>
+      		        </div>
+      		        <div class="data">
+      		          <span class="key">Average Experience Per Battle</span>
+      		          <span class="value">{{value.avgExp}}</span>
+      		        </div>
+      		      </div>
+	  	      	</li>
+	  	      </ul>
+	  	    </div>
+	  	    <div id="foe" class="team">
+	  	      <h3>Enemy Team</h3>
+	  	      <ul>
+	  	      	<li ng-repeat="(key, value) in foe">
+  	      		  <div class="player">
+  	      		    <div class="name"><a href="http://worldofwarships.com/en/community/accounts/{{ value.uri }}/" target="_blank">{{value.name}}</a></div>
+  	      		    <div class="data">
+      		          <span class="key">Victories / Battles</span>
+      		          <span class="value {{value.winRateClass}}">{{value.winRate}}</span>
+      		        </div>
+  	      		    <div class="data">
+      		          <span class="key">Average Damage Caused per Battle</span>
+      		          <span class="value">{{value.avgDmg}}</span>
+      		        </div>
+      		        <div class="data">
+      		          <span class="key">Kill / Death Ratio</span>
+      		          <span class="value">{{value.kdRatio}}</span>
+      		        </div>
+      		        <div class="data">
+      		          <span class="key">Battles Fought</span>
+      		          <span class="value">{{value.battles}}</span>
+      		        </div>
+      		        <div class="data">
+      		          <span class="key">Average Experience Per Battle</span>
+      		          <span class="value">{{value.avgExp}}</span>
+      		        </div>
+      		      </div>
+	  	      	</li>
+	  	      </ul>
+	  	    </div>
+	  	  </div>
+	  	</div>
+  	</div>
+  	<div class="footer">Powered by <a href="https://github.com/tianweiliu/wows-stats">wows-stats</a></div>
+  </div>
+</body>
+</html>

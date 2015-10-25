@@ -1,0 +1,27 @@
+{
+  "name": "wows-stats",
+  "version": "1.0.0",
+  "description": "Statistics engine for World of Warships",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tianweiliu/wows-stats.git"
+  },
+  "author": "Tianwei Liu <tianwei.liu89@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tianweiliu/wows-stats/issues"
+  },
+  "homepage": "https://github.com/tianweiliu/wows-stats#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "cheerio": "^0.19.0",
+    "dotenv": "^1.2.0",
+    "express": "^4.13.3",
+    "jsonfile": "^2.2.3",
+    "request": "^2.65.0"
+  }
+}

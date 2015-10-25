@@ -1,0 +1,72 @@
+body {
+	background-color: #2F3C4F;
+	color: #FEFEFE;
+}
+
+a, a:hover, a:visited {
+	color: #FBB040;
+}
+
+.wrapper {
+	margin: 0 auto;
+}
+
+h1, h2, h3 {
+	text-align: center;
+}
+
+ul {
+	list-style: none;
+}
+
+.team {
+	float: left;
+	width: 50%;
+}
+
+.team .name {
+	font-weight: bold;
+}
+
+.team li {
+	float: left;
+}
+
+.player {
+	padding: 10px;
+}
+
+.player .value{
+	font-weight: bold;
+}
+
+.player .class1 {
+	color: #FE0E00;
+}
+
+.player .class2 {
+	color: #FE7903;
+}
+
+.player .class3 {
+	color: #F8F400;
+}
+
+.player .class4 {
+	color: #60FF00;
+}
+
+.player .class5 {
+	color: #02C9B3;
+}
+
+.player .class6 {
+	color: #D042F3;
+}
+
+.footer {
+	clear: both;
+	padding: 20px;
+	text-align: center;
+	width: 100%;
+}
