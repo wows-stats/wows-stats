@@ -2,6 +2,9 @@
 A [XVM](http://www.modxvm.com/en/) like statistics engine for [World of Warships](http://worldofwarships.com/)
 
 # Requirement
+You agree that statistics of a player does NOT mean how a player will perform in a game, and you will NOT use this tool in any way to create a toxic environment in World of Warships or demonstrate any unethical/immortal behaviour.
+If you do NOT agree, you shall NOT use this app.
+
 [Node.js](https://nodejs.org/en/)
 
 # Installation
