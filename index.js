@@ -30,14 +30,14 @@ router.get('/', function(req, res) {
 router.get('/player', jsonParser, function(req, res) {
 	if (req.query.name) {
 		console.log(req.query.name);
-		request('http://worldofwarships.com/en/community/accounts/search/?search=' + encodeURIComponent(req.query.name), function (error, response, body) {
+		request(process.env.WOWS_URL + '/' + process.env.WOWS_LANG + '/community/accounts/search/?search=' + encodeURIComponent(req.query.name), function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				$ = cheerio.load(body);
 				var mainStatsUri = $('.account-tab').attr('js-tab-lazy-url');
 				if (mainStatsUri) {
 					// returned with profile template page
-					var id = mainStatsUri.replace('/en/community/accounts/tab/pvp/overview/','').replace('/', '');
-					request('http://worldofwarships.com' + mainStatsUri, function (err, resp, stats) {
+					var id = mainStatsUri.replace('/' + process.env.WOWS_LANG + '/community/accounts/tab/pvp/overview/','').replace('/', '');
+					request(process.env.WOWS_URL + mainStatsUri, function (err, resp, stats) {
 						if (!err && resp.statusCode == 200)
 							res.json(playerStats(id, stats));
 						else 
@@ -55,14 +55,14 @@ router.get('/player', jsonParser, function(req, res) {
 					for (var i = 0; i < players.length; i++) {
 						if (players.eq(i).text() == playerName) {
 							var profileUri = players.eq(i).attr('href');
-							request('http://worldofwarships.com' + profileUri + '#tab=pvp/account-tab-overview-pvp', function (error, response, body) {
+							request(process.env.WOWS_URL + profileUri + '#tab=pvp/account-tab-overview-pvp', function (error, response, body) {
 								if (!error && response.statusCode == 200) {
 									$ = cheerio.load(body);
 									var mainStatsUri = $('.account-tab').attr('js-tab-lazy-url');
 									if (mainStatsUri) {
 										// returned with profile template page
-										var id = mainStatsUri.replace('/en/community/accounts/tab/pvp/overview/','').replace('/', '');
-										request('http://worldofwarships.com' + mainStatsUri, function (err, resp, stats) {
+										var id = mainStatsUri.replace('/' + process.env.WOWS_LANG + '/community/accounts/tab/pvp/overview/','').replace('/', '');
+										request(process.env.WOWS_URL + mainStatsUri, function (err, resp, stats) {
 											if (!err && resp.statusCode == 200)
 												res.json(playerStats(id, stats));
 											else 
@@ -87,7 +87,7 @@ router.get('/player', jsonParser, function(req, res) {
 				}
 				else {
 					console.log('Unexpected response:');
-					console.log('http://worldofwarships.com/en/community/accounts/search/?search=' + req.query.name);
+					console.log(process.env.WOWS_URL + '/' + process.env.WOWS_LANG + '/community/accounts/search/?search=' + req.query.name);
 					//res.send(body);
 					res.sendStatus(500);
 				}
@@ -98,7 +98,7 @@ router.get('/player', jsonParser, function(req, res) {
 		});
 	}
 	else if (req.query.id) {
-		request('http://worldofwarships.com/en/community/accounts/tab/pvp/overview/' + req.query.id, function (error, response, body) {
+		request(process.env.WOWS_URL + '/' + process.env.WOWS_LANG + '/community/accounts/tab/pvp/overview/' + req.query.id, function (error, response, body) {
 			if (!error && response.statusCode == 200)
 				res.json(playerStats(req.query.id, body));
 			else 
@@ -112,7 +112,7 @@ router.get('/player', jsonParser, function(req, res) {
 // ship api
 router.get('/ship', jsonParser, function(req, res) {
 	if (req.query.playerId) {
-		request('http://worldofwarships.com/en/community/accounts/tab/pvp/ships/' + req.query.playerId, function (error, response, body) {
+		request(process.env.WOWS_URL + '/' + process.env.WOWS_LANG + '/community/accounts/tab/pvp/ships/' + req.query.playerId, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				//res.json(shipStats(req.query.shipId, body));
 				var shipStatsJson = shipStats(req.query.shipId, body);

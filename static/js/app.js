@@ -7,6 +7,7 @@ app.controller('TeamStatsCtrl', function ($scope, $http) {
   	$scope.friendly = [];
   	$scope.foe = [];
   	$scope.queue = [];
+  	$scope.processing = [];
 	var updateArea = function() {
 		$http({
 			method: 'GET',
@@ -54,11 +55,13 @@ app.controller('TeamStatsCtrl', function ($scope, $http) {
 								$scope.friendly.push(player);
 							}
 						}).error(function(stats, statsStatus) {
-							$scope.queue.push(value);
+							if ($scope.queue.indexOf(value) == -1)
+								$scope.queue.push(value);
 						});
 						//console.log(player);
 					}).error(function(data, status) {
-						$scope.queue.push(value);
+						if ($scope.queue.indexOf(value) == -1)
+							$scope.queue.push(value);
 						/*
 						var player = {};
 						angular.extend(player, value);
@@ -77,10 +80,14 @@ app.controller('TeamStatsCtrl', function ($scope, $http) {
 				var queue = [];
 				angular.copy($scope.queue, queue);
 				angular.forEach(queue, function(value, key) {
+					if ($scope.processing.indexOf(value) != -1)
+						return;
+					else
+						$scope.processing.push(value);
 					console.log(value);
 					$http({
 						method:'GET',
-						url: 'http://localhost:8080/api/stats?name=' + encodeURIComponent(value.name)
+						url: 'http://localhost:8080/api/player?name=' + encodeURIComponent(value.name)
 					}).success(function(stats, statsStatus) {
 						var player = {};
 						angular.extend(player, value);
@@ -113,16 +120,12 @@ app.controller('TeamStatsCtrl', function ($scope, $http) {
 							else {
 								$scope.friendly.push(player);
 							}
+							$scope.processing.splice($scope.processing.indexOf(value), 1);
+							$scope.queue.splice($scope.queue.indexOf(value), 1);
 						}).error(function(stats, statsStatus) {
-							if (value.relation == 2) {
-								$scope.foe.push(player);
-							}
-							else {
-								$scope.friendly.push(player);
-							}
+							$scope.processing.splice($scope.processing.indexOf(value), 1);
 						});
 						//console.log(player);
-						$scope.queue.splice($scope.queue.indexOf(value), 1);
 					});
 				});
 			}
