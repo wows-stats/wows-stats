@@ -12,7 +12,11 @@ If you do NOT agree, you shall NOT use this app.
 2. Make sure you have `replay` enabled in World of Warships.
 3. Clone this repo.
 4. Run `install.bat`.
-5. Edit `.env` in the open Notepad application, and change `WOWS_PATH` to where you installed [World of Warships](http://worldofwarships.com/), it is usually the default value `C:\Games\World_of_Warships`. Save the change.
+5. Edit `.env` in the open Notepad application, and:
+  * Change `WOWS_PATH` to where you installed [World of Warships](http://worldofwarships.com/), it is usually the default value `C:\Games\World_of_Warships`.
+  * Change `WOWS_URL` to the url of [World of Warships](http://worldofwarships.com/) website at your region. (**Without the trailing slash**)(For example, `http://worldofwarship.com` for `NA`, `http://worldofwarship.eu` for `EU`)
+  * Change `WOWS_LANG` to the shortcode of your language. (For example, `en` for `English`, `ru` for `Русский`)
+  * Save the change.
 
 # Usage
 1. Run `run.bat` to start the app.
