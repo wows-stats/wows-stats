@@ -25,13 +25,37 @@ app.controller('TeamStatsCtrl', function ($scope, $http) {
 						var player = {};
 						angular.extend(player, value);
 						angular.extend(player, stats);
-						beautify(player);
-						if (value.relation == 2) {
-							$scope.foe.push(player);
-						}
-						else {
-							$scope.friendly.push(player);
-						}
+						process(player);
+						$http({
+							method:'GET',
+							url: 'http://localhost:8080/api/ship?playerId=' + player.id + '&shipId=' + value.shipId
+						}).success(function(shipStats, shipStatsStatus) {
+							var battles = parseInt(shipStats.battles);
+							var victories = parseInt(shipStats.victories);
+							var winRate = (victories / battles * 100).toFixed(2);
+							var survived = parseInt(shipStats.survived);
+							var kill = parseInt(shipStats.destroyed);
+							var death = battles - survived;
+							var kdRatio = (kill / death).toFixed(2);
+							player.ship = {
+								"name": shipStats.name,
+								"img": shipStats.img,
+								"winRate": winRate + "%",
+								"winRateClass": beautify("winRate", winRate),
+								"kdRatio": kdRatio,
+								"battles": battles,
+								"avgExp": shipStats.avgExp,
+								"avgDmg": shipStats.avgDmg
+							}
+							if (value.relation == 2) {
+								$scope.foe.push(player);
+							}
+							else {
+								$scope.friendly.push(player);
+							}
+						}).error(function(stats, statsStatus) {
+							$scope.queue.push(value);
+						});
 						//console.log(player);
 					}).error(function(data, status) {
 						$scope.queue.push(value);
@@ -61,13 +85,42 @@ app.controller('TeamStatsCtrl', function ($scope, $http) {
 						var player = {};
 						angular.extend(player, value);
 						angular.extend(player, stats);
-						beautify(player);
-						if (value.relation == 2) {
-							$scope.foe.push(player);
-						}
-						else {
-							$scope.friendly.push(player);
-						}
+						process(player);
+						$http({
+							method:'GET',
+							url: 'http://localhost:8080/api/ship?playerId=' + player.id + '&shipId=' + value.shipId
+						}).success(function(shipStats, shipStatsStatus) {
+							var battles = parseInt(shipStats.battles);
+							var victories = parseInt(shipStats.victories);
+							var winRate = (victories / battles * 100).toFixed(2) + "%";
+							var survived = parseInt(shipStats.survived);
+							var kill = parseInt(shipStats.destroyed);
+							var death = battles - survived;
+							var kdRatio = (kill / death).toFixed(2);
+							player.ship = {
+								"name": shipStats.name,
+								"img": shipStats.img,
+								"winRate": winRate,
+								"winRateClass": beautify("winRate", winRate),
+								"kdRatio": kdRatio,
+								"battles": battles,
+								"avgExp": shipStats.avgExp,
+								"avgDmg": shipStats.avgDmg
+							}
+							if (value.relation == 2) {
+								$scope.foe.push(player);
+							}
+							else {
+								$scope.friendly.push(player);
+							}
+						}).error(function(stats, statsStatus) {
+							if (value.relation == 2) {
+								$scope.foe.push(player);
+							}
+							else {
+								$scope.friendly.push(player);
+							}
+						});
 						//console.log(player);
 						$scope.queue.splice($scope.queue.indexOf(value), 1);
 					});
@@ -84,26 +137,37 @@ app.controller('TeamStatsCtrl', function ($scope, $http) {
 		});
 	}
 
-	function beautify(player) {
+	function process(player) {
 		player.uri = player.id + '-' + encodeURIComponent(player.name);
 		var winRate = parseFloat(player.winRate.replace('%', ''));
-		if (winRate < 47) {
-			player.winRateClass = 'class1';
-		}
-		else if(winRate < 49) {
-			player.winRateClass = 'class2';
-		}
-		else if(winRate < 52) {
-			player.winRateClass = 'class3';
-		}
-		else if(winRate < 57) {
-			player.winRateClass = 'class4';
-		}
-		else if(winRate < 65) {
-			player.winRateClass = 'class5';
-		}
-		else if(winRate < 101) {
-			player.winRateClass = 'class6';
+		player.winRateClass = beautify("winRate", winRate);
+	}
+
+	function beautify(type, value) {
+		switch(type) {
+			case "winRate":
+				if (value < 47) {
+					return 'class1';
+				}
+				else if(value < 49) {
+					return 'class2';
+				}
+				else if(value < 52) {
+					return 'class3';
+				}
+				else if(value < 57) {
+					return 'class4';
+				}
+				else if(value < 65) {
+					return 'class5';
+				}
+				else if(value < 101) {
+					return 'class6';
+				}
+				break;
+			default:
+				return null;
+				break;
 		}
 	}
 

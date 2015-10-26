@@ -22,26 +22,61 @@
 	  	      	<li ng-repeat="(key, value) in friendly">
 	  	      	  <div class="player">
   	      		    <div class="name"><a href="http://worldofwarships.com/en/community/accounts/{{ value.uri }}/" target="_blank">{{value.name}}</a></div>
-  	      		    <div class="data">
-      		          <span class="key">Victories / Battles</span>
-      		          <span class="value {{value.winRateClass}}">{{value.winRate}}</span>
-      		        </div>
-  	      		    <div class="data">
-      		          <span class="key">Average Damage Caused per Battle</span>
-      		          <span class="value">{{value.avgDmg}}</span>
-      		        </div>
-      		        <div class="data">
-      		          <span class="key">Kill / Death Ratio</span>
-      		          <span class="value">{{value.kdRatio}}</span>
-      		        </div>
-      		        <div class="data">
-      		          <span class="key">Battles Fought</span>
-      		          <span class="value">{{value.battles}}</span>
-      		        </div>
-      		        <div class="data">
-      		          <span class="key">Average Experience Per Battle</span>
-      		          <span class="value">{{value.avgExp}}</span>
-      		        </div>
+                  <div class="ship">
+                    <div class="key">{{value.ship.name}}</div>
+                    <div class="data">
+                      <img ng-src="{{value.ship.img}}" alt="{{value.ship.name}}" />
+                    </div>
+                    <div class="data">
+                      <span class="small">Win </span>
+                      <span class="value {{value.ship.winRateClass}}">{{value.ship.winRate}}</span>
+                      <span class="small">DPG </span>
+                      <span class="value">{{value.ship.avgDmg}}</span>
+                      <br>
+                      <span class="small">K/D </span>
+                      <span class="value">{{value.ship.kdRatio}}</span>
+                      <span class="small">Battles </span>
+                      <span class="value">{{value.ship.battles}}</span>
+                      <span class="small">EXP/G </span>
+                      <span class="value">{{value.ship.avgExp}}</span>
+                    </div>
+                  </div>
+                  <div class="overall">
+                    <div class="key">Player</div>
+                    <span class="small">Win </span>
+                    <span class="value {{value.winRateClass}}">{{value.winRate}}</span>
+                    <span class="small">DPG </span>
+                    <span class="value">{{value.avgDmg}}</span>
+                    <br>
+                    <span class="small">K/D </span>
+                    <span class="value">{{value.kdRatio}}</span>
+                    <span class="small">Battles </span>
+                    <span class="value">{{value.battles}}</span>
+                    <span class="small">EXP/G </span>
+                    <span class="value">{{value.avgExp}}</span>
+                    <!-- Old layout
+                    <div class="data">
+                      <span class="key">Victories / Battles (Win)</span>
+                      <span class="value {{value.winRateClass}}">{{value.winRate}}</span>
+                    </div>
+                    <div class="data">
+                      <span class="key">Average Damage Caused per Battle (DPG)</span>
+                      <span class="value">{{value.avgDmg}}</span>
+                    </div>
+                    <div class="data">
+                      <span class="key">Kill / Death Ratio (K/D)</span>
+                      <span class="value">{{value.kdRatio}}</span>
+                    </div>
+                    <div class="data">
+                      <span class="key">Battles Fought (Battles)</span>
+                      <span class="value">{{value.battles}}</span>
+                    </div>
+                    <div class="data">
+                      <span class="key">Average Experience Per Battle (EXP/G)</span>
+                      <span class="value">{{value.avgExp}}</span>
+                    </div>
+                    -->
+                  </div>
       		      </div>
 	  	      	</li>
 	  	      </ul>
@@ -51,28 +86,40 @@
 	  	      <ul>
 	  	      	<li ng-repeat="(key, value) in foe">
   	      		  <div class="player">
-  	      		    <div class="name"><a href="http://worldofwarships.com/en/community/accounts/{{ value.uri }}/" target="_blank">{{value.name}}</a></div>
-  	      		    <div class="data">
-      		          <span class="key">Victories / Battles</span>
-      		          <span class="value {{value.winRateClass}}">{{value.winRate}}</span>
-      		        </div>
-  	      		    <div class="data">
-      		          <span class="key">Average Damage Caused per Battle</span>
-      		          <span class="value">{{value.avgDmg}}</span>
-      		        </div>
-      		        <div class="data">
-      		          <span class="key">Kill / Death Ratio</span>
-      		          <span class="value">{{value.kdRatio}}</span>
-      		        </div>
-      		        <div class="data">
-      		          <span class="key">Battles Fought</span>
-      		          <span class="value">{{value.battles}}</span>
-      		        </div>
-      		        <div class="data">
-      		          <span class="key">Average Experience Per Battle</span>
-      		          <span class="value">{{value.avgExp}}</span>
-      		        </div>
-      		      </div>
+                  <div class="name"><a href="http://worldofwarships.com/en/community/accounts/{{ value.uri }}/" target="_blank">{{value.name}}</a></div>
+                  <div class="ship">
+                    <div class="key">{{value.ship.name}}</div>
+                    <div class="data">
+                      <img ng-src="{{value.ship.img}}" alt="{{value.ship.name}}" />
+                    </div>
+                    <div class="data">
+                      <span class="small">Win </span>
+                      <span class="value {{value.ship.winRateClass}}">{{value.ship.winRate}}</span>
+                      <span class="small">DPG </span>
+                      <span class="value">{{value.ship.avgDmg}}</span>
+                      <br>
+                      <span class="small">K/D </span>
+                      <span class="value">{{value.ship.kdRatio}}</span>
+                      <span class="small">Battles </span>
+                      <span class="value">{{value.ship.battles}}</span>
+                      <span class="small">EXP/G </span>
+                      <span class="value">{{value.ship.avgExp}}</span>
+                    </div>
+                  </div>
+                  <div class="overall">
+                    <div class="key">Player</div>
+                    <span class="small">Win </span>
+                    <span class="value {{value.winRateClass}}">{{value.winRate}}</span>
+                    <span class="small">DPG </span>
+                    <span class="value">{{value.avgDmg}}</span>
+                    <br>
+                    <span class="small">K/D </span>
+                    <span class="value">{{value.kdRatio}}</span>
+                    <span class="small">Battles </span>
+                    <span class="value">{{value.battles}}</span>
+                    <span class="small">EXP/G </span>
+                    <span class="value">{{value.avgExp}}</span>
+                  </div>
 	  	      	</li>
 	  	      </ul>
 	  	    </div>
