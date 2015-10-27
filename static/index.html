@@ -12,7 +12,7 @@
   <div class="wrapper">
   	<div class="content" ng-controller="TeamStatsCtrl">
 	  	<h1 ng-hide="inGame">No active game</h1>
-	  	<div class="stats" ng-show="inGame">
+	  	<div class="stats" ng-show="players.length>0">
 	  	  <h1>{{ data.mapDisplayName }}</h1>
 	  	  <h2>{{ data.gameLogic }}</h2>
 	  	  <div class="teams">

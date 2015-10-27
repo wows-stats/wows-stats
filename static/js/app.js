@@ -111,6 +111,7 @@ app.controller('TeamStatsCtrl', function ($scope, $http, api) {
 			$scope.data = data;
 			if ($scope.dateTime != data.dateTime) {
 				// new game
+				$scope.players = [];
 				$scope.dateTime = data.dateTime;
 				for (var i=0; i<data.vehicles.length; i++) {
 					var player = data.vehicles[i];
@@ -122,7 +123,6 @@ app.controller('TeamStatsCtrl', function ($scope, $http, api) {
 		}).error(function(data, status) {
 			$scope.dateTime = "";
 			$scope.inGame = false;
-			$scope.data = {};
 		});
 	}
 
