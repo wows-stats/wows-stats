@@ -102,7 +102,7 @@ app.controller('TeamStatsCtrl', function ($scope, $http, api) {
 	$scope.dateTime = "";
   	$scope.data = {};
   	$scope.players = [];
-	var updateArea = function() {
+	var updateArena = function() {
 		$http({
 			method: 'GET',
 			url: 'http://localhost:8080/api/arena'
@@ -111,6 +111,7 @@ app.controller('TeamStatsCtrl', function ($scope, $http, api) {
 			$scope.data = data;
 			if ($scope.dateTime != data.dateTime) {
 				// new game
+				$scope.players = [];
 				$scope.dateTime = data.dateTime;
 				for (var i=0; i<data.vehicles.length; i++) {
 					var player = data.vehicles[i];
@@ -122,11 +123,12 @@ app.controller('TeamStatsCtrl', function ($scope, $http, api) {
 		}).error(function(data, status) {
 			$scope.dateTime = "";
 			$scope.inGame = false;
-			$scope.data = {};
 		});
 	}
 
 	var timer = setInterval(function() {
-		$scope.$apply(updateArea);
+		$scope.$apply(updateArena);
 	}, 1000);
+
+	updateArena();
 });
