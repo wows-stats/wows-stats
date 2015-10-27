@@ -27,7 +27,8 @@
                     <div class="data">
                       <img ng-src="{{value.ship.img}}" alt="{{value.ship.name}}" />
                     </div>
-                    <div class="data">
+                    <div class="value" ng-show="value.ship.noRecord">No record</div>
+                    <div class="data" ng-hide="value.ship.noRecord">
                       <span class="small">Win </span>
                       <span class="value {{value.ship.winRateClass}}">{{value.ship.winRate}}</span>
                       <span class="small">DPG </span>
@@ -92,7 +93,8 @@
                     <div class="data">
                       <img ng-src="{{value.ship.img}}" alt="{{value.ship.name}}" />
                     </div>
-                    <div class="data">
+                    <div class="value" ng-show="value.ship.noRecord">No record</div>
+                    <div class="data" ng-hide="value.ship.noRecord">
                       <span class="small">Win </span>
                       <span class="value {{value.ship.winRateClass}}">{{value.ship.winRate}}</span>
                       <span class="small">DPG </span>

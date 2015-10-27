@@ -119,8 +119,8 @@ router.get('/ship', jsonParser, function(req, res) {
 				if (shipStatsJson)
 					res.json(shipStatsJson);
 				else
-					//res.sendStatus(404);
-					res.send(body);
+					res.sendStatus(404);
+					//res.send(body);
 			}
 			else 
 				res.sendStatus(response.statusCode);

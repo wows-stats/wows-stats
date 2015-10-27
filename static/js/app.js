@@ -7,8 +7,15 @@ app.factory('api', function($http, $q) {
 		player.api.ship.then(function(player){
 			// nothing needs to be done after fetching ship stats
 		}, function(player){
-			// retry if rejected
-			api.fetchShip(player);
+			// rejected means no record
+			//api.fetchShip(player);
+			if (player.ship) {
+				player.ship.noRecord = true;
+			}
+			else {
+				player.ship = {};
+				player.ship.noRecord = true;
+			}
 		});
 	}
 	api.fetchPlayer = function(player) {
@@ -88,6 +95,8 @@ app.factory('api', function($http, $q) {
 					"avgExp": data.avgExp,
 					"avgDmg": data.avgDmg
 				}
+				if (data.noRecord)
+					player.ship.noRecord = true;
 				resolve(player);
 			}).error(function(data, status) {
 				reject(player);
