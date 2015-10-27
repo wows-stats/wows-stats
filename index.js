@@ -8,6 +8,7 @@ var jsonfile 	= require('jsonfile')
 
 var app = express();
 var port = process.env.PORT || 8080;
+var api_key = process.env.WOWS_API_KEY || "demo";
 
 // static endpoint
 app.use(express.static(__dirname + '/static'));
@@ -21,8 +22,9 @@ var jsonParser = bodyParser.json();
 
 router.get('/', function(req, res) {
 	res.json({
+		status: "ok",
 		name: "wows-stats api",
-		version: "v1"
+		version: "v2"
 	});
 });
 
@@ -30,78 +32,56 @@ router.get('/', function(req, res) {
 router.get('/player', jsonParser, function(req, res) {
 	if (req.query.name) {
 		console.log(req.query.name);
-		request(process.env.WOWS_URL + '/' + process.env.WOWS_LANG + '/community/accounts/search/?search=' + encodeURIComponent(req.query.name), function (error, response, body) {
+		request(process.env.WOWS_API_URL + '/wows/account/list/?application_id=' + api_key + '&search=' + encodeURIComponent(req.query.name), function (error, response, body) {
 			if (!error && response.statusCode == 200) {
-				$ = cheerio.load(body);
-				var mainStatsUri = $('.account-tab').attr('js-tab-lazy-url');
-				if (mainStatsUri) {
-					// returned with profile template page
-					var id = mainStatsUri.replace('/' + process.env.WOWS_LANG + '/community/accounts/tab/pvp/overview/','').replace('/', '');
-					request(process.env.WOWS_URL + mainStatsUri, function (err, resp, stats) {
-						if (!err && resp.statusCode == 200)
-							res.json(playerStats(id, stats));
-						else 
-							res.sendStatus(resp.statusCode);
-					});
-				}
-				else if ($('.account-main-stats-table ._values').children('div').length > 0) {
-					// returned with populated profile page
-					res.json(playerStats(null, body));
-				}
-				else if ($('.search-results').length > 0) {
-					// returned with search results
-					var playerName = decodeURIComponent(req.query.name);
-					var players = $('.search-results tbody ._name a');
-					for (var i = 0; i < players.length; i++) {
-						if (players.eq(i).text() == playerName) {
-							var profileUri = players.eq(i).attr('href');
-							request(process.env.WOWS_URL + profileUri + '#tab=pvp/account-tab-overview-pvp', function (error, response, body) {
-								if (!error && response.statusCode == 200) {
-									$ = cheerio.load(body);
-									var mainStatsUri = $('.account-tab').attr('js-tab-lazy-url');
-									if (mainStatsUri) {
-										// returned with profile template page
-										var id = mainStatsUri.replace('/' + process.env.WOWS_LANG + '/community/accounts/tab/pvp/overview/','').replace('/', '');
-										request(process.env.WOWS_URL + mainStatsUri, function (err, resp, stats) {
-											if (!err && resp.statusCode == 200)
-												res.json(playerStats(id, stats));
-											else 
-												res.sendStatus(resp.statusCode);
-										});
-									}
-									else if ($('.account-main-stats-table ._values').children('div').length > 0) {
-										// returned with populated profile page
-										res.json(playerStats(null, body));
-									}
-								}
-								else {
-									res.sendStatus(response.statusCode);
-								}
-							});
-							return;
+				var json = JSON.parse(body);
+				if (json.status == "ok") {
+					if (json.meta.count >= 0) {
+						var player = {};
+						var playerJson = null;
+						for (var i=0; i<json.meta.count; i++) {
+							if (json.data[i].nickname == decodeURIComponent(req.query.name)) {
+								playerJson = json.data[i];
+								break;
+							}
 						}
+						if (playerJson) {
+							player.id = playerJson.account_id.toString();
+							player.name = playerJson.nickname;
+							request(process.env.WOWS_API_URL + '/wows/account/info/?application_id=' + api_key + '&account_id=' + player.id, function (err, rep, statsBody) {
+								if (!err && rep.statusCode == 200) {
+									var stats = JSON.parse(statsBody);
+									if (stats.status == "ok") {
+										if (stats.data[player.id] != null) {
+											stats = stats.data[player.id];
+											player.battles 	= stats.statistics.pvp.battles;
+											player.winRate 	= (stats.statistics.pvp.wins / stats.statistics.pvp.battles * 100).toFixed(2) + "%";
+											player.avgExp	= (stats.statistics.pvp.xp / stats.statistics.pvp.battles).toFixed();
+											player.avgDmg	= (stats.statistics.pvp.damage_dealt / stats.statistics.pvp.battles).toFixed();
+											player.kdRatio	= (stats.statistics.pvp.frags / (stats.statistics.pvp.battles - stats.statistics.pvp.survived_battles)).toFixed(2);
+											player.raw 		= stats
+											res.json(player);
+										}
+										else
+											res.sendStatus(500);
+									}
+									else
+										res.status(400).send(json.error);
+								}
+								else
+									res.sendStatus(rep.statusCode);
+							});
+						}
+						else
+							res.sendStatus(404);
 					}
-					console.log('Player not found.');
-					//res.send(body);
-					res.sendStatus(404);
+					else
+						res.sendStatus(404);
 				}
-				else {
-					console.log('Unexpected response:');
-					console.log(process.env.WOWS_URL + '/' + process.env.WOWS_LANG + '/community/accounts/search/?search=' + req.query.name);
-					//res.send(body);
-					res.sendStatus(500);
-				}
+				else
+					res.status(400).send(json.error);
 			}
-			else {
-				res.sendStatus(response.statusCode);
-			}
-		});
-	}
-	else if (req.query.id) {
-		request(process.env.WOWS_URL + '/' + process.env.WOWS_LANG + '/community/accounts/tab/pvp/overview/' + req.query.id, function (error, response, body) {
-			if (!error && response.statusCode == 200)
-				res.json(playerStats(req.query.id, body));
-			else 
+			else
 				res.sendStatus(response.statusCode);
 		});
 	}
@@ -111,19 +91,56 @@ router.get('/player', jsonParser, function(req, res) {
 
 // ship api
 router.get('/ship', jsonParser, function(req, res) {
-	if (req.query.playerId) {
-		request(process.env.WOWS_URL + '/' + process.env.WOWS_LANG + '/community/accounts/tab/pvp/ships/' + req.query.playerId, function (error, response, body) {
-			if (!error && response.statusCode == 200) {
-				//res.json(shipStats(req.query.shipId, body));
-				var shipStatsJson = shipStats(req.query.shipId, body);
-				if (shipStatsJson)
-					res.json(shipStatsJson);
+	if (req.query.playerId && req.query.shipId) {
+		request(process.env.WOWS_API_URL + '/wows/encyclopedia/ships/?application_id=' + api_key + '&ship_id=' + req.query.shipId, function (err, rep, infoBody) {
+			if (!err && rep.statusCode == 200) {
+				var info = JSON.parse(infoBody);
+				if (info.status == "ok") {
+					if (info.data[req.query.shipId] != null) {
+						var ship = {};
+						info = info.data[req.query.shipId];
+						ship.name = info.name;
+						ship.img = info.images.small;
+						ship.info = info;
+						request(process.env.WOWS_API_URL + '/wows/ships/stats/?application_id=' + api_key + '&account_id=' + req.query.playerId + '&ship_id=' + req.query.shipId, function (error, response, body) {
+							if (!error && response.statusCode == 200) {
+								var json = JSON.parse(body);
+								if (json.status == "ok") {
+									if (json.data[req.query.playerId] != null) {
+										var stats = json.data[req.query.playerId][0];
+										ship.id = 			stats.ship_id;
+										ship.battles = 		stats.pvp.battles;
+										ship.victories = 	stats.pvp.wins;
+										ship.survived = 	stats.pvp.survived_battles;
+										ship.destroyed = 	stats.pvp.frags;
+										ship.avgExp =  		(stats.pvp.xp / stats.pvp.battles).toFixed();
+										ship.avgDmg =  		(stats.pvp.damage_dealt / stats.pvp.battles).toFixed();
+										ship.raw = 			stats;
+										if (stats.pvp.battles == 0)
+											ship.noRecord = true;
+										res.json(ship);
+									}
+									else {
+										ship.id = 			req.query.shipId;
+										ship.noRecord =	true;
+										res.json(ship);
+									}
+								}
+								else
+									res.status(400).send(json.error);
+							}
+							else 
+								res.sendStatus(response.statusCode);
+						});
+					}
+					else
+						res.sendStatus(404);
+				}
 				else
-					res.sendStatus(404);
-					//res.send(body);
+					res.status(400).send(info.error);
 			}
-			else 
-				res.sendStatus(response.statusCode);
+			else
+				res.sendStatus(rep.statusCode);
 		});
 	}
 	else
@@ -153,60 +170,6 @@ router.get('/arena', jsonParser, function(req, res) {
 	else
 		res.sendStatus(400);
 });
-
-function playerStats(id, body) {
-	$ = cheerio.load(body);
-	var mainStats = $('.account-main-stats-table ._values').children('div');
-	return {
-		"id": 		id,
-		"battles": 	mainStats.eq(0).text(),
-		"winRate": 	mainStats.eq(1).text(),
-		"avgExp": 	mainStats.eq(2).text(),
-		"avgDmg": 	mainStats.eq(3).text(),
-		"kdRatio": 	mainStats.eq(4).text()
-	}
-}
-
-function shipStats(shipId, body) {
-	$ = cheerio.load(body);
-	var shipInfo = $('.ships-detail-stats tbody[js-extension] tr[js-has-extension]');
-	var shipStats = $('.ships-detail-stats tbody[js-extension] tr[js-extension]');
-	if (shipInfo.length != shipStats.length)
-		return null;
-	var parseStats = function(shipId, info, stats) {
-		var overall = stats.find('._left ._value span');
-		var avg = stats.find('._center ._value span');
-		return {
-			"id": 			shipId,
-			"name": 		info.find('._text').text(),
-			"img": 			"http:" + info.find('img').attr('src'),
-			"battles": 		overall.eq(0).text(),
-			"victories": 	overall.eq(1).text(),
-			"survived": 	overall.eq(2).text(),
-			"destroyed": 	overall.eq(4).text(),
-			"avgExp": 		avg.eq(0).text(),
-			"avgDmg": 		avg.eq(1).text()
-		}
-	}
-	if (shipId) {
-		var info = shipInfo.filter("[js-has-extension*='" + shipId + "']");
-		var stats = shipStats.filter("[js-extension*='" + shipId + "']");
-		if (info.length < 1 || stats.length < 1)
-			return null;
-		else {
-			return parseStats(shipId, info, stats);
-		}
-	}
-	else {
-		var ships = [];
-		for (var i = 0; i < shipInfo.length; i++) {
-			var info = shipInfo.eq(i);
-			var stats = shipStats.eq(i);
-			ships.push(parseStats(info.attr('js-has-extension').split('-')[0], info, stats));
-		}
-		return ships;
-	}
-}
 
 app.listen(port);
 console.log('wows-stats is running on port: ' + port);
