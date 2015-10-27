@@ -19,7 +19,7 @@
 	  	    <div id="friendly" class="team">
 	  	      <h3>Our Team</h3>
 	  	      <ul>
-	  	      	<li ng-repeat="(key, value) in friendly">
+	  	      	<li ng-repeat="(key, value) in players" ng-if="value.relation!=2">
 	  	      	  <div class="player">
   	      		    <div class="name"><a href="http://worldofwarships.com/en/community/accounts/{{ value.uri }}/" target="_blank">{{value.name}}</a></div>
                   <div class="ship">
@@ -84,7 +84,7 @@
 	  	    <div id="foe" class="team">
 	  	      <h3>Enemy Team</h3>
 	  	      <ul>
-	  	      	<li ng-repeat="(key, value) in foe">
+	  	      	<li ng-repeat="(key, value) in players" ng-if="value.relation==2">
   	      		  <div class="player">
                   <div class="name"><a href="http://worldofwarships.com/en/community/accounts/{{ value.uri }}/" target="_blank">{{value.name}}</a></div>
                   <div class="ship">
