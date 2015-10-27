@@ -14,8 +14,11 @@ If you do NOT agree, you shall NOT use this app.
 4. Run `install.bat`.
 5. Edit `.env` in the open Notepad application, and:
   * Change `WOWS_PATH` to where you installed [World of Warships](http://worldofwarships.com/), it is usually the default value `C:\Games\World_of_Warships`.
-  * Change `WOWS_URL` to the url of [World of Warships](http://worldofwarships.com/) website at your region. (**Without the trailing slash**)(For example, `http://worldofwarship.com` for `NA`, `http://worldofwarship.eu` for `EU`)
-  * Change `WOWS_LANG` to the shortcode of your language. (For example, `en` for `English`, `ru` for `Русский`)
+  * Get an `Application ID` from [Wargaming Developer Room](http://na.wargaming.net/developers/) at your region.
+    * **Note**: You can skip this step and `wows-stats` will use the `demo` key, where `Wargaming` has a limit on how many times you can hit their API in a certain period of time using `demo` as a key. I recommend you go ahead and follow the steps, it takes less than a minute and it is totally free.
+    * Create an application on [My Applications](https://na.wargaming.net/developers/applications/) page in [Wargaming Developer Room](http://na.wargaming.net/developers/) at your region and copy the newly generated `Application ID`.
+    * Add `WOWS_API_KEY=your_api_key` after `WOWS_PATH` in a new line, and replace `your_api_key` with the `Application ID` you copied. 
+  * Change `WOWS_API_URL` to the url of `World of Warships API` at your region. (**Without the trailing slash**)(For example, `http://api.worldofwarship.com` for `NA`, `http://api.worldofwarship.eu` for `EU`)
   * Save the change.
 
 # Usage
