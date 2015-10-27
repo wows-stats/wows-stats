@@ -92,51 +92,55 @@ router.get('/player', jsonParser, function(req, res) {
 // ship api
 router.get('/ship', jsonParser, function(req, res) {
 	if (req.query.playerId && req.query.shipId) {
-		request(process.env.WOWS_API_URL + '/wows/ships/stats/?application_id=' + api_key + '&account_id=' + req.query.playerId + '&ship_id=' + req.query.shipId, function (error, response, body) {
-			if (!error && response.statusCode == 200) {
-				var json = JSON.parse(body);
-				if (json.status == "ok") {
-					if (json.data[req.query.playerId] != null) {
-						var stats = json.data[req.query.playerId][0];
-						var ship = {
-							"id": 			stats.ship_id,
-							"battles": 		stats.pvp.battles,
-							"victories": 	stats.pvp.wins,
-							"survived": 	stats.pvp.survived_battles,
-							"destroyed": 	stats.pvp.frags,
-							"avgExp": 		(stats.pvp.xp / stats.pvp.battles).toFixed(),
-							"avgDmg": 		(stats.pvp.damage_dealt / stats.pvp.battles).toFixed(),
-							"raw": 			stats
-						}
-						request(process.env.WOWS_API_URL + '/wows/encyclopedia/ships/?application_id=' + api_key + '&ship_id=' + ship.id, function (err, rep, infoBody) {
-							if (!err && rep.statusCode == 200) {
-								var info = JSON.parse(infoBody);
-								if (info.status == "ok") {
-									if (info.data[ship.id] != null) {
-										info = info.data[ship.id];
-										ship.name = info.name;
-										ship.img = info.images.small;
-										ship.info = info;
+		request(process.env.WOWS_API_URL + '/wows/encyclopedia/ships/?application_id=' + api_key + '&ship_id=' + req.query.shipId, function (err, rep, infoBody) {
+			if (!err && rep.statusCode == 200) {
+				var info = JSON.parse(infoBody);
+				if (info.status == "ok") {
+					if (info.data[req.query.shipId] != null) {
+						var ship = {};
+						info = info.data[req.query.shipId];
+						ship.name = info.name;
+						ship.img = info.images.small;
+						ship.info = info;
+						request(process.env.WOWS_API_URL + '/wows/ships/stats/?application_id=' + api_key + '&account_id=' + req.query.playerId + '&ship_id=' + req.query.shipId, function (error, response, body) {
+							if (!error && response.statusCode == 200) {
+								var json = JSON.parse(body);
+								if (json.status == "ok") {
+									if (json.data[req.query.playerId] != null) {
+										var stats = json.data[req.query.playerId][0];
+										ship.id = 			stats.ship_id;
+										ship.battles = 		stats.pvp.battles;
+										ship.victories = 	stats.pvp.wins;
+										ship.survived = 	stats.pvp.survived_battles;
+										ship.destroyed = 	stats.pvp.frags;
+										ship.avgExp =  		(stats.pvp.xp / stats.pvp.battles).toFixed();
+										ship.avgDmg =  		(stats.pvp.damage_dealt / stats.pvp.battles).toFixed();
+										ship.raw = 			stats;
+										if (stats.pvp.battles == 0)
+											ship.noRecord = true;
 										res.json(ship);
 									}
-									else
-										res.sendStatus(500);
+									else {
+										ship.id = 			req.query.shipId;
+										ship.noRecord =	true;
+										res.json(ship);
+									}
 								}
 								else
 									res.status(400).send(json.error);
 							}
-							else
-								res.sendStatus(rep.statusCode);
+							else 
+								res.sendStatus(response.statusCode);
 						});
 					}
 					else
 						res.sendStatus(404);
 				}
 				else
-					res.status(400).send(json.error);
+					res.status(400).send(info.error);
 			}
-			else 
-				res.sendStatus(response.statusCode);
+			else
+				res.sendStatus(rep.statusCode);
 		});
 	}
 	else
