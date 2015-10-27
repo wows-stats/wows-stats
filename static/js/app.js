@@ -102,7 +102,7 @@ app.controller('TeamStatsCtrl', function ($scope, $http, api) {
 	$scope.dateTime = "";
   	$scope.data = {};
   	$scope.players = [];
-	var updateArea = function() {
+	var updateArena = function() {
 		$http({
 			method: 'GET',
 			url: 'http://localhost:8080/api/arena'
@@ -127,6 +127,8 @@ app.controller('TeamStatsCtrl', function ($scope, $http, api) {
 	}
 
 	var timer = setInterval(function() {
-		$scope.$apply(updateArea);
+		$scope.$apply(updateArena);
 	}, 1000);
+
+	updateArena();
 });
