@@ -1,4 +1,4 @@
-const PLAYER_FETCH_RETRY = 5;
+const MAX_RETRY = 5;
 
 var app = angular.module('wows-stats', []);
 
@@ -11,7 +11,7 @@ app.factory('api', function($http, $q) {
 		}, function(player){
 			// retry if rejected
 			if (!player.ship.hasOwnProperty('retry'))
-				player.ship.retry = PLAYER_FETCH_RETRY;
+				player.ship.retry = MAX_RETRY;
 			if (player.ship.retry > 0) {
 				player.ship.retry --;
 				api.fetchShip(player);
@@ -32,7 +32,7 @@ app.factory('api', function($http, $q) {
 		}, function(player, response) {
 			// retry if rejected
 			if (!player.hasOwnProperty('retry'))
-				player.retry = PLAYER_FETCH_RETRY;
+				player.retry = MAX_RETRY;
 			if (player.retry > 0) {
 				player.retry --;
 				api.fetchPlayer(player);
