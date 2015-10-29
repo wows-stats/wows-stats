@@ -1,3 +1,5 @@
+const MAX_RETRY = 5;
+
 var app = angular.module('wows-stats', []);
 
 app.factory('api', function($http, $q) {
@@ -7,14 +9,18 @@ app.factory('api', function($http, $q) {
 		player.api.ship.then(function(player){
 			// nothing needs to be done after fetching ship stats
 		}, function(player){
-			// rejected means no record
-			//api.fetchShip(player);
-			if (player.ship) {
-				player.ship.noRecord = true;
+			// retry if rejected
+			if (!player.ship.hasOwnProperty('retry'))
+				player.ship.retry = MAX_RETRY;
+			if (player.ship.retry > 0) {
+				player.ship.retry --;
+				api.fetchShip(player);
 			}
 			else {
-				player.ship = {};
-				player.ship.noRecord = true;
+				// report error if rejected
+				if (response.err.status == 404) {
+					player.ship.err = "No Record";
+				}
 			}
 		});
 	}
@@ -23,9 +29,19 @@ app.factory('api', function($http, $q) {
 		player.api.player.then(function(player) {
 			// fetch ship stats after player fetching is done so we have the proper playerId
 			api.fetchShip(player);
-		}, function(player) {
+		}, function(player, response) {
 			// retry if rejected
-			api.fetchPlayer(player);
+			if (!player.hasOwnProperty('retry'))
+				player.retry = MAX_RETRY;
+			if (player.retry > 0) {
+				player.retry --;
+				api.fetchPlayer(player);
+			}
+			else {
+				// report the same error to ship since we can't fetch ship without playerId
+				player.ship = {};
+				player.ship.err = player.err;
+			}
 		});
 	}
 	api.beautify = function(type, value) {
@@ -67,7 +83,8 @@ app.factory('api', function($http, $q) {
 				var winRate = parseFloat(player.winRate.replace('%', ''));
 				player.winRateClass = api.beautify("winRate", winRate);
 				resolve(player);
-			}).error(function(data, status) {
+			}).error(function(response) {
+				player.err = response;
 				reject(player);
 			});
 		});
@@ -96,9 +113,11 @@ app.factory('api', function($http, $q) {
 					"avgDmg": data.avgDmg
 				}
 				if (data.noRecord)
-					player.ship.noRecord = true;
+					player.ship.err = "No Record";
 				resolve(player);
-			}).error(function(data, status) {
+			}).error(function(response) {
+				player.ship = {};
+				player.ship.err = response;
 				reject(player);
 			});
 		});
