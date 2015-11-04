@@ -1,0 +1,63 @@
+body {
+	background-color: #393E46;
+	color: #EEEEEE;
+}
+
+a, a:hover, a:visited {
+	color: #DE703C;
+}
+
+.wrapper {
+	margin: 0 auto;
+}
+
+h1, h2, h3 {
+	text-align: center;
+}
+
+#installForm {
+	width: 600px;
+	margin: 0 auto;
+}
+
+.form-group {
+	width: 600px;
+	margin: 10px;
+}
+
+#path {
+	width: 500px;
+}
+
+#applicationId {
+	width: 500px;
+}
+
+#save {
+	text-align: center;
+}
+
+#save button {
+	width: 100px;
+	margin: 20px;
+}
+
+.validate button {
+	width: 95px;
+}
+
+.validate img {
+	height: 34px;
+}
+
+.message {
+	margin-top: 10px;
+	padding: 10px !important;
+}
+
+.footer {
+	clear: both;
+	padding: 20px;
+	text-align: center;
+	width: 100%;
+}
