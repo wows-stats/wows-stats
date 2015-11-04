@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>World of Warships Statistics Installer</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body ng-app="wows-stats">
+  <div class="wrapper">
+  	<div class="content" ng-controller="InstallCtrl">
+	  	<h1>Install wows-stats</h1>
+      <h3>Please do NOT refresh this page</h3>
+      <h3 ng-show="api.err">{{ api.err }}</h3>
+      <form name="install" id="installForm" role="form" class="form-inline" ng-hide="api.err">
+        <div class="form-group">
+          <label for="path">World of Warships Location:</label><br>
+          <input type="text" name="path" id="path" ng-model="path" class="form-control" ng-change="onPathChange()" />
+          <span class="validate"><button class="btn btn-primary" ng-click="api.validatePath()" ng-hide="api.loading">Validate</button><img src="images/ajax-loader.gif" ng-show="api.loading" /></span>
+          <div class="message alert {{ api.path.result }}" ng-show="api.path.message">{{ api.path.message }}</div>
+        </div>
+        <div class="form-group">
+          <label for="path">Region:</label><br>
+          <select class="form-control" ng-model="region" ng-options="region.name for region in api.region" ng-change="onRegionChange()"></select>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="path">Application ID:</label>&nbsp; (Create yours <a ng-href="{{ developerRoom }}" target="_blank">here</a>)<br>
+          <input type="text" name="applicationId" id="applicationId" class="form-control" ng-model="key" ng-change="onAppIdChange()"/>
+          <span class="validate"><button class="btn btn-primary" ng-click="api.validateAppId()" ng-hide="api.loading">Validate</button><img src="images/ajax-loader.gif" ng-show="api.loading" /></span>
+          <div class="message alert {{ api.appId.result }}" ng-show="api.appId.message">{{ api.appId.message }}</div>
+        </div>
+        <div class="form-group" id="save">
+          <button class="btn btn-success" ng-click="api.install()" ng-disabled="api.loading">Save</button>
+          <button class="btn btn-warning" ng-click="api.cancel()" ng-disabled="api.loading">Cancel</button>
+          <div class="message alert {{ api.save.result }}" ng-show="api.save.message">{{ api.save.message }}</div>
+        </div>
+      </form>
+	  </div>
+  	<div class="footer">Powered by <a href="https://github.com/tianweiliu/wows-stats">wows-stats</a></div>
+  </div>
+</body>
+</html>

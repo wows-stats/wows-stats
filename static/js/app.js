@@ -22,6 +22,10 @@ app.factory('api', function($http, $q) {
 				// report error if max retry reached
 				if (player.api.ship.status == 404)
 					player.ship.err = "No Record";
+				else if(player.api.ship.response.message)
+					player.ship.err = player.api.ship.response.message;
+				else if(player.api.ship.response.error)
+					player.ship.err = player.api.ship.response.error.message;
 				else
 					player.ship.err = player.api.ship.response;
 			}
@@ -42,10 +46,22 @@ app.factory('api', function($http, $q) {
 			}
 			else {
 				// report error if max retry reached
-				player.err = player.api.response;
-				// report the same error to ship since we can't fetch ship without playerId
 				player.ship = {};
-				player.ship.err = player.api.response;
+				if (player.api.response.message) {
+					player.err = player.api.response.message;
+					// report the same error to ship since we can't fetch ship without playerId
+					player.ship.err = player.api.response.message;
+				}
+				else if(player.api.response.error) {
+					player.err = player.api.response.error.message;
+					// report the same error to ship since we can't fetch ship without playerId
+					player.ship.err = player.api.response.error.message;
+				}
+				else {
+					player.err = player.api.response;
+					// report the same error to ship since we can't fetch ship without playerId
+					player.ship.err = player.api.response;
+				}
 			}
 		});
 	}
