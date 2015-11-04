@@ -1,6 +1,6 @@
 {
   "name": "wows-stats",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Statistics engine for World of Warships",
   "main": "index.js",
   "scripts": {
