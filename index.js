@@ -53,22 +53,26 @@ router.get('/player', jsonParser, function(req, res) {
 									if (stats.status == "ok") {
 										if (stats.data[player.id] != null) {
 											stats = stats.data[player.id];
-											player.battles 	= stats.statistics.pvp.battles;
-											player.winRate 	= (stats.statistics.pvp.wins / stats.statistics.pvp.battles * 100).toFixed(2) + "%";
-											player.avgExp	= (stats.statistics.pvp.xp / stats.statistics.pvp.battles).toFixed();
-											player.avgDmg	= (stats.statistics.pvp.damage_dealt / stats.statistics.pvp.battles).toFixed();
-											player.kdRatio	= (stats.statistics.pvp.frags / (stats.statistics.pvp.battles - stats.statistics.pvp.survived_battles)).toFixed(2);
-											player.raw 		= stats
-											res.json(player);
+											if (stats.statistics != null) {
+												player.battles 	= stats.statistics.pvp.battles;
+												player.winRate 	= (stats.statistics.pvp.wins / stats.statistics.pvp.battles * 100).toFixed(2) + "%";
+												player.avgExp	= (stats.statistics.pvp.xp / stats.statistics.pvp.battles).toFixed();
+												player.avgDmg	= (stats.statistics.pvp.damage_dealt / stats.statistics.pvp.battles).toFixed();
+												player.kdRatio	= (stats.statistics.pvp.frags / (stats.statistics.pvp.battles - stats.statistics.pvp.survived_battles)).toFixed(2);
+												player.raw 		= stats;
+												res.json(player);
+											}
+											else
+												res.status(401).send(player);
 										}
 										else
-											res.sendStatus(500);
+											res.status(500).send(player);
 									}
 									else
-										res.status(400).send(json.error);
+										res.status(400).send(player);
 								}
 								else
-									res.sendStatus(rep.statusCode);
+									res.status(rep.statusCode).send(player);
 							});
 						}
 						else
