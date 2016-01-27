@@ -40,28 +40,36 @@ app.factory('api', function($http, $q) {
 			// retry if rejected
 			if (!player.hasOwnProperty('retry'))
 				player.retry = MAX_RETRY;
-			if (player.retry > 0) {
-				player.retry --;
-				api.fetchPlayer(player);
-			}
-			else {
-				// report error if max retry reached
+			if (player.retry <= 0 || player.api.status == 401) {
+				// report error if max retry reached or player profile is private
 				player.ship = {};
-				if (player.api.response.message) {
+				if (player.api.status == 401) {
+					// player profile is private
+					player.err = "Private";
+				}
+				else if (player.api.response.message) {
 					player.err = player.api.response.message;
-					// report the same error to ship since we can't fetch ship without playerId
-					player.ship.err = player.api.response.message;
 				}
 				else if(player.api.response.error) {
 					player.err = player.api.response.error.message;
-					// report the same error to ship since we can't fetch ship without playerId
-					player.ship.err = player.api.response.error.message;
 				}
 				else {
 					player.err = player.api.response;
-					// report the same error to ship since we can't fetch ship without playerId
-					player.ship.err = player.api.response;
 				}
+				if (player.api.response.hasOwnProperty("id")){
+					// playerId is available
+					angular.extend(player, player.api.response);
+					player.uri = player.id + '-' + encodeURIComponent(player.name);
+					api.fetchShip(player);
+				}
+				else {
+					// report the same error to ship since we can't fetch ship without playerId
+					player.ship.err = player.err;
+				}
+			}
+			else {
+				player.retry --;
+				api.fetchPlayer(player);
 			}
 		});
 	}
