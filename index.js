@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/static'));
 var router = express.Router();
 app.use('/api', router);
 
-// create application/json parser 
+// create application/json parser
 var jsonParser = bodyParser.json();
 
 router.get('/', function(req, res) {
@@ -71,8 +71,10 @@ router.get('/player', jsonParser, function(req, res) {
 									else
 										res.status(400).send(player);
 								}
-								else
+								else if(rep)
 									res.status(rep.statusCode).send(player);
+								else
+									res.status(500).send(player);
 							});
 						}
 						else
@@ -84,8 +86,10 @@ router.get('/player', jsonParser, function(req, res) {
 				else
 					res.status(400).send(json.error);
 			}
-			else
+			else if(response)
 				res.sendStatus(response.statusCode);
+			else
+				res.sendStatus(500);
 		});
 	}
 	else
@@ -132,8 +136,10 @@ router.get('/ship', jsonParser, function(req, res) {
 								else
 									res.status(400).send(json.error);
 							}
-							else 
+							else if(response)
 								res.sendStatus(response.statusCode);
+							else
+								res.sendStatus(500);
 						});
 					}
 					else
@@ -142,8 +148,10 @@ router.get('/ship', jsonParser, function(req, res) {
 				else
 					res.status(400).send(info.error);
 			}
-			else
+			else if(rep)
 				res.sendStatus(rep.statusCode);
+			else
+				res.sendStatus(500);
 		});
 	}
 	else
