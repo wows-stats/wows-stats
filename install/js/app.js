@@ -24,11 +24,6 @@ app.controller('InstallCtrl', function ($scope, $http) {
 			url: "http://api.worldofwarships.asia",
 			devRoom: "http://asia.wargaming.net/developers/"
 		},
-		{
-			name: "Korea",
-			url: "http://api.worldofwarships.kr",
-			devRoom: "http://kr.wargaming.net/developers/"
-		}
 	];
 	$scope.api.path = {};
 	$scope.api.appId = {};
