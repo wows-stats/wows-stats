@@ -1,0 +1,116 @@
+{
+	"title": {
+		"game_status": "Now not in battle.",
+		"game_waiting": "Please wait until starting new battle."
+	},
+	"numero_sign": "No.",
+	"btn_top": {
+		"All": "All",
+		"AirCarrier": "Air Carrier",
+		"Battleship": "Battleship",
+		"Cruiser": "Cruiser",
+		"Destroyer": "Destroyer",
+		"Screenshot": "Caputure"
+	},
+	"btn_bottom": {
+		"label_typefillter": "View ships by type",
+		"label_notation": "Notation of ship name",
+		"original": "Original",
+		"translated": "Translated",
+		"label_visible": "Display player name",
+		"hide": "Hide"
+	},
+	"game": {
+		"end_status": "Finished"
+	},
+	"map": {
+		"i01_tutorial": "Tutorial",
+		"00_CO_ocean": "Ocean",
+		"01_solomon_islands": "Solomon Islands",
+		"04_Archipelago": "Archipelago",
+		"05_Ring": "Ring",
+		"08_NE_passage": "Passage",
+		"10_NE_big_race": "Big Race",
+		"13_OC_new_dawn": "New Dawn",
+		"14_Atlantic": "Atlantic",
+		"15_NE_north": "North",
+		"16_OC_bees_to_honey": "Bees to Honey",
+		"17_NA_fault_line": "Fault Line",
+		"18_NE_ice_islands": "Ice Islands",
+		"19_OC_prey": "Prey",
+		"20_NE_two_brothers": "Two Brothers",
+		"22_tierra_del_fuego": "Tierra del Fuego",
+		"23_Shards": "Shards",
+		"25_sea_hope": "Sea Hope",
+		"28_naval_mission": "Naval Mission",
+		"33_new_tierra": "New Tierra",
+		"34_OC_islands": "Islands",
+		"35_NE_north_winter": "North Winter",
+		"37_Ridge": "Ridge",
+		"38_Canada": "Canada",
+		"40_Okinawa": "Okinawa",
+		"41_Conquest": "Conquest",
+		"42_Neighbors": "Neighbors",
+		"44_Path_warrior": "Path Warrior",
+		"45_Zigzag": "Zigzag",
+		"46_Estuary": "Estuary",
+		"50_Gold_harbor": "Gold Harbor"
+	},
+	"mode": {
+		"Default_test": "Tutorial",
+		"Skirmish_Domination_2_BASES": "Co-op: Standard",
+		"Skirmish_Domination_rhombus": "Co-op: Domination",
+		"Skirmish_Domination": "Co-op: Domination",
+		"Skirmish_MegaBase": "Co-op: MegaBase",
+		"Skirmish_Epicenter": "Co-op: Epicenter",
+		"Domination_2_BASES": "Random: Standard",
+		"MegaBase": "Random: MegaBase",
+		"Domination": "Random: Domination",
+		"Domination_rhombus": "Random: Domination",
+		"Epicenter": "Random: Epicenter",
+		"Ranked_Domination": "Rank: Domination",
+		"Ranked_Epicenter": "Rank: Epicenter"
+	},
+	"list_label1": {
+		"name": "Player name",
+		"tier": "T",
+		"type": "Type",
+		"ship_name": "Ship name",
+		"ship_score": "Ship score",
+		"player_score": "Total score"
+	},
+	"list_label2": {
+		"ship": {
+			"combatPower": "Combat Power",
+			"combatPower_title": "Av. Damage * Kill/Death rate * Av. exp * Coefficient of Tier&ShipType",
+			"damage": "Damage",
+			"damage_title": "Av. Damage",
+			"KillDeath": "K/D",
+			"KillDeath_title": "Rate of Kill/Death",
+			"winRate": "WinRate",
+			"winRate_title": "Rate of win",
+			"sinking": "Sink",
+			"sinking_title": "Av. sinking",
+			"shootDown": "Down",
+			"shootDown_title": "Av. shooting down",
+			"exp": "Exp",
+			"exp_title": "Av. exp",
+			"numBattle": "Battle",
+			"numBattle_title": "Number of battle"
+		},
+		"player": {
+			"rank": "Rank",
+			"rank_title": "Max rank of latest season",
+			"winRate": "WinRate",
+			"winRate_title": "Total rate of win",
+			"damage": "Damage",
+			"damage_title": "Total av. damage",
+			"KillDeath": "K/D",
+			"KillDeath_title": "Total Kill/Death",
+			"exp": "Exp",
+			"exp_title": "Total av. exp",
+			"numBattle": "Battle",
+			"numBattle_title": "Number of total battle"
+		}
+	}
+}

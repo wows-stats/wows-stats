@@ -1,0 +1,116 @@
+{
+	"title": {
+		"game_status": "Не в бою.",
+		"game_waiting": "Подождите, пожалуйста, до начала новой битвы."
+	},
+	"numero_sign": "№",
+	"btn_top": {
+		"All": "все",
+		"AirCarrier": "Авианосец",
+		"Battleship": "линкор",
+		"Cruiser": "крейсер",
+		"Destroyer": "разрушитель",
+		"Screenshot": "Захватить"
+	},
+	"btn_bottom": {
+		"label_typefillter": "Просмотр кораблей по типу",
+		"label_notation": "Обозначение судна",
+		"original": "Оригинал",
+		"translated": "Перевод",
+		"label_visible": "Имя игрока",
+		"hide": "Спрятать"
+	},
+	"game": {
+		"end_status": "Законченный"
+	},
+	"map": {
+		"i01_tutorial": "Руководство",
+		"00_CO_ocean": "Океан",
+		"01_solomon_islands": "Соломоновы острова",
+		"04_Archipelago": "Архипелаг",
+		"05_Ring": "Кольцо",
+		"08_NE_passage": "Прохождение",
+		"10_NE_big_race": "Большая гонка",
+		"13_OC_new_dawn": "Новый рассвет",
+		"14_Atlantic": "Атлантический",
+		"15_NE_north": "Север",
+		"16_OC_bees_to_honey": "Пчелы в мед",
+		"17_NA_fault_line": "Линия неисправностиe",
+		"18_NE_ice_islands": "Ледяные острова",
+		"19_OC_prey": "Добыча",
+		"20_NE_two_brothers": "Два брата",
+		"22_tierra_del_fuego": "Огненная Земля",
+		"23_Shards": "Осколки",
+		"25_sea_hope": "Морская надежда",
+		"28_naval_mission": "Морская миссия",
+		"33_new_tierra": "Новая Тьерра",
+		"34_OC_islands": "Острова",
+		"35_NE_north_winter": "Северная Зима",
+		"37_Ridge": "Хребет",
+		"38_Canada": "Канада",
+		"40_Okinawa": "Окинава",
+		"41_Conquest": "Завоевание",
+		"42_Neighbors": "Соседи",
+		"44_Path_warrior": "Путь воина",
+		"45_Zigzag": "Зигзаг",
+		"46_Estuary": "Устье",
+		"50_Gold_harbor": "Золотая гавань"
+	},
+	"mode": {
+		"Default_test": "Вводная миссия",
+		"Skirmish_Domination_2_BASES": "Кооперативный Стандарт",
+		"Skirmish_Domination_rhombus": "Кооперативный: Доминирование",
+		"Skirmish_Domination": "Кооперативный: Доминирование",
+		"Skirmish_MegaBase": "Кооперативный: Зона",
+		"Skirmish_Epicenter": "Кооперативный: Эпицентр",
+		"Domination_2_BASES": "Случайный: Стандарт",
+		"MegaBase": "Случайный: Зона",
+		"Domination": "Случайный: Доминирование",
+		"Domination_rhombus": "Случайный: Доминирование",
+		"Epicenter": "Случайный: Эпицентр",
+		"Ranked_Domination": "Ранговый: Доминирование",
+		"Ranked_Epicenter": "Ранговый: Эпицентр"
+	},
+	"list_label1": {
+		"name": "Имя игрока",
+		"tier": "У",
+		"type": "Тип",
+		"ship_name": "Название корабля",
+		"ship_score": "Корабельная оценка",
+		"player_score": "Общий счет"
+	},
+	"list_label2": {
+		"ship": {
+			"combatPower": "Мощность",
+			"combatPower_title": "Средний ущерб * Скорость Убийство/Смерть * Средний опыт * Коэффициент уровня и типа судна",
+			"damage": "Ущерб",
+			"damage_title": "Средний ущерб",
+			"KillDeath": "У/С",
+			"KillDeath_title": "Скорость Убийство/Смерть",
+			"winRate": "Выиграть",
+			"winRate_title": "Ставка выигрыша",
+			"sinking": "Тонущий",
+			"sinking_title": "Среднее значение снижения",
+			"shootDown": "Застрелить",
+			"shootDown_title": "Среднее количество сбитых",
+			"exp": "Опыт",
+			"exp_title": "Средний опыт",
+			"numBattle": "Боевой",
+			"numBattle_title": "Количество боевых кораблей"
+		},
+		"player": {
+			"rank": "Ранг",
+			"rank_title": "Максимальный ранг последнего сезона",
+			"winRate": "Выиграть",
+			"winRate_title": "Общий выигрыш",
+			"damage": "Ущерб",
+			"damage_title": "Общее среднее количество повреждений",
+			"KillDeath": "У/С",
+			"KillDeath_title": "Общая скорость  Убийство/Смерть",
+			"exp": "Опыт",
+			"exp_title": "Общий средний опыт",
+			"numBattle": "Боевой",
+			"numBattle_title": "Количество битв"
+		}
+	}
+}
