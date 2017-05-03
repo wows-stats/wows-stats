@@ -36,7 +36,6 @@ If you do NOT agree, you shall NOT use this app.
   * Change `World of Warships Location` to where you installed [World of Warships](http://worldofwarships.com/), it is usually the default value `C:\Games\World_of_Warships`. Click on `Validate` to make sure the location is correct.
   * Select your `region`.
   * Get an `Application ID` from [Wargaming Developer Room](http://na.wargaming.net/developers/) at your region.
-    * **Note**: You can skip this step and `wows-stats` will use the `demo` key, where `Wargaming` has a limit on how many times you can hit their API in a certain period of time using `demo` as a key. I recommend you go ahead and follow the steps, it takes less than a minute and it is totally free.
     * Create an application on [My Applications](https://na.wargaming.net/developers/applications/) page in [Wargaming Developer Room](http://na.wargaming.net/developers/) at your region and copy the newly generated `Application ID`.
     * Place `Application ID` you copied into `Application ID` textbox.
     * Click on `Validate` to make sure the `Application ID` you placed works.
