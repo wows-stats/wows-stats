@@ -3,6 +3,16 @@ A [XVM](http://www.modxvm.com/en/) like statistics engine for [World of Warships
 
 ![Screenshot](http://i.imgur.com/HANvFgj.png?1)
 
+# Functionality
+- Show stats information of all matching players and ships on the random battle.
+- Show ships list with (maybe) same order as matching list of game client
+- Show value of "Fighting Power(Combat power)" , player's rank of latest season and the clan tag in addition. 
+- You can take a screenshot image and save it to local PC as a png file by click "Capture" button.
+- Each player's row is colored like as xvm.
+- You can disabled showing all player's name to post the screenshot as public.
+- Support multi-language viewing by preparing translate json file.
+    (I provide JSON files to translate for Japanese, English and Russian now.)
+
 # Requirement
 You agree that statistics of a player does NOT mean how a player will perform in a game, and you will NOT use this tool in any way to create a toxic environment or demonstrate any unethical/immortal behaviour in World of Warships.
 If you do NOT agree, you shall NOT use this app.
