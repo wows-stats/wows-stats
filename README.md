@@ -13,6 +13,11 @@ A [XVM](http://www.modxvm.com/en/) like statistics engine for [World of Warships
 - Support multi-language viewing by preparing translate json file.
     (I provide JSON files to translate for Japanese, English and Russian now.)
 
+# Environment
+OS: Windows 7(32bit/64bit) or later.
+Web browser: Google Chrome(recommended), Firefox, Microsoft Edge, and more browser which is incorporated Javascript V8 engine.
+             Warning - Internet Explorer is not covered!!
+
 # Requirement
 You agree that statistics of a player does NOT mean how a player will perform in a game, and you will NOT use this tool in any way to create a toxic environment or demonstrate any unethical/immortal behaviour in World of Warships.
 If you do NOT agree, you shall NOT use this app.
