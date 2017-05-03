@@ -1,103 +1,355 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+
 body {
-	background-color: #393E46;
-	color: #EEEEEE;
+background-color: #393E46;
+color: #EEEEEE;
+font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Noto Sans Japanese', 'Hiragino Sans', 'メイリオ', Meiryo, 'Hiragino Kaku Gothic ProN',  'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 }
 
 a, a:hover, a:visited {
-	color: #DE703C;
+color: #DE703C;
+}
+
+h1, h2, h3 ,h4 {
+text-align: center;
+}
+
+.buttonset {
+clear: both;
+text-align: center;
+width: auto;
+border: 1px;
+padding: 10px;
+margin-top: 12px;
+margin-bottom: -44px;
+}
+
+.disp_off{
+display:none;
+}
+
+.ss_button{
+-moz-box-shadow:inset 0px -3px 7px 0px #29bbff;
+-webkit-box-shadow:inset 0px -3px 7px 0px #29bbff;
+box-shadow:inset 0px -3px 7px 0px #29bbff;
+background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #2dabf9), color-stop(1, #0688fa));
+background:-moz-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+background:-webkit-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+background:-o-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+background:-ms-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#2dabf9', endColorstr='#0688fa',GradientType=0);
+background-color:#2dabf9;
+-moz-border-radius:3px;
+-webkit-border-radius:3px;
+border-radius:3px;
+border:1px solid #0b0e07;
+cursor:pointer;
+color:#ffffff;
+font-family:Verdana;
+font-size:11pt;
+padding:2px 10px;
+text-decoration:none;
+text-shadow:0px 1px 0px #263666;
+margin-left: 8px;
+display:inline-block;
+vertical-align: middle;
+}
+
+.ss_button:hover {
+background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0688fa), color-stop(1, #2dabf9));
+background:-moz-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+background:-webkit-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+background:-o-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+background:-ms-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0688fa', endColorstr='#2dabf9',GradientType=0);
+background-color:#0688fa;
+}
+.ss_button:active {
+position:relative;
+top:1px;
+}
+
+.language {
+margin-left: 12px;
+color: #000000;
+background: #F0F0F0;
+font-size: 10pt;
+vertical-align: middle;
+}
+
+prtype_tbl {
+width: auto;
+}
+
+container {
+width: auto;
+height: 85px;
+margin-bottom: 4px;
+text-align:center;
+}
+
+.logo {
+margin-left: -135px;
+margin-right: 50px;
+margin-bottom: 5px;
+display: inline-block;
+vertical-align: middle;
+}
+
+.logo_image {
+border: none;
+}
+
+.label{
+display: inline-block;
+vertical-align: bottom;
+text-align: center;
+margin-bottom: 5px;
+padding: 4px 5px 5px 10px;
+background-color: #505050;
+border: 2px outset #e0f0f0;
+color: #ffffff;
+font-size: 14pt;
+white-space: nowrap;
+font-weight: normal;
+}
+
+th{
+text-align:center;
+padding: 2px 4px 1px 4px;
+background-color: #222831;
+border: 1px #808080 solid;
+color: #FBB040;
+white-space: nowrap;
+font-weight: normal;
+}
+
+td{
+border: 1px #808080 solid;
+padding: 1px 4px 0px 4px;
+text-align:right;
+white-space: nowrap;
+}
+
+.tdata_l{
+text-align:left;
 }
 
 .wrapper {
-	margin: 0 auto;
-}
-
-h1, h2, h3 {
-	text-align: center;
-}
-
-ul {
-	list-style: none;
-	padding-left: 5px;
+margin: 0 auto;
 }
 
 .hint {
-	font-size: 20pt;
 }
 
-.team {
-	float: left;
-	width: 50%;
+.teamown {
+float: left;
+width: 50%;
 }
 
-.team .name {
-	font-weight: bold;
+.teamown li {
+float: left;
 }
 
-.team li {
-	float: left;
+.teamene {
+float: left;
+width: 50%;
 }
 
+.teamene li {
+float: left;
+}
 .player:hover {
-	box-shadow: 0px 0px 5px 0px #222831;
+box-shadow: 0px 0px 5px 0px #222831;
 }
 
 .player {
-	padding: 10px;
-	background-color: #222831;
-	margin: 5px;
-	width: 225px;
-	height: 260px;
+padding: 1px 4px 1px 4px;
+margin: 0px;
 }
 
-.player .value{
-	font-weight: bold;
+.player .ship_st_def {
+	margin: 1px 0p;
+}
+.player .AirCarrier_bg {
+background-color: #107050;
+}
+.player .Battleship_bg {
+background-color: #602130;
+}
+.player .Cruiser_bg {
+background-color: #606010;
+}
+.player .Destroyer_bg {
+background-color: #104080;
 }
 
 .player .class1 {
-	color: #FE0E00;
+color: #FE0E00;
 }
-
 .player .class2 {
-	color: #FE7903;
+color: #FE7903;
 }
-
 .player .class3 {
-	color: #F8F400;
+color: #F8F400;
 }
-
 .player .class4 {
-	color: #60FF00;
+color: #60FF00;
 }
-
 .player .class5 {
-	color: #02C9B3;
+color: #02C9B3;
 }
-
 .player .class6 {
-	color: #D042F3;
+color: #E042E8;
 }
 
-.player .ship {
-	margin-top: 5px;
-	margin-bottom: 10px;
+.player .cp_class1 {
+color: #FE0E00;
+}
+.player .cp_class2 {
+color: #FE7903;
+}
+.player .cp_class3 {
+color: #F8F400;
+}
+.player .cp_class4 {
+color: #60FF00;
+}
+.player .cp_class5 {
+color: #02C9B3;
+}
+.player .cp_class6 {
+color: #E042E8;
+font-weight: bold;
+}
+.player .cp_class7 {
+color: #FFD0FF;
+font-weight: bold;
+}
+
+.player .rank_normal {
+color: #EEEEEE;
+font-weight: normal;
+}
+
+.player .rank_premiere {
+color: #E042E8;
+font-weight: bold;
+}
+
+.highlight_normal {
+background-color: #102010;
+}
+
+.highlight_danger {
+background-color: #503090;
+}
+
+.highlight_owner {
+border: 3px #FFFFFF double;
+}
+
+.highlight_others {
+border: 2px #808080 solid;
+}
+
+.highlight_private {
+background-color: rgba(16, 32, 16, 0.3);
+background-image: url('/images/pattern.png');
+background-repeat: repeat;
+}
+
+.highlight_cancel {
+background-color: rgba(16, 32, 16, 1.0);
+background-image: none;
+}
+
+.player .shipclass {
+color: #FBB040;
+font-size: 11pt;
+white-space: nowrap;
+font-weight:normal;
+text-align: left;
+}
+
+.player .ship_font_6 {
+font-variant-ligatures: none;
+letter-spacing: 3px;
+font-size: 11pt;
+color:#eeeeee;
+font-weight:normal;
+}
+
+.player .ship_font_9 {
+font-variant-ligatures: none;
+letter-spacing: normal;
+font-size: 11pt;
+color:#eeeeee;
+font-weight:normal;
+}
+
+.player .ship_font_14 {
+font-variant-ligatures: none;
+letter-spacing: normal;
+font-size: 10pt;
+color:#eeeeee;
+white-space: nowrap;
+font-weight:normal;
+}
+
+.player .ship_font_20 {
+font-variant-ligatures: none;
+letter-spacing: normal;
+font-size: 9pt;
+color:#eeeeee;
+white-space: nowrap;
+font-weight:normal;
 }
 
 .player .key {
-	color: #FBB040;
+color: #FBB040;
+white-space: nowrap;
 }
 
 .player .small {
-	font-size: 6pt;
+font-size: 9pt;
 }
 
+.buttonpro2{
+margin-left : 20px;
+margin-right : 20px;
+padding : 5px;
+clear: both;
+text-align: center;
+width: auto;
+border: 1px;
+}
 
-.player .ship img {
-	max-width: 100px;
+.buttonitem2{
+color: #EEEEEE
+margin-left:10px;
 }
 
 .footer {
-	clear: both;
-	padding: 20px;
-	text-align: center;
-	width: 100%;
+clear: both;
+padding: 10px ;
+text-align: center;
+width: 100%;
+}
+
+.icon {
+border: none;
+margin: 0px 3px;
+vertical-align: middle;
+text-align: center;
+}
+
+.linkDisabled {
+cursor: not-allowed;
+pointer-events: none;
 }
