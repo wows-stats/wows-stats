@@ -43,8 +43,12 @@ If you do NOT agree, you shall NOT use this app.
   * Click on `Save`. If everything goes through, the installation page will becomes an blank page.
 
 # Usage
-1. Run `run.bat` to start the app.
+1. Run `run.bat` to start the app. Or run `run_nocapture.bat` to start the app without capture functionality.
 2. You should see a web page open on `http://localhost:8080`, make sure only one web page to that address is open at all time.
+
+# Need cooperations
+Because of my poor linguistic ability, anyone please touch up translate text for English and Russian with editing lang_en.json/lang_ru.json file under "static/js/language/". 
+And also anyone please try to create new JSON files for the other language(Thai(th), Chinese(zh-tw) and more!) by modifying from lang_ja.json. 
 
 # API
 * /api
