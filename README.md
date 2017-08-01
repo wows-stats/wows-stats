@@ -1,12 +1,12 @@
 # wows-stats-plus
 A [XVM](http://www.modxvm.com/en/) like statistics engine for [World of Warships](http://worldofwarships.com/)
 
-![Screenshot](http://i.imgur.com/HANvFgj.png?1)
+![Screenshot](http://i.imgur.com/CQ4Rk6X.png?1)
 
 # Functionality
 - Show stats information of all matching players and ships on the random battle.
 - Show ships list with (maybe) same order as matching list of game client
-- Show value of "Fighting Power(Combat power)" , player's rank of latest season and the clan tag in addition. 
+- Show value of "Fighting Power(Combat power)" , player's rank of both previous and latest season and the clan tag in addition. 
 - You can take a screenshot image and save it to local PC as a png file by click "Capture" button.
 - Each player's row is colored like as xvm.
 - You can disabled showing all player's name to post the screenshot as public.
