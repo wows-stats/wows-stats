@@ -25,8 +25,14 @@
 	},
 	"map": {
 		"i01_tutorial": "Tutorial",
+		"r01_military_navigation": "Riposte",
+		"s01_NavalBase": "Operation Killer Whale",
+		"s02_Naval_Defense": "Defense of Naval Station Newport",
+		"s03_Labyrinth": "Saving Carrier Raptor",
 		"00_CO_ocean": "Ocean",
 		"01_solomon_islands": "Solomon Islands",
+		"02_Fiords": "Fiords",
+		"03_Greenland": "Greenland",
 		"04_Archipelago": "Archipelago",
 		"05_Ring": "Ring",
 		"08_NE_passage": "Passage",
@@ -41,6 +47,7 @@
 		"20_NE_two_brothers": "Two Brothers",
 		"22_tierra_del_fuego": "Tierra del Fuego",
 		"23_Shards": "Shards",
+		"24_Rendezvous": "Rendezvous",
 		"25_sea_hope": "Sea Hope",
 		"28_naval_mission": "Naval Mission",
 		"33_new_tierra": "New Tierra",
@@ -54,6 +61,8 @@
 		"44_Path_warrior": "Path Warrior",
 		"45_Zigzag": "Zigzag",
 		"46_Estuary": "Estuary",
+		"47_Sleeping_giant": "Sleeping Giant",
+		"49_Shoreside": "Shoreside",
 		"50_Gold_harbor": "Gold Harbor"
 	},
 	"mode": {
@@ -100,7 +109,7 @@
 		},
 		"player": {
 			"rank": "Rank",
-			"rank_title": "Max rank of latest season",
+			"rank_title": "Max rank of latest and previous season",
 			"winRate": "WinRate",
 			"winRate_title": "Total rate of win",
 			"damage": "Damage",

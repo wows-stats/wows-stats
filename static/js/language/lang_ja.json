@@ -25,8 +25,14 @@
 	},
 	"map": {
 		"i01_tutorial": "チュートリアル",
+		"r01_military_navigation": "反撃",
+		"s01_NavalBase": "キラー・ホエール作戦",
+		"s02_Naval_Defense": "ニューポート海軍基地防衛戦",
+		"s03_Labyrinth": "ラプター救出作戦",
 		"00_CO_ocean": "大海原",
+		"02_Fiords": "フィヨルド",
 		"01_solomon_islands": "ソロモン諸島",
+		"03_Greenland": "グリーンランド",
 		"04_Archipelago": "列島",
 		"05_Ring": "リング",
 		"08_NE_passage": "海峡",
@@ -41,6 +47,7 @@
 		"20_NE_two_brothers": "二人の兄弟",
 		"22_tierra_del_fuego": "火の地",
 		"23_Shards": "破片",
+		"24_Rendezvous": "ランデヴー",
 		"25_sea_hope": "幸運の海",
 		"28_naval_mission": "砂漠の涙",
 		"33_new_tierra": "極地",
@@ -54,6 +61,8 @@
 		"44_Path_warrior": "戦士の道",
 		"45_Zigzag": "ループ",
 		"46_Estuary": "河口",
+		"47_Sleeping_giant": "眠れる巨人",
+		"49_Shoreside": "沿岸",
 		"50_Gold_harbor": "安息の地"
 	},
 	"mode": {
@@ -100,7 +109,7 @@
 		},
 		"player": {
 			"rank": "Rank",
-			"rank_title": "直近シーズン最高到達ランク",
+			"rank_title": "前シーズン＆直近シーズン最高到達ランク",
 			"winRate": "勝率",
 			"winRate_title": "総合勝率",
 			"damage": "Damage",
