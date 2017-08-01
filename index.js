@@ -88,7 +88,8 @@ router.get('/player', jsonParser, function(req, res) {
 							if (playerJson) {
 								player.id = playerJson.account_id.toString();
 								player.name = playerJson.nickname;
-								player.rank = 0;
+								player.pre_rank = '**';
+								player.rank = '**';
 								player.clan = '';
 
 								// get player info
@@ -106,92 +107,93 @@ router.get('/player', jsonParser, function(req, res) {
 													player.kdRatio	= (stats.statistics.pvp.frags / (stats.statistics.pvp.battles - stats.statistics.pvp.survived_battles)).toFixed(2);
 													player.raw 		= stats;
 
-													// get player rank battle info
-													request(process.env.WOWS_API_URL + '/wows/seasons/accountinfo/?application_id=' + api_key + '&account_id=' + player.id + '&season_id=' + latest_season_num, function (rk_error, rk_response, rankBody) {
-														if (!rk_error && rk_response.statusCode == 200) {
-															var seasons = JSON.parse(rankBody);
-															if (seasons.status == "ok") {
-																if (seasons.data[player.id] != null) {
-																	var rstat = seasons.data[player.id];
-																	var season = rstat.seasons[latest_season_num];
-																	player.rank = season.rank_info.max_rank;
-//																	console.log(player.rank);
+													// get player clan info
+													request(process.env.WOWS_API_URL + '/wows/clans/accountinfo/?application_id=' + api_key + '&account_id=' + player.id + '&extra=clan', function (cl_error, cl_response, clanBody) {
+														if (!cl_error && cl_response.statusCode == 200) {
+															var clanInfo = JSON.parse(clanBody);
+															if (clanInfo.status == "ok") {
+//																console.log(clanInfo.data);
 
-																	// get player clan info
-																	request(process.env.WOWS_API_URL + '/wows/clans/accountinfo/?application_id=' + api_key + '&account_id=' + player.id + '&extra=clan', function (cl_error, cl_response, clanBody) {
-																		if (!cl_error && cl_response.statusCode == 200) {
-																			var clanInfo = JSON.parse(clanBody);
-																			if (clanInfo.status == "ok") {
-//																				console.log(clanInfo.data);
-																				if ((clanInfo.data[player.id] != null) && (clanInfo.data[player.id]['clan'] != null)) {
-																					var cstat = clanInfo.data[player.id];
-																					player.clan = '[' + cstat['clan']['tag'] + ']';
-//																					console.log("%s : %s", player.name, player.clan);
-																					res.json(player);
-																				}
-																				else
-																				{
-																					player.clan = '';
-//																					console.log('null clan info data');
-																					res.json(player);
-																				}
-																			}
-																			else
-																			{
-//																				console.log('getting clan info failed');
-																				res.status(400).send(json.error);
-																			}
-																		}
-																		else if(cl_response)
-																			res.status(cl_response.statusCode);
-																		else
-																			res.status(500);
-																	});
+																if ((clanInfo.data[player.id] != null) && (clanInfo.data[player.id]['clan'] != null)) {
+																	var cstat = clanInfo.data[player.id];
+																	player.clan = '[' + cstat['clan']['tag'] + ']';
+//																	console.log("%s : %s", player.name, player.clan);
+																} else {
+																	player.clan = '';
+//																	console.log('null clan info data');
 																}
-																else
-																{
-																	player.rank = '**';
-//																	console.log('null rank info data');
-																	// get player clan info
-																	request(process.env.WOWS_API_URL + '/wows/clans/accountinfo/?application_id=' + api_key + '&account_id=' + player.id + '&extra=clan', function (cl_error, cl_response, clanBody) {
-																		if (!cl_error && cl_response.statusCode == 200) {
-																			var clanInfo = JSON.parse(clanBody);
-																			if (clanInfo.status == "ok") {
-//																				console.log(clanInfo.data);
-																				if ((clanInfo.data[player.id] != null) && (clanInfo.data[player.id]['clan'] != null)) {
-																					var cstat = clanInfo.data[player.id];
-																					player.clan = '[' + cstat['clan']['tag'] + ']';
-//																					console.log("%s : %s", player.name, player.clan);
-																					res.json(player);
+
+																// get player rank battle info
+																request(process.env.WOWS_API_URL + '/wows/seasons/accountinfo/?application_id=' + api_key + '&account_id=' + player.id + '&season_id=' + (latest_season_num -1) + '%2C' + latest_season_num, function (rk_error, rk_response, rankBody) {
+																	if (!rk_error && rk_response.statusCode == 200) {
+																		var seasons = JSON.parse(rankBody);
+																		if (seasons.status == "ok") {
+																			if (seasons.data != null) {
+																				if (seasons.data[player.id] != null) {
+																					var rstat = seasons.data[player.id];
+
+																					var pre_season = rstat.seasons[(latest_season_num -1)];
+																					if (pre_season != null) {
+																						if (pre_season.rank_info != null) {
+
+																							player.pre_rank = pre_season.rank_info.max_rank;
+//																							console.log(player.pre_rank);
+																							if (pre_season.rank_info.max_rank == 0)
+																								player.pre_rank = '**';
+																						} else {
+																							player.pre_rank = '**';
+//																							console.log('null pre rank info data');
+																						}
+																					} else {
+																						player.pre_rank = '**';
+//																						console.log('null pre rank info data');
+																					}
+
+																					var season = rstat.seasons[latest_season_num];
+																					if (season != null) {
+																						if (season.rank_info != null) {
+
+																							player.rank = season.rank_info.max_rank;
+//																							console.log(player.rank);
+																							if (season.rank_info.max_rank == 0)
+																								player.rank = '**';
+																						} else {
+																							player.rank = '**';
+//																							console.log('null rank info data');
+																						}
+																					} else {
+																						player.rank = '**';
+//																						console.log('null rank info data');
+																					}
+																				} else {
+																					player.pre_rank = '**';
+																					player.rank = '**';
+//																					console.log('null rank info data');
 																				}
-																				else
-																				{
-																					player.clan = '';
-//																					console.log('null clan info data');
-																					res.json(player);
-																				}
+																			} else {
+																				player.pre_rank = '**';
+																				player.rank = '**';
+//																				console.log('null rank info data');
 																			}
-																			else
-																			{
-//																				console.log('getting clan info failed');
-																				res.status(400).send(json.error);
-																			}
+
+																			res.json(player);
+																		} else {
+//																			console.log('getting rank info status failed');
+																			res.status(400).send(json.error);
 																		}
-																		else if(cl_response)
-																			res.status(cl_response.statusCode);
-																		else
-																			res.status(500);
-																	});
-																}
-															}
-															else
-															{
-//																console.log('getting rank info status failed');
+																	}
+																	else if(rk_response)
+																		res.status(rk_response.statusCode);
+																	else
+																		res.status(500);
+																});
+															} else {
+//																console.log('getting clan info failed');
 																res.status(400).send(json.error);
 															}
 														}
-														else if(rk_response)
-															res.status(rk_response.statusCode);
+														else if(cl_response)
+															res.status(cl_response.statusCode);
 														else
 															res.status(500);
 													});
@@ -237,7 +239,7 @@ router.get('/player', jsonParser, function(req, res) {
 // ship api
 router.get('/ship', jsonParser, function(req, res) {
 	if (req.query.playerId && req.query.shipId) {
-		request(process.env.WOWS_API_URL + '/wows/encyclopedia/ships/?application_id=' + api_key + '&ship_id=' + req.query.shipId, function (err, rep, infoBody) {
+		request(process.env.WOWS_API_URL + '/wows/encyclopedia/ships/?application_id=' + api_key + '&ship_id=' + req.query.shipId + '&language=en', function (err, rep, infoBody) {
 			if (!err && rep.statusCode == 200) {
 				var info = JSON.parse(infoBody);
 				if (info.status == "ok") {
