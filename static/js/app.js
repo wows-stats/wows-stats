@@ -1,4 +1,4 @@
-const wsp_version = '0.5.3';
+const wsp_version = '0.5.5';
 const MAX_RETRY = 5;
 
 var lang_array = [];
@@ -424,11 +424,10 @@ function localeFormatDate(str, type, lang) {
 }
 
 function short_id(str) {
-//	if (str.length < 12) {
-//		return(str);
-//	}
-//	return (str.substring(0,10)+"...");
-	return (str.substring(0,24));
+	if (str.length < 19) {
+		return(str);
+	}
+	return (str.substring(0,17)+"...");
 }
 
 function countLength(str) { 
@@ -834,6 +833,7 @@ api.player = function(player) {
 				player.uri = getPlayerInfoURL() + player.id + '-' + encodeURIComponent(player.name);
 				player.is_bot = false;
 				var winRate = parseFloat(player.winRate.replace('%', ''));
+				player.preRankClass = api.rank_beautify("rank", player.pre_rank);
 				player.RankClass = api.rank_beautify("rank", player.rank);
 				player.winRateClass = api.beautify("winRate", winRate);
 				player.formatbattle = myFormatNumber(parseInt(player.battles));
@@ -1011,7 +1011,6 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
   	$scope.data = {};
   	$scope.players = [];
 	$scope.mapDisplayName = "";
-  	$scope.gamemapname  = "";
   	$scope.gameLogic  = "";
 	$scope.translated_gamemapname = "";
 	$scope.translated_gameLogic = "";
@@ -1049,14 +1048,21 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 			$translate.use($scope.select);
 
 			var mapstr = 'map.' + $scope.mapDisplayName;
+			var reg = new RegExp(/^s\d\d_\w+$/);
 			var modestr = 'mode.' + $scope.gameLogic;
+			if (reg.test($scope.mapDisplayName))
+				modestr = '';
 			$translate(['map.' + $scope.mapDisplayName, 'mode.' + $scope.gameLogic]).then(function (translations) {
 				$scope.translated_gamemapname = translations[mapstr];
-				$scope.translated_gameLogic = translations[modestr];
+				$scope.translated_gameLogic = ' ('+translations[modestr]+')';
+				if (reg.test($scope.mapDisplayName))
+					$scope.translated_gameLogic = '';
 				imgFilename = "wows_" + localeFormatDate($scope.dateTime, 'file', $scope.select) + "_" + $scope.translated_gamemapname + "_" + $scope.translated_gameLogic +"_" + playerVehicle + ".png";
 			}, function (translationId) {
-				$scope.translated_gameLogic = translationId[mapstr];
-				$scope.translated_gamemapname = translationId[modestr];
+				$scope.translated_gamemapname = translationId[mapstr];
+				$scope.translated_gameLogic = ' ('+translationId[modestr]+')';
+				if (reg.test($scope.mapDisplayName))
+					$scope.translated_gameLogic = '';
 				imgFilename = "wows_" + localeFormatDate($scope.dateTime, 'file', $scope.select) + "_" + $scope.translated_gamemapname + "_" + $scope.translated_gameLogic +"_" + playerVehicle + ".png";
 			});
 
@@ -1122,21 +1128,27 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 					$scope.players = [];
 					$scope.dateTime = data.dateTime;
 					$scope.mapDisplayName = data.mapDisplayName;
-					$scope.gamemapname = data.mapDisplayName;
   					$scope.gameLogic = data.scenario;
 					ownerName = data.playerName;
 					playerVehicle = data.playerVehicle;
 					var mapstr = 'map.' + $scope.mapDisplayName;
+					var reg = new RegExp(/^s\d\d_\w+$/);
 					var modestr = 'mode.' + $scope.gameLogic;
+					if (reg.test($scope.mapDisplayName))
+						modestr = '';
 
 					$scope.$watch('select', function(newValue, oldValue) {
 						$translate(['map.' + $scope.mapDisplayName, 'mode.' + $scope.gameLogic]).then(function (translations) {
 							$scope.translated_gamemapname = translations[mapstr];
-							$scope.translated_gameLogic = translations[modestr];
+							$scope.translated_gameLogic = ' ('+translations[modestr]+')';
+							if (reg.test($scope.mapDisplayName))
+								$scope.translated_gameLogic = '';
 							imgFilename = "wows_" + localeFormatDate($scope.dateTime, 'file', $scope.select) + "_" + $scope.translated_gamemapname + "_" + $scope.translated_gameLogic +"_" + playerVehicle + ".png";
 						}, function (translationId) {
 							$scope.translated_gamemapname = translationId[mapstr];
-							$scope.translated_gameLogic = translationId[modestr];
+							$scope.translated_gameLogic = ' ('+translationId[modestr]+')';
+							if (reg.test($scope.mapDisplayName))
+								$scope.translated_gameLogic = '';
 							imgFilename = "wows_" + localeFormatDate($scope.dateTime, 'file', $scope.select) + "_" + $scope.translated_gamemapname + "_" + $scope.translated_gameLogic +"_" + playerVehicle + ".png";
 						});
 					});
@@ -1233,7 +1245,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 
 	var timer = setInterval(function() {
 		$scope.$apply(updateArena);
-	}, 3000);
+	}, 2000);
 
 	updateArena();
 }]);
