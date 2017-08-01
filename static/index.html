@@ -45,12 +45,12 @@
 				<div id="prtype_tbl" align="center">
 					<div id="container" align="center">
 						<div class="logo"><img class="logo_image" src="images/wows_logo.png"></div>
-						<div class="label" id="title">{{ battleTime }}〔{{'numero_sign' | translate}} {{ data.mapId }}〕{{ translated_gamemapname }}（{{ translated_gameLogic }}）<span class="hint" ng-hide="inGame">: {{'game.end_status' | translate}}</span></div>
+						<div class="label" id="title">{{ battleTime }}〔{{'numero_sign' | translate}} {{ data.mapId }}〕{{ translated_gamemapname }}{{ translated_gameLogic }}<span class="hint" ng-hide="inGame">: {{'game.end_status' | translate}}</span></div>
 					</div>
 					<table border style ="margin: 4px auto;border-width: 3px 1px 1px 3px; border-style: solid; border-color: #38c38c;">
 						<thead>
 						<tr>
-							<th rowspan="2" style="width:270px;">{{'list_label1.name' | translate}}</th>
+							<th rowspan="2" style="width:280px;">{{'list_label1.name' | translate}}</th>
 							<th rowspan="2" style="width:25px;">{{'list_label1.tier' | translate}}</th>
 							<th rowspan="2" style="width:54px;">{{'list_label1.type' | translate}}</th>
 							<th rowspan="2" style="width:130px;">{{'list_label1.ship_name' | translate}}</th>
@@ -58,16 +58,16 @@
 							<th colspan="6">{{'list_label1.player_score' | translate}}</th>
 						</tr>
 						<tr>
-							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:96px;">{{'list_label2.ship.combatPower' | translate}}</th>
+							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:92px;">{{'list_label2.ship.combatPower' | translate}}</th>
 							<th title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:46px;">{{'list_label2.ship.KillDeath' | translate}}</th>
-							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:78px;">{{'list_label2.ship.winRate' | translate}}</th>
+							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:70px;">{{'list_label2.ship.winRate' | translate}}</th>
 							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:35px;">{{'list_label2.ship.sinking' | translate}}</th>
 							<th title="{{'list_label2.ship.shootDown_title' | translate}}" style="width:35px;">{{'list_label2.ship.shootDown' | translate}}</th>
 							<th title="{{'list_label2.ship.exp_title' | translate}}" style="width:50px;">{{'list_label2.ship.exp' | translate}}</th>
 							<th title="{{'list_label2.ship.numBattle_title' | translate}}"style="width:60px;">{{'list_label2.ship.numBattle' | translate}}</th>
-							<th title="{{'list_label2.player.rank_title' | translate}}" style="width:35px;">{{'list_label2.player.rank' | translate}}</th>
-							<th title="{{'list_label2.player.winRate_title' | translate}}" style="width:78px;">{{'list_label2.player.winRate' | translate}}</th>
+							<th title="{{'list_label2.player.rank_title' | translate}}" style="width:65px;">{{'list_label2.player.rank' | translate}}</th>
+							<th title="{{'list_label2.player.winRate_title' | translate}}" style="width:70px;">{{'list_label2.player.winRate' | translate}}</th>
 							<th title="{{'list_label2.player.damage_title' | translate}}" style="width:70px;">{{'list_label2.player.damage' | translate}}</th>
 							<th title="{{'list_label2.player.KillDeath_title' | translate}}" style="width:40px;">{{'list_label2.player.KillDeath' | translate}}</th>
 							<th title="{{'list_label2.player.exp_title' | translate}}" style="width:50px;">{{'list_label2.player.exp' | translate}}</th>
@@ -94,7 +94,7 @@
 							<td><span ng-hide="value.ship.err">{{value.ship.avgExp}}</span></td>
 							<td><span name="battle_suu" ng-hide="value.ship.err">{{value.ship.battles}}</span>
 								<span name="battle_asu" style ="display:none;"  ng-hide="value.err">***</span></td>
-							<td><span class="{{value.RankClass}}" ng-hide="value.err">{{value.rank}}</span></td>
+							<td><span class="{{value.preRankClass}}" ng-hide="value.err">{{value.pre_rank}} → </span><span class="{{value.RankClass}}" ng-hide="value.err">{{value.rank}}</span></td>
 							<td><span class="{{value.winRateClass}}" ng-hide="value.err">{{value.winRate}}</span></td>
 							<td><span ng-hide="value.err">{{value.formatdmg}}</span></td>
 							<td><span ng-hide="value.err">{{value.kdRatio}}</span></td>
@@ -108,7 +108,7 @@
 					<table border style ="margin: 4px auto;border-width: 3px 1px 1px 3px; border-style: solid; border-color: #DE703C;">
 						<thead>
 						<tr>
-							<th rowspan="2" style="width:270px;">{{'list_label1.name' | translate}}</th>
+							<th rowspan="2" style="width:280px;">{{'list_label1.name' | translate}}</th>
 							<th rowspan="2" style="width:25px;">{{'list_label1.tier' | translate}}</th>
 							<th rowspan="2" style="width:54px;">{{'list_label1.type' | translate}}</th>
 							<th rowspan="2" style="width:130px;">{{'list_label1.ship_name' | translate}}</th>
@@ -116,16 +116,16 @@
 							<th colspan="6">{{'list_label1.player_score' | translate}}</th>
 						</tr>
 						<tr>
-							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:96px;">{{'list_label2.ship.combatPower' | translate}}</th>
+							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:92px;">{{'list_label2.ship.combatPower' | translate}}</th>
 							<th title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:46px;">{{'list_label2.ship.KillDeath' | translate}}</th>
-							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:78px;">{{'list_label2.ship.winRate' | translate}}</th>
+							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:70px;">{{'list_label2.ship.winRate' | translate}}</th>
 							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:35px;">{{'list_label2.ship.sinking' | translate}}</th>
 							<th title="{{'list_label2.ship.shootDown_title' | translate}}" style="width:35px;">{{'list_label2.ship.shootDown' | translate}}</th>
 							<th title="{{'list_label2.ship.exp_title' | translate}}" style="width:50px;">{{'list_label2.ship.exp' | translate}}</th>
 							<th title="{{'list_label2.ship.numBattle_title' | translate}}"style="width:60px;">{{'list_label2.ship.numBattle' | translate}}</th>
-							<th title="{{'list_label2.player.rank_title' | translate}}" style="width:35px;">{{'list_label2.player.rank' | translate}}</th>
-							<th title="{{'list_label2.player.winRate_title' | translate}}" style="width:78px;">{{'list_label2.player.winRate' | translate}}</th>
+							<th title="{{'list_label2.player.rank_title' | translate}}" style="width:65px;">{{'list_label2.player.rank' | translate}}</th>
+							<th title="{{'list_label2.player.winRate_title' | translate}}" style="width:70px;">{{'list_label2.player.winRate' | translate}}</th>
 							<th title="{{'list_label2.player.damage_title' | translate}}" style="width:70px;">{{'list_label2.player.damage' | translate}}</th>
 							<th title="{{'list_label2.player.KillDeath_title' | translate}}" style="width:40px;">{{'list_label2.player.KillDeath' | translate}}</th>
 							<th title="{{'list_label2.player.exp_title' | translate}}" style="width:50px;">{{'list_label2.player.exp' | translate}}</th>
@@ -152,7 +152,7 @@
 							<td><span ng-hide="value.ship.err">{{value.ship.avgExp}}</span></td>
 							<td><span name="battle_suu" ng-hide="value.ship.err">{{value.ship.battles}}</span>
 								<span name="battle_asu" style ="display:none;"  ng-hide="value.err">***</span></td>
-							<td><span class="{{value.RankClass}}" ng-hide="value.err">{{value.rank}}</span></td>
+							<td><span class="{{value.preRankClass}}" ng-hide="value.err">{{value.pre_rank}} → </span><span class="{{value.RankClass}}" ng-hide="value.err">{{value.rank}}</span></td>
 							<td><span class=" {{value.winRateClass}}" ng-hide="value.err">{{value.winRate}}</span></td>
 							<td><span ng-hide="value.err">{{value.formatdmg}}</span></td>
 							<td><span ng-hide="value.err">{{value.kdRatio}}</span></td>
