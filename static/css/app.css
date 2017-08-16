@@ -17,18 +17,67 @@ h1, h2, h3 ,h4 {
 text-align: center;
 }
 
-.buttonset {
-clear: both;
-text-align: center;
-width: auto;
-border: 1px;
-padding: 10px;
-margin-top: 12px;
-margin-bottom: -44px;
-}
-
 .disp_off{
 display:none;
+}
+
+.layout_tbl td {
+background-color: #393E46;
+}
+
+prtype_tbl {
+width: auto;
+}
+
+.list {
+margin: 4px auto;
+border-width: 3px 1px 1px 3px;
+border-style: solid;
+border-color: #38c38c;
+}
+
+container {
+display: inline-block;
+width: 1200px;
+height: 44px;
+margin: 6px 4px 6px 4px;
+text-align:center;
+}
+
+.logo {
+float: left;
+margin-right: 6px;
+margin-top: 4px;
+vertical-align: middle;
+}
+
+.logo_image {
+border: none;
+}
+
+.label{
+float: left;
+vertical-align: bottom;
+text-align: center;
+margin-top: 4px;
+margin-left: 2px;
+margin-bottom: 5px;
+padding: 4px 5px 5px 10px;
+background-color: #505050;
+border: 2px outset #e0f0f0;
+color: #ffffff;
+font-size: 14pt;
+white-space: nowrap;
+font-weight: normal;
+}
+
+.buttonset {
+float: right;
+text-align: center;
+margin-top: 6px;
+margin-right: 0px;
+/* border: 2px solid; */
+/* border-color: #60FF60 */
 }
 
 .ss_button{
@@ -76,52 +125,16 @@ top:1px;
 
 .language {
 margin-left: 12px;
+margin-right: 2px;
 color: #000000;
 background: #F0F0F0;
 font-size: 10pt;
 vertical-align: middle;
 }
 
-prtype_tbl {
-width: auto;
-}
-
-container {
-width: auto;
-height: 85px;
-margin-bottom: 4px;
-text-align:center;
-}
-
-.logo {
-margin-left: -135px;
-margin-right: 50px;
-margin-bottom: 5px;
-display: inline-block;
-vertical-align: middle;
-}
-
-.logo_image {
-border: none;
-}
-
-.label{
-display: inline-block;
-vertical-align: bottom;
-text-align: center;
-margin-bottom: 5px;
-padding: 4px 5px 5px 10px;
-background-color: #505050;
-border: 2px outset #e0f0f0;
-color: #ffffff;
-font-size: 14pt;
-white-space: nowrap;
-font-weight: normal;
-}
-
 th{
 text-align:center;
-padding: 2px 4px 1px 4px;
+padding: 2px 3px 1px 4px;
 background-color: #222831;
 border: 1px #808080 solid;
 color: #FBB040;
@@ -131,7 +144,7 @@ font-weight: normal;
 
 td{
 border: 1px #808080 solid;
-padding: 1px 4px 0px 4px;
+padding: 1px 3px 0px 4px;
 text-align:right;
 white-space: nowrap;
 }
@@ -320,26 +333,30 @@ white-space: nowrap;
 font-size: 9pt;
 }
 
-.buttonpro2{
-margin-left : 20px;
-margin-right : 20px;
-padding : 5px;
+.footer {
 clear: both;
+display: inline-block;
 text-align: center;
-width: auto;
-border: 1px;
+width: 100%;
+}
+
+.copyright{
+float: left;
+margin-left : 2px;
+padding : 0 4px 2px 0;
+text-align: right;
+}
+
+.buttonpro2{
+float: right;
+margin-right : 2px;
+padding : 0 5px 2px 0;
+text-align: right;
 }
 
 .buttonitem2{
 color: #EEEEEE
 margin-left:10px;
-}
-
-.footer {
-clear: both;
-padding: 10px ;
-text-align: center;
-width: 100%;
 }
 
 .icon {
