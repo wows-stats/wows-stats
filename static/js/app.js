@@ -68,7 +68,7 @@ function get_shipnameConvertTable() {
 var api_url = '';
 var api_key = '';
 
-function get_shipinfo() {
+function get_shipinfo(idArray) {
 //	console.log('Enter get_shipinfo');
 
 	var sync_getenv = new Promise (function (resolve, reject) {
@@ -88,7 +88,8 @@ function get_shipinfo() {
 
 	sync_getenv.then ( function () {
 		var sync_getinfo = new Promise (function (resolve, reject) {
-				var api_call = api_url + '/wows/encyclopedia/ships/?application_id=' + api_key + '&fields=name%2Ctier%2Ctype%2Cnation&language=en';
+				var idString = idArray.join('%2C');
+				var api_call = api_url + '/wows/encyclopedia/ships/?application_id=' + api_key + '&fields=name%2Ctier%2Ctype%2Cnation&language=en&ship_id=' + idString;
 				ship_info = {};
 
 				jQuery.ajax({
@@ -452,9 +453,6 @@ get_availableLanguageList();
 
 // loading shipname convert table
 get_shipnameConvertTable();
-
-// loading ship inforamtion
-get_shipinfo();
 
 var app = angular.module('wows-stats-plus', ['pascalprecht.translate','ngCookies']);
 
@@ -1097,7 +1095,8 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 		$scope.captureFlag = capture_flag;
 
 		// view handling after sync-loaded of languages.json & ship inforamtion WG-API & shipname covert table
-		if (ready_lang && ready_shipinfo && ready_shipTable) {
+//		if (ready_lang && ready_shipinfo && ready_shipTable) {
+		if (ready_lang && ready_shipTable) {
 
 		$http({
 			method: 'GET',
@@ -1105,9 +1104,15 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 		}).success(function(data, status) {
 			if ($scope.dateTime != data.dateTime) {
 				var nameArray = [];
+				var idArray = [];
 				for (var i=0; i<data.vehicles.length; i++) {
 						nameArray[i] = data.vehicles[i].name;
+						idArray[i] = data.vehicles[i].shipId;
 				}
+
+				// loading ship inforamtion
+				var shipIdArray = Array.from(new Set(idArray));
+				get_shipinfo(shipIdArray);
 
 				getClanList(nameArray);
 				function getClan() {
