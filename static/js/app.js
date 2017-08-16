@@ -1094,8 +1094,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 		UpdateViewMode();
 		$scope.captureFlag = capture_flag;
 
-		// view handling after sync-loaded of languages.json & ship inforamtion WG-API & shipname covert table
-//		if (ready_lang && ready_shipinfo && ready_shipTable) {
+		// view handling after sync-loaded of languages.json & shipname covert table
 		if (ready_lang && ready_shipTable) {
 
 		$http({
@@ -1110,135 +1109,157 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 						idArray[i] = data.vehicles[i].shipId;
 				}
 
-				// loading ship inforamtion
+				// loading ship inforamtion by shipId list
 				var shipIdArray = Array.from(new Set(idArray));
 				get_shipinfo(shipIdArray);
 
-				getClanList(nameArray);
-				function getClan() {
-					var d = $q.defer();
-					if (Object.keys(clanTagList).length != 0) {
-						d.resolve();
+				// sync loading of ship info
+				function getShipInfo() {
+					var ds = $q.defer();
+					if (ready_shipinfo != false) {
+						ds.resolve();
 					} else {
-						d.reject();
+						ds.reject();
 					}
-					return d.promise;
+					return ds.promise;
 				}
 
-				var promise = getClan();
-				promise.then( function() {
-//					console.log(clanTagList);
-					$scope.inGame = true;
-					$scope.data = data;
-					$scope.players = [];
-					$scope.dateTime = data.dateTime;
-					$scope.mapDisplayName = data.mapDisplayName;
-  					$scope.gameLogic = data.scenario;
-					ownerName = data.playerName;
-					playerVehicle = data.playerVehicle;
-					var mapstr = 'map.' + $scope.mapDisplayName;
-					var reg = new RegExp(/^s\d\d_\w+$/);
-					var modestr = 'mode.' + $scope.gameLogic;
-					if (reg.test($scope.mapDisplayName))
-						modestr = '';
+				var promise_s = getShipInfo();
+				promise_s.then( function() {
+//					console.log(ship_info);
 
-					$scope.$watch('select', function(newValue, oldValue) {
-						$translate(['map.' + $scope.mapDisplayName, 'mode.' + $scope.gameLogic]).then(function (translations) {
-							$scope.translated_gamemapname = translations[mapstr];
-							$scope.translated_gameLogic = ' ('+translations[modestr]+')';
-							if (reg.test($scope.mapDisplayName))
-								$scope.translated_gameLogic = '';
-							imgFilename = "wows_" + localeFormatDate($scope.dateTime, 'file', $scope.select) + "_" + $scope.translated_gamemapname + "_" + $scope.translated_gameLogic +"_" + playerVehicle + ".png";
-						}, function (translationId) {
-							$scope.translated_gamemapname = translationId[mapstr];
-							$scope.translated_gameLogic = ' ('+translationId[modestr]+')';
-							if (reg.test($scope.mapDisplayName))
-								$scope.translated_gameLogic = '';
-							imgFilename = "wows_" + localeFormatDate($scope.dateTime, 'file', $scope.select) + "_" + $scope.translated_gamemapname + "_" + $scope.translated_gameLogic +"_" + playerVehicle + ".png";
-						});
-					});
-					$scope.$watch('select', function(newValue, oldValue) {
-						$translate(['list_label1', 'list_label2', 'btn_top', 'btn_bottom']).then(function (translations) {
-							$scope.list_label1 = translations.list_label1;
-							$scope.list_label2 = translations.list_label2;
-							$scope.btn_top = translations.btn_top;
-							$scope.btn_bottom = translations.btn_bottom;
-						}, function (translationId) {
-							$scope.list_label1 = translationId.list_label1;
-								$scope.list_label2 = translationId.list_label2;
-							$scope.btn_top = translationId.btn_top;
-							$scope.btn_bottom = translationId.btn_bottom;
-						});
-					});
-					$scope.battleTime = localeFormatDate($scope.dateTime, 'label', $scope.select);
+					getClanList(nameArray);
 
-					for (var key in kariload) {
-							delete kariload[key];
-					}
-					for (var i=0; i<data.vehicles.length; i++) {
-							kariload[i] = data.vehicles[i];
-					}
-//					console.log(kariload);
-
-					// sort data as ship_type > tier > nation > shipID > playername with clan tag
-					kariload.sort( function(val1,val2) {
-						var shipID1 = val1.shipId;
-						var shipID2 = val2.shipId;
-						var sinfo1 = ship_info.data[shipID1];
-						var sinfo2 = ship_info.data[shipID2];
-
-						try {
-							// ship type
-							var type1 = ship_info.data[shipID1].type;
-							var type2 = ship_info.data[shipID2].type;
-							if( type1 > type2 ) return 1;
-							if( type1 < type2 ) return -1;
-
-							// Tier
-							var tier1 = ship_info.data[shipID1].tier;
-							var tier2 = ship_info.data[shipID2].tier;
-							if( tier1 < tier2 ) return 1;
-							if( tier1 > tier2 ) return -1;
-
-							// Nation
-							var nation1 = api.nation_for_sort(ship_info.data[shipID1].nation);
-							var nation2 = api.nation_for_sort(ship_info.data[shipID2].nation);
-							if( nation1 > nation2 ) return 1;
-							if( nation1 < nation2 ) return -1;
-
-						} catch(e) {
-							console.log('ileagal ship ID. seems old data-type JSON file');
+					// sync loading of clan info
+					function getClan() {
+						var d = $q.defer();
+						if (Object.keys(clanTagList).length != 0) {
+							d.resolve();
+						} else {
+							d.reject();
 						}
-
-						// shipID
-						if( val1.shipId < val2.shipId ) return 1;
-						if( val1.shipId > val2.shipId ) return -1;
-
-						// clan tag
-						var clan1 = '[' + clanTagList[val1.name] + ']';
-						var clan2 = '[' + clanTagList[val2.name] + ']';
-
-						// player name with clan tag
-						var name1 = clan1 + val1.name;
-						var name2 = clan2 + val2.name;
-						if( name1 > name2 ) return 1;
-						if( name1 < name2 ) return -1;
-
-						return 0;
-					});
-
-					for (var i=0; i<kariload.length; i++) {
-						var player = kariload[i];
-						player.api = {};
-						$scope.players.push(player);
-						api.fetchPlayer(player);
-						$scope.link_disabled = function () {
-							if (player.is_bot)
-								return false;
-						}
+						return d.promise;
 					}
+
+					var promise_c = getClan();
+					promise_c.then( function() {
+//						console.log(clanTagList);
+
+						$scope.inGame = true;
+						$scope.data = data;
+						$scope.players = [];
+						$scope.dateTime = data.dateTime;
+						$scope.mapDisplayName = data.mapDisplayName;
+  						$scope.gameLogic = data.scenario;
+						ownerName = data.playerName;
+						playerVehicle = data.playerVehicle;
+						var mapstr = 'map.' + $scope.mapDisplayName;
+						var reg = new RegExp(/^s\d\d_\w+$/);
+						var modestr = 'mode.' + $scope.gameLogic;
+						if (reg.test($scope.mapDisplayName))
+							modestr = '';
+
+						$scope.$watch('select', function(newValue, oldValue) {
+							$translate(['map.' + $scope.mapDisplayName, 'mode.' + $scope.gameLogic]).then(function (translations) {
+								$scope.translated_gamemapname = translations[mapstr];
+								$scope.translated_gameLogic = ' ('+translations[modestr]+')';
+								if (reg.test($scope.mapDisplayName))
+									$scope.translated_gameLogic = '';
+								imgFilename = "wows_" + localeFormatDate($scope.dateTime, 'file', $scope.select) + "_" + $scope.translated_gamemapname + "_" + $scope.translated_gameLogic +"_" + playerVehicle + ".png";
+							}, function (translationId) {
+								$scope.translated_gamemapname = translationId[mapstr];
+								$scope.translated_gameLogic = ' ('+translationId[modestr]+')';
+								if (reg.test($scope.mapDisplayName))
+									$scope.translated_gameLogic = '';
+								imgFilename = "wows_" + localeFormatDate($scope.dateTime, 'file', $scope.select) + "_" + $scope.translated_gamemapname + "_" + $scope.translated_gameLogic +"_" + playerVehicle + ".png";
+							});
+						});
+						$scope.$watch('select', function(newValue, oldValue) {
+							$translate(['list_label1', 'list_label2', 'btn_top', 'btn_bottom']).then(function (translations) {
+								$scope.list_label1 = translations.list_label1;
+								$scope.list_label2 = translations.list_label2;
+								$scope.btn_top = translations.btn_top;
+								$scope.btn_bottom = translations.btn_bottom;
+							}, function (translationId) {
+								$scope.list_label1 = translationId.list_label1;
+									$scope.list_label2 = translationId.list_label2;
+								$scope.btn_top = translationId.btn_top;
+								$scope.btn_bottom = translationId.btn_bottom;
+							});
+						});
+						$scope.battleTime = localeFormatDate($scope.dateTime, 'label', $scope.select);
+
+						for (var key in kariload) {
+								delete kariload[key];
+						}
+						for (var i=0; i<data.vehicles.length; i++) {
+								kariload[i] = data.vehicles[i];
+						}
+//						console.log(kariload);
+
+						// sort data as ship_type > tier > nation > shipID > playername with clan tag
+						kariload.sort( function(val1,val2) {
+							var shipID1 = val1.shipId;
+							var shipID2 = val2.shipId;
+							var sinfo1 = ship_info.data[shipID1];
+							var sinfo2 = ship_info.data[shipID2];
+
+							try {
+								// ship type
+								var type1 = ship_info.data[shipID1].type;
+								var type2 = ship_info.data[shipID2].type;
+								if( type1 > type2 ) return 1;
+								if( type1 < type2 ) return -1;
+
+								// Tier
+								var tier1 = ship_info.data[shipID1].tier;
+								var tier2 = ship_info.data[shipID2].tier;
+								if( tier1 < tier2 ) return 1;
+								if( tier1 > tier2 ) return -1;
+
+								// Nation
+								var nation1 = api.nation_for_sort(ship_info.data[shipID1].nation);
+								var nation2 = api.nation_for_sort(ship_info.data[shipID2].nation);
+								if( nation1 > nation2 ) return 1;
+								if( nation1 < nation2 ) return -1;
+
+							} catch(e) {
+								console.log('ileagal ship ID. seems old data-type JSON file');
+							}
+
+							// shipID
+							if( val1.shipId < val2.shipId ) return 1;
+							if( val1.shipId > val2.shipId ) return -1;
+
+							// clan tag
+							var clan1 = '[' + clanTagList[val1.name] + ']';
+							var clan2 = '[' + clanTagList[val2.name] + ']';
+
+							// player name with clan tag
+							var name1 = clan1 + val1.name;
+							var name2 = clan2 + val2.name;
+							if( name1 > name2 ) return 1;
+							if( name1 < name2 ) return -1;
+
+							return 0;
+						});
+
+						for (var i=0; i<kariload.length; i++) {
+							var player = kariload[i];
+							player.api = {};
+							$scope.players.push(player);
+							api.fetchPlayer(player);
+							$scope.link_disabled = function () {
+								if (player.is_bot)
+									return false;
+							}
+						}
+					});
 				});
 			}
+			// reset ship info
+			ready_shipinfo = false;
+
 		}).error(function(data, status) {
 			$scope.dateTime = "";
 			$scope.inGame = false;
