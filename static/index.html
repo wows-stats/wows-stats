@@ -11,7 +11,7 @@
 			win.focus();
 		});
 	</script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/app.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.js"></script>
@@ -23,7 +23,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-loader-static-files/2.15.0/angular-translate-loader-static-files.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-handler-log/2.15.0/angular-translate-handler-log.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<!--	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>	-->
+	<script src="https://github.com/niklasvh/html2canvas/releases/download/0.5.0-alpha1/html2canvas.js"></script>
 	<script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript">
@@ -43,21 +44,18 @@
 		<div class="stats" ng-show="players.length>0">
 			<div class="teams">
 				<div id="prtype_tbl" align="center">
-				<table frame="void" rules="none"  class="layout_tbl">
-					<tbody><tr><td>
-						<div id="container">
-							<div class="logo"><img class="logo_image" src="images/wows_logo_small.png" /></div>
-							<div class="label" id="title">{{ battleTime }}〔{{'numero_sign' | translate}} {{ data.mapId }}〕{{ translated_gamemapname }}{{ translated_gameLogic }}<span class="hint" ng-hide="inGame">: {{'game.end_status' | translate}}</span></div>
-							<div class="buttonset">
-								<span ng-if="captureFlag"><input type="button" class="ss_button" id="ss" onclick="prepare_ss('#prtype_tbl')" value="{{'btn_top.Screenshot' | translate}}" /></span>
-								<select size="1" name="lang_select" class="language" ng-model="select" ng-change="changeLanguage()">
-										<option value="{{option.value}}" ng-repeat="option in options">{{option.label}}</option>
-								</select>
-							</div>
+					<div class="header">
+						<div class="logo"><img class="logo_image" src="images/wows_logo_small.png" /></div>
+						<div class="label" id="title">{{ battleTime }}〔{{'numero_sign' | translate}} {{ data.mapId }}〕{{ translated_gamemapname }}{{ translated_gameLogic }}<span class="hint" ng-hide="inGame">: {{'game.end_status' | translate}}</span></div>
+						<div class="buttonset">
+							<span ng-if="captureFlag"><input type="button" class="ss_button" id="ss" onclick="prepare_ss('#prtype_tbl')" value="{{'btn_top.Screenshot' | translate}}" /></span>
+							<select size="1" name="lang_select" class="language" ng-model="select" ng-change="changeLanguage()">
+									<option value="{{option.value}}" ng-repeat="option in options">{{option.label}}</option>
+							</select>
 						</div>
-					</td></tr>
-					<tr><td>
-					<table class="list">
+					</div>
+					<div class="list">
+					<table class="list1">
 						<thead>
 						<tr>
 							<th rowspan="2" style="width:280px;">{{'list_label1.name' | translate}}</th>
@@ -70,11 +68,11 @@
 						<tr>
 							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:92px;">{{'list_label2.ship.combatPower' | translate}}</th>
 							<th title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
-							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:46px;">{{'list_label2.ship.KillDeath' | translate}}</th>
+							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:55px;">{{'list_label2.ship.KillDeath' | translate}}</th>
 							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:70px;">{{'list_label2.ship.winRate' | translate}}</th>
-							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:35px;">{{'list_label2.ship.sinking' | translate}}</th>
-							<th title="{{'list_label2.ship.shootDown_title' | translate}}" style="width:35px;">{{'list_label2.ship.shootDown' | translate}}</th>
-							<th title="{{'list_label2.ship.exp_title' | translate}}" style="width:50px;">{{'list_label2.ship.exp' | translate}}</th>
+							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:60px;">{{'list_label2.ship.sinking' | translate}}</th>
+							<th title="{{'list_label2.ship.shootDown_title' | translate}}" style="width:60px;">{{'list_label2.ship.shootDown' | translate}}</th>
+							<th title="{{'list_label2.ship.exp_title' | translate}}" style="width:60px;">{{'list_label2.ship.exp' | translate}}</th>
 							<th title="{{'list_label2.ship.numBattle_title' | translate}}"style="width:60px;">{{'list_label2.ship.numBattle' | translate}}</th>
 							<th title="{{'list_label2.player.rank_title' | translate}}" style="width:65px;">{{'list_label2.player.rank' | translate}}</th>
 							<th title="{{'list_label2.player.winRate_title' | translate}}" style="width:70px;">{{'list_label2.player.winRate' | translate}}</th>
@@ -104,7 +102,7 @@
 							<td><span ng-hide="value.ship.err">{{value.ship.avgExp}}</span></td>
 							<td><span name="battle_suu" ng-hide="value.ship.err">{{value.ship.battles}}</span>
 								<span name="battle_asu" style ="display:none;"  ng-hide="value.err">***</span></td>
-							<td><span class="{{value.preRankClass}}" ng-hide="value.err">{{value.pre_rank}} → </span><span class="{{value.RankClass}}" ng-hide="value.err">{{value.rank}}</span></td>
+							<td><span class="{{value.preRankClass}}" ng-hide="value.err">{{value.pre_rank}}</span><span ng-hide="value.err">{{value.RankGap}}</span><span class="{{value.RankClass}}" ng-hide="value.err">{{value.rank}}</span></td>
 							<td><span class="{{value.winRateClass}}" ng-hide="value.err">{{value.winRate}}</span></td>
 <!--							<td><span ng-hide="value.err">{{value.formatdmg}}</span></td>	-->
 <!--							<td><span ng-hide="value.err">{{value.kdRatio}}</span></td>	-->
@@ -115,7 +113,7 @@
 						</tbody>
 					</table>
 					<p>
-					<table border style ="margin: 4px auto;border-width: 3px 1px 1px 3px; border-style: solid; border-color: #DE703C;">
+					<table class="list2">
 						<thead>
 						<tr>
 							<th rowspan="2" style="width:280px;">{{'list_label1.name' | translate}}</th>
@@ -128,11 +126,11 @@
 						<tr>
 							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:92px;">{{'list_label2.ship.combatPower' | translate}}</th>
 							<th title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
-							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:46px;">{{'list_label2.ship.KillDeath' | translate}}</th>
+							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:55px;">{{'list_label2.ship.KillDeath' | translate}}</th>
 							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:70px;">{{'list_label2.ship.winRate' | translate}}</th>
-							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:35px;">{{'list_label2.ship.sinking' | translate}}</th>
-							<th title="{{'list_label2.ship.shootDown_title' | translate}}" style="width:35px;">{{'list_label2.ship.shootDown' | translate}}</th>
-							<th title="{{'list_label2.ship.exp_title' | translate}}" style="width:50px;">{{'list_label2.ship.exp' | translate}}</th>
+							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:60px;">{{'list_label2.ship.sinking' | translate}}</th>
+							<th title="{{'list_label2.ship.shootDown_title' | translate}}" style="width:60px;">{{'list_label2.ship.shootDown' | translate}}</th>
+							<th title="{{'list_label2.ship.exp_title' | translate}}" style="width:60px;">{{'list_label2.ship.exp' | translate}}</th>
 							<th title="{{'list_label2.ship.numBattle_title' | translate}}"style="width:60px;">{{'list_label2.ship.numBattle' | translate}}</th>
 							<th title="{{'list_label2.player.rank_title' | translate}}" style="width:65px;">{{'list_label2.player.rank' | translate}}</th>
 							<th title="{{'list_label2.player.winRate_title' | translate}}" style="width:70px;">{{'list_label2.player.winRate' | translate}}</th>
@@ -162,7 +160,7 @@
 							<td><span ng-hide="value.ship.err">{{value.ship.avgExp}}</span></td>
 							<td><span name="battle_suu" ng-hide="value.ship.err">{{value.ship.battles}}</span>
 								<span name="battle_asu" style ="display:none;"  ng-hide="value.err">***</span></td>
-							<td><span class="{{value.preRankClass}}" ng-hide="value.err">{{value.pre_rank}} → </span><span class="{{value.RankClass}}" ng-hide="value.err">{{value.rank}}</span></td>
+							<td><span class="{{value.preRankClass}}" ng-hide="value.err">{{value.pre_rank}}</span><span ng-hide="value.err">{{value.RankGap}}</sapn><span class="{{value.RankClass}}" ng-hide="value.err">{{value.rank}}</span></td>
 							<td><span class=" {{value.winRateClass}}" ng-hide="value.err">{{value.winRate}}</span></td>
 <!--							<td><span ng-hide="value.err">{{value.formatdmg}}</span></td>	-->
 <!--							<td><span ng-hide="value.err">{{value.kdRatio}}</span></td>	-->
@@ -172,22 +170,20 @@
 						</tr>
 						</tbody>
 					</table>
-				</td></tr>
-				<tr><td>
-					<div class="footer" name="footname">
-						<div class="copyright">
-							wows-stats-plus {{ version }} &nbsp;&nbsp; Powered by <a href="https://github.com/tianweiliu/wows-stats" id="footerurl" target="_blank">wows-stats</a> (original) &nbsp;&nbsp; negi +modified by <a href="https://moon-light-oasis.net/" id="footerurl" target="_blank">AnMoreNight</a>
-						</div>
-						<div class="buttonpro2">
-							<span translate>{{'btn_bottom.label_visible'}}</span>&nbsp;
-							<input type="checkbox" class="buttonitem2" name="idhi" value="id_pr10" onclick="idhide(this.checked)"> {{'btn_bottom.hide' | translate}}</input>
-							<span translate style="margin-left:30px;">{{'btn_bottom.label_notation'}}</span>&nbsp;
-							<input type="radio" class="buttonitem2" name="knp" value="nm_sw0" onclick="shipname_ex(0)" > {{'btn_bottom.original' | translate}}</input>&nbsp;
-							<input type="radio" class="buttonitem2" name="knp" value="nm_sw1" onclick="shipname_ex(1)"> {{'btn_bottom.translated' | translate}}</input>
-						</div>
 					</div>
-				</td></tr></tbody>
-				</table>
+				</div>
+				<div class="footer">
+					<div class="copyright">
+						wows-stats-plus {{ version }} &nbsp;&nbsp; Powered by <a href="https://github.com/tianweiliu/wows-stats" id="footerurl" target="_blank">wows-stats</a> (original) &nbsp;&nbsp; negi +modified by <a href="https://moon-light-oasis.net/" id="footerurl" target="_blank">AnMoreNight</a>
+					</div>
+					<div class="buttonpro2">
+						<span translate>{{'btn_bottom.label_visible'}}</span>&nbsp;
+						<input type="checkbox" class="buttonitem2" name="idhi" value="id_pr10" onclick="idhide(this.checked)"> {{'btn_bottom.hide' | translate}}</input>
+						<span translate style="margin-left:30px;">{{'btn_bottom.label_notation'}}</span>&nbsp;
+						<input type="radio" class="buttonitem2" name="knp" value="nm_sw0" onclick="shipname_ex(0)" > {{'btn_bottom.original' | translate}}</input>&nbsp;
+						<input type="radio" class="buttonitem2" name="knp" value="nm_sw1" onclick="shipname_ex(1)"> {{'btn_bottom.translated' | translate}}</input>
+					</div>
+				</div>
 				</div>
 			</div>
 		</div>
