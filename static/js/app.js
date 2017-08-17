@@ -1,4 +1,4 @@
-const wsp_version = '0.5.5';
+const wsp_version = '0.5.6';
 const MAX_RETRY = 5;
 
 var lang_array = [];
@@ -832,6 +832,7 @@ api.player = function(player) {
 				player.is_bot = false;
 				var winRate = parseFloat(player.winRate.replace('%', ''));
 				player.preRankClass = api.rank_beautify("rank", player.pre_rank);
+				player.RankGap = ' → ';
 				player.RankClass = api.rank_beautify("rank", player.rank);
 				player.winRateClass = api.beautify("winRate", winRate);
 				player.formatbattle = myFormatNumber(parseInt(player.battles));
@@ -839,9 +840,15 @@ api.player = function(player) {
 				player.formatexp = myFormatNumber(parseInt(player.avgExp));
 				resolve(player);
 			}).error(function(data, status) {
+//				console.log("player api error : %s", status);
+				if (status == '401')
+					player.is_private = true;
+				else
+					player.is_private = false;
+				player.RankGap = '';
 				player.api.response = data;
 				player.api.status = status;
-				reject(player);
+				resolve(player);
 			});
 			player.name_s = short_id(player.name);
 		} else {
@@ -952,7 +959,7 @@ api.ship = function(player) {
 					"avgDmg": myFormatNumber(data.avgDmg),
 					"combatPower": myFormatNumber(combatPower),
 					"combatPowerClass": api.b_beautify("combatPower", combatPower),
-					"highlightClass": api.highlight("combatPower", combatPower),
+					"highlightClass": (player.is_private != true)? api.highlight("combatPower", combatPower):'highlight_private',
 					"ownerClass": api.owner("owner", player.name),
 					"svrate": svrate
 				}
@@ -983,12 +990,11 @@ api.ship = function(player) {
 					"avgDmg": '',
 					"combatPower": '',
 					"combatPowerClass": '',
-					"highlightClass": (player.raw != null)? api.highlight("combatPower", combatPower):'highlight_private',
+					"highlightClass": (player.is_private != true)? api.highlight("combatPower", combatPower):'highlight_private',
 					"ownerClass": '',
 					"svrate": ''
 				}
-
-				player.ship.err = "no record";
+				player.ship.err = "no battle record";
 			}
 			resolve(player);
 
