@@ -351,7 +351,7 @@ function prepare_ss(target) {
 		var element = $(target)[0];
 		delete imgData;
 
-	    html2canvas(element, { letterRendering: true, onrendered: function(canvas) {
+	    html2canvas(element, {background:'#393E46', letterRendering: true, onrendered: function(canvas) {
 			var base64data = canvas.toDataURL("image/png").split(",")[1];
 			var data = window.atob(base64data);
 			var buff = new ArrayBuffer(data.length);
@@ -1267,7 +1267,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 			ready_shipinfo = false;
 
 		}).error(function(data, status) {
-			$scope.dateTime = "";
+//			$scope.dateTime = "";
 			$scope.inGame = false;
 		});
 
