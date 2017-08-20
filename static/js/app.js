@@ -1,4 +1,4 @@
-const wsp_version = '0.5.5';
+const wsp_version = '0.5.6';
 const MAX_RETRY = 5;
 
 var lang_array = [];
@@ -351,7 +351,7 @@ function prepare_ss(target) {
 		var element = $(target)[0];
 		delete imgData;
 
-	    html2canvas(element, { letterRendering: true, onrendered: function(canvas) {
+	    html2canvas(element, {background:'#393E46', letterRendering: true, onrendered: function(canvas) {
 			var base64data = canvas.toDataURL("image/png").split(",")[1];
 			var data = window.atob(base64data);
 			var buff = new ArrayBuffer(data.length);
@@ -832,6 +832,7 @@ api.player = function(player) {
 				player.is_bot = false;
 				var winRate = parseFloat(player.winRate.replace('%', ''));
 				player.preRankClass = api.rank_beautify("rank", player.pre_rank);
+				player.RankGap = ' → ';
 				player.RankClass = api.rank_beautify("rank", player.rank);
 				player.winRateClass = api.beautify("winRate", winRate);
 				player.formatbattle = myFormatNumber(parseInt(player.battles));
@@ -839,9 +840,15 @@ api.player = function(player) {
 				player.formatexp = myFormatNumber(parseInt(player.avgExp));
 				resolve(player);
 			}).error(function(data, status) {
+//				console.log("player api error : %s", status);
+				if (status == '401')
+					player.is_private = true;
+				else
+					player.is_private = false;
+				player.RankGap = '';
 				player.api.response = data;
 				player.api.status = status;
-				reject(player);
+				resolve(player);
 			});
 			player.name_s = short_id(player.name);
 		} else {
@@ -952,7 +959,7 @@ api.ship = function(player) {
 					"avgDmg": myFormatNumber(data.avgDmg),
 					"combatPower": myFormatNumber(combatPower),
 					"combatPowerClass": api.b_beautify("combatPower", combatPower),
-					"highlightClass": api.highlight("combatPower", combatPower),
+					"highlightClass": (player.is_private != true)? api.highlight("combatPower", combatPower):'highlight_private',
 					"ownerClass": api.owner("owner", player.name),
 					"svrate": svrate
 				}
@@ -983,12 +990,11 @@ api.ship = function(player) {
 					"avgDmg": '',
 					"combatPower": '',
 					"combatPowerClass": '',
-					"highlightClass": (player.raw != null)? api.highlight("combatPower", combatPower):'highlight_private',
+					"highlightClass": (player.is_private != true)? api.highlight("combatPower", combatPower):'highlight_private',
 					"ownerClass": '',
 					"svrate": ''
 				}
-
-				player.ship.err = "no record";
+				player.ship.err = "no battle record";
 			}
 			resolve(player);
 
@@ -1261,7 +1267,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 			ready_shipinfo = false;
 
 		}).error(function(data, status) {
-			$scope.dateTime = "";
+//			$scope.dateTime = "";
 			$scope.inGame = false;
 		});
 
