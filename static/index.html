@@ -40,21 +40,16 @@
 <body ng-app="wows-stats-plus">
 <div class="wrapper">
 	<div class="content" ng-controller="TeamStatsCtrl">
-		<h4 ng-hide="inGame">{{'title.game_status'| translate}}<br />{{'title.game_waiting'| translate}}</h4>
-		<div class="stats" ng-show="players.length>0">
-			<div class="teams">
-				<div id="prtype_tbl" align="center">
-					<div class="header">
-						<div class="logo"><img class="logo_image" src="images/wows_logo_small.png" /></div>
-						<div class="label" id="title">{{ battleTime }}〔{{'numero_sign' | translate}} {{ data.mapId }}〕{{ translated_gamemapname }}{{ translated_gameLogic }}<span class="hint" ng-hide="inGame">: {{'game.end_status' | translate}}</span></div>
-						<div class="buttonset">
-							<span ng-if="captureFlag"><input type="button" class="ss_button" id="ss" onclick="prepare_ss('#prtype_tbl')" value="{{'btn_top.Screenshot' | translate}}" /></span>
-							<select size="1" name="lang_select" class="language" ng-model="select" ng-change="changeLanguage()">
-									<option value="{{option.value}}" ng-repeat="option in options">{{option.label}}</option>
-							</select>
-						</div>
+		<div id="prtype_tbl">
+			<div class="header">
+				<div class="logo" ng-show="players.length>0"><img class="logo_image" src="images/wows_logo_small.png" /></div>
+					<div class="label" id="title" ng-show="players.length>0">{{ battleTime }}〔{{'numero_sign' | translate}} {{ data.mapId }}〕{{ translated_gamemapname }}{{ translated_gameLogic }}<span class="hint" ng-hide="inGame">: {{'game.end_status' | translate}}</span></div>
+					<div class="status" ng-hide="inGame">{{'title.game_status'| translate}} {{'title.game_waiting'| translate}}</div>
+					<div class="buttonset" ng-show="players.length>0">
+						<span ng-if="captureFlag"><input type="button" class="ss_button" id="ss" onclick="prepare_ss('#prtype_tbl')" value="{{'btn_top.Screenshot' | translate}}" /></span>
 					</div>
-					<div class="list">
+				</div>
+				<div class="list" ng-show="players.length>0">
 					<table class="list1">
 						<thead>
 						<tr>
@@ -69,7 +64,7 @@
 							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:92px;">{{'list_label2.ship.combatPower' | translate}}</th>
 							<th title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:55px;">{{'list_label2.ship.KillDeath' | translate}}</th>
-							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:70px;">{{'list_label2.ship.winRate' | translate}}</th>
+							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:75px;">{{'list_label2.ship.winRate' | translate}}</th>
 							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:60px;">{{'list_label2.ship.sinking' | translate}}</th>
 							<th title="{{'list_label2.ship.shootDown_title' | translate}}" style="width:60px;">{{'list_label2.ship.shootDown' | translate}}</th>
 							<th title="{{'list_label2.ship.exp_title' | translate}}" style="width:60px;">{{'list_label2.ship.exp' | translate}}</th>
@@ -78,7 +73,7 @@
 							<th title="{{'list_label2.player.winRate_title' | translate}}" style="width:70px;">{{'list_label2.player.winRate' | translate}}</th>
 <!--							<th title="{{'list_label2.player.damage_title' | translate}}" style="width:70px;">{{'list_label2.player.damage' | translate}}</th>	-->
 <!--							<th title="{{'list_label2.player.KillDeath_title' | translate}}" style="width:40px;">{{'list_label2.player.KillDeath' | translate}}</th>	-->
-							<th title="{{'list_label2.player.exp_title' | translate}}" style="width:50px;">{{'list_label2.player.exp' | translate}}</th>
+							<th title="{{'list_label2.player.exp_title' | translate}}" style="width:60px;">{{'list_label2.player.exp' | translate}}</th>
 							<th title="{{'list_label2.player.numBattle_title' | translate}}" style="width:60px;">{{'list_label2.player.numBattle' | translate}}</th>
 						</tr>
 						</thead>
@@ -112,7 +107,6 @@
 						</tr>
 						</tbody>
 					</table>
-					<p>
 					<table class="list2">
 						<thead>
 						<tr>
@@ -127,7 +121,7 @@
 							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:92px;">{{'list_label2.ship.combatPower' | translate}}</th>
 							<th title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:55px;">{{'list_label2.ship.KillDeath' | translate}}</th>
-							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:70px;">{{'list_label2.ship.winRate' | translate}}</th>
+							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:75px;">{{'list_label2.ship.winRate' | translate}}</th>
 							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:60px;">{{'list_label2.ship.sinking' | translate}}</th>
 							<th title="{{'list_label2.ship.shootDown_title' | translate}}" style="width:60px;">{{'list_label2.ship.shootDown' | translate}}</th>
 							<th title="{{'list_label2.ship.exp_title' | translate}}" style="width:60px;">{{'list_label2.ship.exp' | translate}}</th>
@@ -136,7 +130,7 @@
 							<th title="{{'list_label2.player.winRate_title' | translate}}" style="width:70px;">{{'list_label2.player.winRate' | translate}}</th>
 <!--							<th title="{{'list_label2.player.damage_title' | translate}}" style="width:70px;">{{'list_label2.player.damage' | translate}}</th>	-->
 <!--							<th title="{{'list_label2.player.KillDeath_title' | translate}}" style="width:40px;">{{'list_label2.player.KillDeath' | translate}}</th>	-->
-							<th title="{{'list_label2.player.exp_title' | translate}}" style="width:50px;">{{'list_label2.player.exp' | translate}}</th>
+							<th title="{{'list_label2.player.exp_title' | translate}}" style="width:60px;">{{'list_label2.player.exp' | translate}}</th>
 							<th title="{{'list_label2.player.numBattle_title' | translate}}" style="width:60px;">{{'list_label2.player.numBattle' | translate}}</th>
 						</tr>
 						</thead>
@@ -170,11 +164,10 @@
 						</tr>
 						</tbody>
 					</table>
-					</div>
 				</div>
-				<div class="footer">
+				<div class="footer" ng-show="players.length>0">
 					<div class="copyright">
-						wows-stats-plus {{ version }} &nbsp;&nbsp; Powered by <a href="https://github.com/tianweiliu/wows-stats" id="footerurl" target="_blank">wows-stats</a> (original) &nbsp;&nbsp; negi +modified by <a href="https://moon-light-oasis.net/" id="footerurl" target="_blank">AnMoreNight</a>
+						wows-stats-plus {{ version }} &nbsp;&nbsp; Powered by <a href="https://github.com/tianweiliu/wows-stats" id="footerurl" target="_blank">wows-stats</a> (original) &nbsp;&nbsp; modified by <a href="https://moon-light-oasis.net/" id="footerurl" target="_blank">AnMoreNight</a>
 					</div>
 					<div class="buttonpro2">
 						<span translate>{{'btn_bottom.label_visible'}}</span>&nbsp;
@@ -182,8 +175,10 @@
 						<span translate style="margin-left:30px;">{{'btn_bottom.label_notation'}}</span>&nbsp;
 						<input type="radio" class="buttonitem2" name="knp" value="nm_sw0" onclick="shipname_ex(0)" > {{'btn_bottom.original' | translate}}</input>&nbsp;
 						<input type="radio" class="buttonitem2" name="knp" value="nm_sw1" onclick="shipname_ex(1)"> {{'btn_bottom.translated' | translate}}</input>
+						<select size="1" name="lang_select" class="language" ng-model="select" ng-change="changeLanguage()">
+							<option value="{{option.value}}" ng-repeat="option in options">{{option.label}}</option>
+						</select>
 					</div>
-				</div>
 				</div>
 			</div>
 		</div>
