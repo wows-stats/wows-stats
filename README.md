@@ -1,7 +1,7 @@
 # wows-stats-plus
 A [XVM](http://www.modxvm.com/en/) like statistics engine for [World of Warships](http://worldofwarships.com/)
 
-![Screenshot](http://i.imgur.com/CQ4Rk6X.png?1)
+![Screenshot](http://i.imgur.com/b4ZJnA5.png?1)
 
 # Functionality
 - Show stats information of all matching players and ships on the random battle.
@@ -49,53 +49,3 @@ If you do NOT agree, you shall NOT use this app.
 Because of my poor linguistic ability, anyone please touch up translate text for English and Russian with editing lang_en.json/lang_ru.json file under "static/js/language/". 
 And also anyone please try to create new JSON files for the other language(Thai(th), Chinese(zh-tw) and more!) by modifying from lang_ja.json. 
 
-# API
-* /api
-  * GET
-  * Response 200:
-  ```
-  {
-    "status": "ok",
-    "name": "wows-stats api",
-    "version": "v2"
-  }
-  ```
-* /api/player?name=rubycrow
-  * GET
-  * Response 200:
-  ```
-  {
-    "id": "1001632578",
-    "name": "rubycrow",
-    "battles": 1343,
-    "winRate": "54.28%",
-    "avgExp": "1317",
-    "avgDmg": "36208",
-    "kdRatio": "1.45",
-    "raw": {
-     ...
-    }
-  }
-  ```
-* /api/ship?playerId=1001632578&shipId=4289607376
-  * GET
-  * Response 200: 
-  ```
-  {
-    "name": "Mutsuki",
-    "img": "http://api.worldofwarships.com/static/1.3.2/wows/encyclopedia/vehicle/PJSD005.png",
-    "info": {
-     ...
-    },
-    "id": 4289607376,
-    "battles": 43,
-    "victories": 24,
-    "survived": 12,
-    "destroyed": 34,
-    "avgExp": "1175",
-    "avgDmg": "20677",
-    "raw": {
-     ...
-    }
-  }
-  ```
