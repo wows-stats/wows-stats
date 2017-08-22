@@ -7,10 +7,12 @@ body {
 background-color: #393E46;
 color: #EEEEEE;
 font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Noto Sans Japanese', 'Hiragino Sans', 'メイリオ', Meiryo, 'Hiragino Kaku Gothic ProN',  'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+font-size: 14px;
 }
 
 a, a:hover, a:visited {
 color: #DE703C;
+text-decoration: none;
 }
 
 h1, h2, h3 ,h4 {
@@ -19,24 +21,27 @@ text-align: center;
 
 prtype_tbl {
 display: table;
-max-width: 1330px;
+width: 100%;
 text-align: center;
+box-sizing: border-box;
 }
 
-prtype_tbl .header {
-display: table-cell;
-width: 1325px;
-height: 44px;
-margin: 4px 0px 4px 0px;
-text-align: left;
+.header {
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: center;
+align-items: center;
+height: 38px;
+width: 1320px;
+padding: 0px 2px 0px 2px;
+margin-left: 2px;
 background-color: #393E46 !important;
 }
 
 .logo {
-float: left;
-margin-left: 20px;
 margin-right: 6px;
-margin-top: 6px;
+margin-top: 1px;
 vertical-align: middle;
 }
 
@@ -45,48 +50,40 @@ border: none;
 }
 
 .label{
-float: left;
 vertical-align: bottom;
 text-align: center;
-margin-top: 8px;
 margin-left: 2px;
-margin-bottom: 2px;
-padding: 4px 5px 5px 6px;
+padding: 2px 6px 0px 6px;
 background-color: #505050;
 border: 2px outset #e0f0f0;
 color: #ffffff;
-font-size: 11pt;
+font-size: 16px;
 white-space: nowrap;
 font-weight: normal;
 }
 
 .status {
-float: left;
-width: auto;
 padding: 2px 4px 2px 4px;
-margin: 7px 0px 0px 10px;
+margin-left: 10px;
 vertical-align: bottom;
 font-weight: normal;
 color: #ffffff;
-font-size: 11pt;
+font-size: 16px;
 text-align: center;
 border: 1px solid #40ff20;
 }
 
 .buttonset {
-float: right;
-text-align: center;
-margin-top: 8px;
-margin-right: 20px;
+margin-left: auto;
+text-align: right;
 }
 
 .header:after {
 content: '';
-display: table;
 clear: both;
 }
 
-.ss_button{
+.ss_button {
 -moz-box-shadow:inset 0px -3px 7px 0px #29bbff;
 -webkit-box-shadow:inset 0px -3px 7px 0px #29bbff;
 box-shadow:inset 0px -3px 7px 0px #29bbff;
@@ -124,48 +121,58 @@ background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0688fa', endColorstr='#2dabf9',GradientType=0);
 background-color:#0688fa;
 }
+
 .ss_button:active {
 position:relative;
 top:1px;
 }
 
-prtype_tbl .list {
-display: table-cell;
-width: 1325px;
+.list {
+display: flex;
+flex-direction: column;
+flex-wrap: nowrap;
+justify-content: center;
+align-items: center;
 }
 
 .list1 {
-margin: 2px auto;
+margin-top: 2px;
 border-width: 3px 2px;
 border-style: solid;
 border-color: #38c38c;
+border-collapse: collapse;
 }
 
 .list2 {
-margin: 2px auto;
+margin-top: 2px;
 border-width: 3px 2px;
 border-style: solid;
 border-color: #DE703C;
+border-collapse: collapse;
 }
 
-th{
+th {
 text-align:center;
-padding: 2px 3px 1px 3px;
+padding: 0px 3px 0px 2px;
 background-color: #222831;
 border: 1px #808080 solid;
 color: #FBB040;
 white-space: nowrap;
 font-weight: normal;
+font-size: 14px;
+line-height: 20px;
 }
 
-td{
+td {
 border: 1px #808080 solid;
-padding: 1px 3px 0px 3px;
+padding: 0px 3px 0px 2px;
 text-align:right;
 white-space: nowrap;
+font-size: 14px;
+line-height: 20px;
 }
 
-.tdata_l{
+.tdata_l {
 text-align:left;
 }
 
@@ -176,35 +183,13 @@ margin: 0 auto;
 .hint {
 }
 
-.teamown {
-float: left;
-width: 50%;
-}
-
-.teamown li {
-float: left;
-}
-
-.teamene {
-float: left;
-width: 50%;
-}
-
-.teamene li {
-float: left;
-}
-
 .player:hover {
 box-shadow: 0px 0px 5px 0px #222831;
 }
 
 .player {
-padding: 1px 4px 1px 4px;
+padding: 0px 4px 0px 4px;
 margin: 0px;
-}
-
-.player .ship_st_def {
-	margin: 1px 0p;
 }
 
 .player .AirCarrier_bg {
@@ -263,6 +248,10 @@ color: #FFD0FF;
 font-weight: bold;
 }
 
+.player .rank {
+text-align: center;
+}
+
 .player .rank_normal {
 color: #EEEEEE;
 font-weight: normal;
@@ -282,11 +271,11 @@ background-color: #503090;
 }
 
 .highlight_owner {
-border: 3px #FFFFFF double;
+border: 2px #FFFFFF solid;
 }
 
 .highlight_others {
-border: 2px #808080 solid;
+border: 1px #808080 solid;
 }
 
 .highlight_private {
@@ -302,7 +291,7 @@ background-image: none;
 
 .player .shipclass {
 color: #FBB040;
-font-size: 11pt;
+font-size: 14px;
 white-space: nowrap;
 font-weight:normal;
 text-align: left;
@@ -311,7 +300,7 @@ text-align: left;
 .player .ship_font_6 {
 font-variant-ligatures: none;
 letter-spacing: 3px;
-font-size: 11pt;
+font-size: 14px;
 color:#eeeeee;
 font-weight:normal;
 }
@@ -319,7 +308,7 @@ font-weight:normal;
 .player .ship_font_9 {
 font-variant-ligatures: none;
 letter-spacing: normal;
-font-size: 11pt;
+font-size: 14px;
 color:#eeeeee;
 font-weight:normal;
 }
@@ -327,7 +316,7 @@ font-weight:normal;
 .player .ship_font_14 {
 font-variant-ligatures: none;
 letter-spacing: normal;
-font-size: 10pt;
+font-size: 13px;
 color:#eeeeee;
 white-space: nowrap;
 font-weight:normal;
@@ -336,7 +325,7 @@ font-weight:normal;
 .player .ship_font_20 {
 font-variant-ligatures: none;
 letter-spacing: normal;
-font-size: 9pt;
+font-size: 12px;
 color:#eeeeee;
 white-space: nowrap;
 font-weight:normal;
@@ -348,47 +337,51 @@ white-space: nowrap;
 }
 
 .player .small {
-font-size: 9pt;
+font-size: 12px;
 }
 
-prtype_tbl .footer {
-display: table-cell;
-width: 1325px;
-text-align: center;
+.footer {
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+width: 1320px;
+justify-content: center;
+align-items: center;
+padding: 1px 2px 2px 2px;
+margin-left: 2px;
 background-color: #393E46 !important;
+}
+
+.copyright {
+margin-top: 3px;
+text-align: left;
+font-size: 14px;
+}
+
+.buttonpro2 {
+margin-left: auto;
+margin-top: 4px;
+text-align: right;
+font-size: 14px;
+}
+
+.buttonitem2 {
+color: #EEEEEE
+margin-right: 15px;
+margin-top: 5px;
+}
+
+.language {
+margin-left: 15px;
+color: #000000;
+background: #F0F0F0;
+font-size: 14px;
+vertical-align: middle;
 }
 
 .footer:after {
 content: '';
-display: table;
 clear: both;
-}
-
-.copyright{
-float: left;
-margin-left : 20px;
-margin-top: 2px;
-text-align: right;
-}
-
-.buttonpro2{
-float: right;
-margin-top: 2px;
-margin-right : 20px;
-text-align: right;
-}
-
-.buttonitem2{
-color: #EEEEEE
-margin-left:10px;
-}
-
-.language {
-margin-left: 20px;
-color: #000000;
-background: #F0F0F0;
-font-size: 10pt;
-vertical-align: middle;
 }
 
 .icon {
