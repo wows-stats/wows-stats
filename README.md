@@ -42,7 +42,7 @@ If you do NOT agree, you shall NOT use this app.
   * Click on `Save`. If everything goes through, the installation page will becomes an blank page.
 
 # Usage
-1. Run `run.bat` to start the app. Or run `run_nocapture.bat` to start the app without capture functionality.
+1. Run `run.bat` to start the app on your browser. Or run `run_chrome.bat` for only Google Chrome or Vivaldi with independent window mode (without menu bar and so on). Or run `run_nocapture.bat` to start the app without capture functionality.
 2. You should see a web page open on `http://localhost:8080`, make sure only one web page to that address is open at all time.
 
 # Need cooperations
