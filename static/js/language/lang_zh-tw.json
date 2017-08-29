@@ -94,7 +94,7 @@
 			"combatPower_title": "平均傷害*K/D比率*平均經驗值*階級&艦種係數",
 			"damage": "傷害",
 			"damage_title": "平均傷害",
-			"KillDeath": "撃沈數÷死亡數",
+			"KillDeath": "撃沈/死亡",
 			"KillDeath_title": "該艦撃沈數÷該艦被撃沈數",
 			"winRate": "勝率",
 			"winRate_title": "該艦勝率",
