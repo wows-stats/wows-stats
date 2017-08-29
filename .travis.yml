@@ -1,5 +1,9 @@
-npm install
 language: node_js
 node_js:
-  - "iojs"
   - "8"
+
+before_install:
+ - "npm install -g npm"
+
+install: 
+ - npm install
