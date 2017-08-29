@@ -82,7 +82,7 @@
 	},
 	"list_label1": {
 		"name": "玩家名稱",
-		"tier": "船階",
+		"tier": "T",
 		"type": "船種",
 		"ship_name": "船艦名稱",
 		"ship_score": "該船戰績",
