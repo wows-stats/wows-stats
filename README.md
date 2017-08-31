@@ -11,7 +11,7 @@ A [XVM](http://www.modxvm.com/en/) like statistics engine for [World of Warships
 - Each player's row is colored like as xvm.
 - You can disabled showing all player's name to post the screenshot as public.
 - Support multi-language viewing by preparing translate json file.
-    (I provide JSON files to translate for Japanese, English and Russian now.)
+    (I provide JSON files to translate for Japanese, English, Chinese(zh-tw) and Russian now.)
 
 # Environment
 OS: Windows 7(32bit/64bit) or later.
@@ -42,10 +42,13 @@ If you do NOT agree, you shall NOT use this app.
   * Click on `Save`. If everything goes through, the installation page will becomes an blank page.
 
 # Usage
-1. Run `run.bat` to start the app on your browser. Or run `run_chrome.bat` for only Google Chrome or Vivaldi with independent window mode (without menu bar and so on). Or run `run_nocapture.bat` to start the app without capture functionality.
+1. Run `run.bat` to start the app on your browser. Or run `run_chrome.bat` for only Google Chrome or Vivaldi with independent window mode (without menu related bar). If you need, run `run_nocapture.bat` to start the app without capture functionality.
 2. You should see a web page open on `http://localhost:8080`, make sure only one web page to that address is open at all time.
 
-# Need cooperations
-Because of my poor linguistic ability, anyone please touch up translate text for English and Russian with editing lang_en.json/lang_ru.json file under "static/js/language/". 
-And also anyone please try to create new JSON files for the other language(Thai(th), Chinese(zh-tw) and more!) by modifying from lang_ja.json. 
+# Need cooperation
+Because of my poor linguistic ability, anyone please touch up translate text for English and Russian with editing lang_en.json/lang_ru.json file under "static/js/language/".
+And also anyone please try to create new JSON files for the other language(Thai(th), and more!) by modifying from lang_ja.json. 
 
+# Acknowledgements
+Original wows-stats [tianweiliu](https://github.com/tianweiliu/wows-stats).
+zh-tw translation support [AaronChern](https://github.com/AaronChern)
