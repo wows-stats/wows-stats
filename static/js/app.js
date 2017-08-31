@@ -1,4 +1,4 @@
-const wsp_version = '0.5.7';
+const wsp_version = '0.6.0';
 const MAX_RETRY = 5;
 
 var lang_array = [];
@@ -1025,7 +1025,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 	$scope.select = $translate.proposedLanguage();
 	$scope.captureFlag = capture_flag;
 
-	$translate(['title','numero_sign','btn_top','btn_bottom','game','map','mode','list_label1','list_label2']).then(function (translations) {
+	$translate(['title','numero_sign','btn_top','btn_bottom','game','map','mode','list_label1','list_label2','ui_label']).then(function (translations) {
 		$scope.title = translations.title;
 		$scope.numero_sign = translations.numero_sign;
 		$scope.btn_top = translations.btn_top;
@@ -1035,6 +1035,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 		$scope.mode = translations.mode;
 		$scope.list_label1 = translations.list_label1;
 		$scope.list_label2 = translations.list_label2;
+		$scope.ui_label = translations.ui_label;
 	}, function(translationIds) {
 		$scope.title = translationIds.title;
 		$scope.numero_sign = translationIds.numero_sign;
@@ -1045,6 +1046,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 		$scope.mode = translationIds.mode;
 		$scope.list_label1 = translationIds.list_label1;
 		$scope.list_label2 = translationIds.list_label2;
+		$scope.ui_label = translationIds.ui_label;
 	});
 
 	$scope.changeLanguage = function () {
@@ -1070,16 +1072,18 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 				imgFilename = "wows_" + localeFormatDate($scope.dateTime, 'file', $scope.select) + "_" + $scope.translated_gamemapname + "_" + $scope.translated_gameLogic +"_" + playerVehicle + ".png";
 			});
 
-			$translate(['list_label1', 'list_label2', 'btn_top', 'btn_bottom']).then(function (translations) {
+			$translate(['list_label1', 'list_label2', 'btn_top', 'btn_bottom', 'ui_label']).then(function (translations) {
 				$scope.list_label1 = translations.list_label1;
 				$scope.list_label2 = translations.list_label2;
 				$scope.btn_top = translations.btn_top;
 				$scope.btn_bottom = translations.btn_bottom;
+				$scope.ui_label = translations.ui_label;
 			}, function (translationId) {
 				$scope.list_label1 = translationId.list_label1;
 				$scope.list_label2 = translationId.list_label2;
 				$scope.btn_top = translationId.btn_top;
 				$scope.btn_bottom = translationId.btn_bottom;
+				$scope.ui_label = translationId.ui_label;
 			});
 
 			$scope.battleTime = localeFormatDate($scope.dateTime, 'label', $scope.select);
@@ -1181,18 +1185,21 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 							});
 						});
 						$scope.$watch('select', function(newValue, oldValue) {
-							$translate(['list_label1', 'list_label2', 'btn_top', 'btn_bottom']).then(function (translations) {
+							$translate(['list_label1', 'list_label2', 'btn_top', 'btn_bottom', 'ui_label']).then(function (translations) {
 								$scope.list_label1 = translations.list_label1;
 								$scope.list_label2 = translations.list_label2;
 								$scope.btn_top = translations.btn_top;
 								$scope.btn_bottom = translations.btn_bottom;
+								$scope.ui_label = translations.ui_label;
 							}, function (translationId) {
 								$scope.list_label1 = translationId.list_label1;
 									$scope.list_label2 = translationId.list_label2;
 								$scope.btn_top = translationId.btn_top;
 								$scope.btn_bottom = translationId.btn_bottom;
+								$scope.ui_label = translationId.ui_label;
 							});
 						});
+						console.log($scope.ui_label.display);
 						$scope.battleTime = localeFormatDate($scope.dateTime, 'label', $scope.select);
 
 						for (var key in kariload) {

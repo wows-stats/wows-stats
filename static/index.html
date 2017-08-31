@@ -12,6 +12,7 @@
 		});
 	</script>
 	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/modalwindow.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-cookies.min.js"></script>
@@ -25,13 +26,14 @@
 <!--	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>	-->
 	<script src="https://github.com/niklasvh/html2canvas/releases/download/0.5.0-alpha1/html2canvas.js"></script>
 	<script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="js/modalwindow.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript">
 	(function($) {
-		var preloadImages = ['AU.png','BB.png','CA.png','CV.png','CW.png','DD.png','DE.png','ES.png','FR.png','IT.png','JP.png','NL.png','other.png','PA.png','PL.png','SU.png','UK.png','US.png','wows_logo_small.png','pattern.png'];
+		var preloadImages = ['AU.png','BB.png','CA.png','CV.png','CW.png','DD.png','DE.png','ES.png','FR.png','IT.png','JP.png','NL.png','other.png','PA.png','PL.png','SU.png','UK.png','US.png','wows_logo_small.png','pattern.png','arrow.png'];
 
 		for (var i=0; i<preloadImages.length; i++) {
-			(new Image()).src = 'images/' + preloadImages[i];;
+			(new Image()).src = '/images/' + preloadImages[i];
 		}
 	})(jQuery);
 	</script>
@@ -163,23 +165,122 @@
 				</table>
 			</div>
 			<div class="footer" ng-show="players.length>0">
-				<div class="copyright">wows-stats-plus {{ version }} &nbsp;&nbsp; Powered by <a href="https://github.com/tianweiliu/wows-stats" id="footerurl" target="_blank">wows-stats</a> (original) &nbsp;&nbsp; modified by <a href="https://moon-light-oasis.net/" id="footerurl" target="_blank">AnMoreNight</a></div>
+				<div class="copyright">wows-stats-plus {{ version }} &nbsp;&nbsp; Powered by <a href="https://github.com/tianweiliu/wows-stats" id="footerurl" target="_blank">wows-stats</a>&nbsp;&nbsp;modified by <a href="https://moon-light-oasis.net/" id="footerurl" target="_blank">AnMoreNight</a></div>
 				<div class="buttonpro2">
 					<span translate>{{'btn_bottom.label_visible'}}</span>&nbsp;
 					<input type="checkbox" class="buttonitem2" name="idhi" value="id_pr10" onclick="idhide(this.checked)"> {{'btn_bottom.hide' | translate}}</input>
 					<span translate style="margin-left:30px;">{{'btn_bottom.label_notation'}}</span>&nbsp;
 					<input type="radio" class="buttonitem2" name="knp" value="nm_sw0" onclick="shipname_ex(0)" > {{'btn_bottom.original' | translate}}</input>&nbsp;
 					<input type="radio" class="buttonitem2" name="knp" value="nm_sw1" onclick="shipname_ex(1)"> {{'btn_bottom.translated' | translate}}</input>
-					<select size="1" name="lang_select" class="language" ng-model="select" ng-change="changeLanguage()">
-						<option value="{{option.value}}" ng-repeat="option in options">{{option.label}}</option>
-					</select>
+					<div class="menu">
+						<label>
+							<select size="1" name="lang_select" class="language" ng-model="select" ng-change="changeLanguage()">
+								<option value="{{option.value}}" ng-repeat="option in options">{{option.label}}</option>
+							</select>
+						</label>
+					</div>
 				</div>
+				<div class="buttonset2"><input type="button" class="setting_button" data-openmodal="modalWindow" value="{{'btn_bottom.settings' | translate}}" /></div>
 			</div>
 		</div>
+
+	    <div id="modalWindow" class="modalwindow no_overlay_close" ng-show="players.length>0">
+    	    <div class="body">
+        	    <div class="modal_content">
+
+				<table class="setting_list">
+					<thead>
+						<tr>
+							<th style="width: 260px;">{{'list_label1.ship_score' | translate}}</th>
+							<th style="width: 30px;">{{'ui_label.display' | translate}} <input type="checkbox" name="item" value="all" /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{'list_label2.ship.combatPower' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_01" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.ship.damage' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_02" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.ship.KillDeath' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_03" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.ship.winRate' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_04" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.ship.survival' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_05" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.ship.sinking' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_05" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.ship.shootDown' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_06" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.ship.exp' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_07" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.ship.numBattle' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_08" /></td>
+						</tr>
+					</tbody>
+					<thead>
+						<tr>
+							<th style="width: 260px;">{{'list_label1.player_score' | translate}}</th>
+							<th style="width: 30px;">{{'ui_label.display' | translate}} <input type="checkbox" name="item" value="all" /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{'list_label2.player.rank' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_01" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.player.winRate' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_04" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.player.damage' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_02" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.player.KillDeath' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_03" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.player.exp' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_07" /></td>
+						</tr>
+						<tr>
+							<td>{{'list_label2.player.numBattle' | translate}}</td>
+							<td style="width: 30px;"><input type="checkbox" name="items" value="item_08" /></td>
+						</tr>
+					</tbody>
+				</table>
+
+	            </div>
+    	        <footer style="text-align:center">
+        	        <button data-closemodal="modalWindow" class="close_modal">{{'ui_label.apply' | translate}}</button>&nbsp;
+        	        <button data-closemodal="modalWindow" class="close_modal">{{'ui_label.cancel' | translate}}</button>
+            	</footer>
+	        </div>
+    	</div>
+
 	</div>
 </div>
+
 <script type="text/javascript">
 	InitViewMode();
 </script>
+
 </body>
 </html>
