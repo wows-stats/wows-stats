@@ -18,7 +18,8 @@
 		"original": "Original",
 		"translated": "Translated",
 		"label_visible": "Display player name",
-		"hide": "Hide"
+		"hide": "Hide",
+		"settings": "Column settings"
 	},
 	"game": {
 		"end_status": "Finished"
@@ -98,6 +99,8 @@
 			"KillDeath_title": "Rate of Kill/Death",
 			"winRate": "WinRate",
 			"winRate_title": "Rate of win",
+			"survival": "Survival",
+			"survival_title": "Rate of survival",
 			"sinking": "Sink",
 			"sinking_title": "Av. sinking",
 			"shootDown": "Down",
@@ -121,5 +124,10 @@
 			"numBattle": "Battle",
 			"numBattle_title": "Number of total battle"
 		}
+	},
+	"ui_label": {
+		"display": "Display",
+		"apply": "Apply",
+		"cancel": "Cancel"
 	}
 }

@@ -18,7 +18,8 @@
 		"original": "Оригинал",
 		"translated": "Перевод",
 		"label_visible": "Имя игрока",
-		"hide": "Спрятать"
+		"hide": "Спрятать",
+		"settings": "Настройки столбца"
 	},
 	"game": {
 		"end_status": "Законченный"
@@ -97,6 +98,8 @@
 			"KillDeath_title": "Скорость Убийство/Смерть",
 			"winRate": "Выиграть",
 			"winRate_title": "Ставка выигрыша",
+			"survival": "Выживание",
+			"survival_title": "Уровень выживания",
 			"sinking": "Тонущий",
 			"sinking_title": "Среднее значение снижения",
 			"shootDown": "Застрелить",
@@ -120,5 +123,10 @@
 			"numBattle": "Боевой",
 			"numBattle_title": "Количество битв"
 		}
+	},
+	"ui_label": {
+		"display": "дисплей",
+		"apply": "подать заявление",
+		"cancel": "Отмена"
 	}
 }
