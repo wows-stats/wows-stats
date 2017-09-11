@@ -100,7 +100,7 @@
 			"winRate": "勝率",
 			"winRate_title": "該艦勝率",
 			"survival": "存活率",
-			"survival_title": "該艦存活率",
+			"survival_title": "該艦存活率(勝利|敗)",
 			"sinking": "撃沈",
 			"sinking_title": "平均撃沈數",
 			"shootDown": "撃墜",
