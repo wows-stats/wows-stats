@@ -63,11 +63,15 @@
 		"Shinonome": "東雲",
 		"Tachibana Lima": "橘 Lima",
 		"Anshan": "鞍山",
-		"Lo Yang": "洛陽"
-	},
-	"zh": {
-		"Anshan": "鞍山",
-		"Lo Yang": "洛阳"
+		"Lo Yang": "洛陽",
+		"Fu Shun": "撫順",
+		"Long Jiang": "龍江",
+		"Shen Yang": "瀋陽",
+		"Jian Wei": "建威",
+		"Hsiang Yang": "襄陽",
+		"Chung Mu": "忠武",
+		"Hsien Yang": "咸陽"
+
 	},
 	"ru": {
 		"Orlan": "Орлан",
@@ -169,6 +173,13 @@
 		"Shinonome": "東雲",
 		"Tachibana Lima": "橘 L",
 		"Anshan": "鞍山",
-		"Lo Yang": "洛陽"
+		"Lo Yang": "洛陽",
+		"Fu Shun": "撫順",
+		"Long Jiang": "龍江",
+		"Shen Yang": "沉陽",
+		"Jian Wei": "建威",
+		"Hsiang Yang": "襄陽",
+		"Chung Mu": "忠武",
+		"Hsien Yang": "咸陽"
 	}
 }
