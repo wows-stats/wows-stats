@@ -33,7 +33,7 @@ flex-wrap: nowrap;
 justify-content: center;
 align-items: center;
 height: 38px;
-width: 1320px;
+width: 1450px;
 padding: 0px 2px 0px 2px;
 margin-left: 2px;
 background-color: #393E46 !important;
@@ -73,17 +73,38 @@ text-align: center;
 border: 1px solid #40ff20;
 }
 
-.buttonset {
-margin-left: auto;
-text-align: right;
-}
-
 .header:after {
 content: '';
 clear: both;
 }
 
+.buttonset {
+margin-left: auto;
+display: inline-block;
+text-align: right;
+margin-top: 4px;
+}
+
+.buttonset label {
+position: relative;
+}
+
+.buttonset label:after {
+display: inline-block;
+position: absolute;
+content: "";
+width: 21px;
+top: 50%;
+right: 4px;
+height: 18px;
+background: url("/images/camera.png") 0 0 no-repeat;
+background-size: 18px;
+margin-top: -6px;
+pointer-events: none;
+}
+
 .ss_button {
+position: relative;
 -moz-box-shadow:inset 0px -3px 7px 0px #29bbff;
 -webkit-box-shadow:inset 0px -3px 7px 0px #29bbff;
 box-shadow:inset 0px -3px 7px 0px #29bbff;
@@ -102,7 +123,7 @@ border:1px solid #0b0e07;
 cursor:pointer;
 color:#ffffff;
 font-size:14px;
-padding:2px 10px;
+padding: 3px 29px 3px 10px;
 text-decoration:none;
 text-shadow:0px 1px 0px #263666;
 margin-left: 8px;
@@ -247,6 +268,39 @@ color: #FFD0FF;
 font-weight: bold;
 }
 
+
+.player .wtr {
+color: #FFFFFF;
+}
+.player .verybad_bg {
+background-color: #930D0D;
+}
+.player .bad_bg {
+background-color: #CD3333;
+}
+.player .belowaverage_bg {
+background-color: #CC7A00;
+}
+.player .average_bg {
+background-color: #CCB800;
+}
+.player .good_bg {
+background-color: #4D7326;
+}
+.player .verygood_bg {
+background-color: #4099BF;
+}
+.player .great_bg {
+background-color: #3972C6;
+}
+.player .unicum_bg {
+background-color: #793DB6;
+}
+.player .superunicum_bg {
+background-color: #401070;
+}
+
+
 .player .rank {
 text-align: center;
 }
@@ -343,7 +397,7 @@ font-size: 12px;
 display: flex;
 flex-direction: row;
 flex-wrap: nowrap;
-width: 1320px;
+width: 1450px;
 justify-content: center;
 align-items: center;
 padding: 1px 2px 2px 2px;
@@ -416,13 +470,33 @@ text-decoration:none;
 background-color:#ffd28a;
 }
 
-.buttonset2 {
+.setting {
+display: inline-block;
 margin-left: 8px;
 margin-top: 4px;
 text-align: right;
 }
 
+.setting label {
+position: relative;
+}
+
+.setting label:after {
+display: inline-block;
+position: absolute;
+content: "";
+width: 18px;
+top: 50%;
+right: 6px;
+height: 18px;
+background: url("/images/setting.png") 0 0 no-repeat;
+background-size: 18px;
+margin-top: -9px;
+pointer-events: none;
+}
+
 .setting_button {
+position: relative;
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffd28a), color-stop(1, #d68000));
 	background:-moz-linear-gradient(top, #ffd28a 5%, #d68000 100%);
 	background:-webkit-linear-gradient(top, #ffd28a 5%, #d68000 100%);
@@ -439,7 +513,7 @@ text-align: right;
 	cursor:pointer;
 	color:#0f1b1d;
 	font-size:14px;
-	padding: 3px 6px;
+	padding: 3px 26px 3px 6px;
 	text-decoration:none;
 	margin-left: 1px;
 	vertical-align: middle;
