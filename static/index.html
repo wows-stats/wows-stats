@@ -13,10 +13,12 @@
 	</script>
 	<link rel="stylesheet" href="css/app.css">
 	<link rel="stylesheet" href="css/modalwindow.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-cookies.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-sanitize.js"></script>
+    <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.15.0/angular-translate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-storage-cookie/2.15.0/angular-translate-storage-cookie.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-storage-local/2.15.0/angular-translate-storage-local.min.js"></script>
@@ -30,7 +32,7 @@
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript">
 	(function($) {
-		var preloadImages = ['AU.png','BB.png','CA.png','CV.png','CW.png','DD.png','DE.png','ES.png','FR.png','IT.png','JP.png','NL.png','other.png','PA.png','PL.png','SU.png','UK.png','US.png','wows_logo_small.png','pattern.png','arrow.png'];
+		var preloadImages = ['AU.png','BB.png','CA.png','CV.png','CW.png','DD.png','DE.png','ES.png','FR.png','IT.png','JP.png','NL.png','other.png','PA.png','PL.png','SU.png','UK.png','US.png','wows_logo_small.png','pattern.png','arrow.png','setting.png','camera.png'];
 
 		for (var i=0; i<preloadImages.length; i++) {
 			(new Image()).src = '/images/' + preloadImages[i];
@@ -46,25 +48,32 @@
 				<div class="logo" ng-show="players.length>0"><img class="logo_image" src="images/wows_logo_small.png" /></div>
 				<div class="label" id="title" ng-show="players.length>0">{{ battleTime }}〔{{'numero_sign' | translate}} {{ data.mapId }}〕{{ translated_gamemapname }}{{ translated_gameLogic }}<span class="hint" ng-hide="inGame">: {{'game.end_status' | translate}}</span></div>
 				<div class="status" ng-hide="inGame">{{'title.game_status'| translate}} {{'title.game_waiting'| translate}}</div>
-				<div class="buttonset" ng-show="players.length>0"><span ng-if="captureFlag"><input type="button" class="ss_button" id="ss" onclick="prepare_ss('#prtype_tbl')" value="{{'btn_top.Screenshot' | translate}}" /></span></div>
+				<div class="buttonset" ng-show="players.length>0">
+					<span ng-if="captureFlag">
+						<label>
+							<input type="button" class="ss_button" id="ss" onclick="prepare_ss('#prtype_tbl')" value="{{'btn_top.Screenshot' | translate}}" />
+						</label>
+					</span>
+				</div>
 			</div>
 			<div class="list" ng-show="players.length>0">
 				<table class="list1">
 					<thead>
 						<tr>
-							<th rowspan="2" style="width: 260px;">{{'list_label1.name' | translate}}</th>
+							<th rowspan="2" style="width: 220px;">{{'list_label1.name' | translate}}</th>
 							<th rowspan="2" style="width: 25px;">{{'list_label1.tier' | translate}}</th>
-							<th rowspan="2" style="width: 54px;">{{'list_label1.type' | translate}}</th>
-							<th rowspan="2" style="width: 144px;">{{'list_label1.ship_name' | translate}}</th>
-							<th colspan="8">{{'list_label1.ship_score' | translate}}</th>
-							<th colspan="6">{{'list_label1.player_score' | translate}}</th>
+							<th rowspan="2" style="width: 50px;">{{'list_label1.type' | translate}}</th>
+							<th rowspan="2" style="width: 145px;">{{'list_label1.ship_name' | translate}}</th>
+							<th colspan="9">{{'list_label1.ship_score' | translate}}</th>
+							<th colspan="4">{{'list_label1.player_score' | translate}}</th>
 						</tr>
 						<tr>
-							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:92px;">{{'list_label2.ship.combatPower' | translate}}</th>
+							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:90px;">{{'list_label2.ship.combatPower' | translate}}</th>
 							<th title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:55px;">{{'list_label2.ship.KillDeath' | translate}}</th>
 							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:75px;">{{'list_label2.ship.winRate' | translate}}</th>
-							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:60px;">{{'list_label2.ship.sinking' | translate}}</th>
+							<th title="{{'list_label2.ship.survival_title' | translate}}" style="width:90px;">{{'list_label2.ship.survival' | translate}}</th>
+							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:75px;">{{'list_label2.ship.sinking' | translate}}</th>
 							<th title="{{'list_label2.ship.shootDown_title' | translate}}" style="width:60px;">{{'list_label2.ship.shootDown' | translate}}</th>
 							<th title="{{'list_label2.ship.exp_title' | translate}}" style="width:60px;">{{'list_label2.ship.exp' | translate}}</th>
 							<th title="{{'list_label2.ship.numBattle_title' | translate}}"style="width:60px;">{{'list_label2.ship.numBattle' | translate}}</th>
@@ -91,6 +100,7 @@
 							<td><span ng-hide="value.ship.err">{{value.ship.avgDmg}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.kdRatio}}</span></td>
 							<td><span class="{{value.ship.winRateClass}}" ng-hide="value.ship.err">{{value.ship.winRate}}</span></td>
+							<td><span ng-hide="value.ship.err">{{value.ship.svrate}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.shfl}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.ftfl}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.avgExp}}</span></td>
@@ -109,19 +119,20 @@
 				<table class="list2">
 					<thead>
 						<tr>
-							<th rowspan="2" style="width: 260px;">{{'list_label1.name' | translate}}</th>
+							<th rowspan="2" style="width: 220px;">{{'list_label1.name' | translate}}</th>
 							<th rowspan="2" style="width: 25px;">{{'list_label1.tier' | translate}}</th>
-							<th rowspan="2" style="width: 54px;">{{'list_label1.type' | translate}}</th>
-							<th rowspan="2" style="width: 144px;">{{'list_label1.ship_name' | translate}}</th>
-							<th colspan="8">{{'list_label1.ship_score' | translate}}</th>
-							<th colspan="6">{{'list_label1.player_score' | translate}}</th>
+							<th rowspan="2" style="width: 50px;">{{'list_label1.type' | translate}}</th>
+							<th rowspan="2" style="width: 145px;">{{'list_label1.ship_name' | translate}}</th>
+							<th colspan="9">{{'list_label1.ship_score' | translate}}</th>
+							<th colspan="4">{{'list_label1.player_score' | translate}}</th>
 						</tr>
 						<tr>
-							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:92px;">{{'list_label2.ship.combatPower' | translate}}</th>
+							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:90px;">{{'list_label2.ship.combatPower' | translate}}</th>
 							<th title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:55px;">{{'list_label2.ship.KillDeath' | translate}}</th>
 							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:75px;">{{'list_label2.ship.winRate' | translate}}</th>
-							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:60px;">{{'list_label2.ship.sinking' | translate}}</th>
+							<th title="{{'list_label2.ship.survival_title' | translate}}" style="width:90px;">{{'list_label2.ship.survival' | translate}}</th>
+							<th title="{{'list_label2.ship.sinking_title' | translate}}" style="width:75px;">{{'list_label2.ship.sinking' | translate}}</th>
 							<th title="{{'list_label2.ship.shootDown_title' | translate}}" style="width:60px;">{{'list_label2.ship.shootDown' | translate}}</th>
 							<th title="{{'list_label2.ship.exp_title' | translate}}" style="width:60px;">{{'list_label2.ship.exp' | translate}}</th>
 							<th title="{{'list_label2.ship.numBattle_title' | translate}}"style="width:60px;">{{'list_label2.ship.numBattle' | translate}}</th>
@@ -148,6 +159,7 @@
 							<td><span ng-hide="value.ship.err">{{value.ship.avgDmg}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.kdRatio}}</span></td>
 							<td><span class="{{value.ship.winRateClass}}" ng-hide="value.ship.err">{{value.ship.winRate}}</span></td>
+							<td><span ng-hide="value.ship.err">{{value.ship.svrate}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.shfl}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.ftfl}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.avgExp}}</span></td>
@@ -180,7 +192,11 @@
 						</label>
 					</div>
 				</div>
-				<div class="buttonset2"><input type="button" class="setting_button" data-openmodal="modalWindow" value="{{'btn_bottom.settings' | translate}}" /></div>
+				<div class="setting">
+					<label>
+						<input type="button" class="setting_button" data-openmodal="modalWindow" value="{{'btn_bottom.settings' | translate}}" />
+					</label>
+				</div>
 			</div>
 		</div>
 
