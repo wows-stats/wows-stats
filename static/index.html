@@ -58,11 +58,12 @@
 							<th rowspan="2" style="width: 25px;">{{'list_label1.tier' | translate}}</th>
 							<th rowspan="2" style="width: 50px;">{{'list_label1.type' | translate}}</th>
 							<th rowspan="2" style="width: 145px;">{{'list_label1.ship_name' | translate}}</th>
-							<th colspan="9">{{'list_label1.ship_score' | translate}}</th>
+							<th colspan="10">{{'list_label1.ship_score' | translate}}</th>
 							<th colspan="4">{{'list_label1.player_score' | translate}}</th>
 						</tr>
 						<tr>
 							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:90px;">{{'list_label2.ship.combatPower' | translate}}</th>
+							<th title="{{'list_label2.ship.WTR_title' | translate}}" style="width:55px;">{{'list_label2.ship.WTR' | translate}}</th>
 							<th title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:55px;">{{'list_label2.ship.KillDeath' | translate}}</th>
 							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:75px;">{{'list_label2.ship.winRate' | translate}}</th>
@@ -91,6 +92,7 @@
 								<span class="shipclass {{value.ship.namefont_trans}}" name="shipname_trans">{{value.ship.name_trans}}</span><span class="shipclass {{value.ship.namefont}}" name="shipname_eng" style ="display:none;">{{value.ship.name}}</span><span class="key {{value.ship.namefont}}">{{value.ship.shipkakin}}</span>
 							</td>
 							<td><span class="{{value.ship.combatPowerClass}}" ng-hide="value.ship.err">{{value.ship.combatPower}}</span></td>
+							<td class="{{value.ship.WTRClass}}"><span ng-hide="value.ship.err">{{value.ship.WTR}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.avgDmg}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.kdRatio}}</span></td>
 							<td><span class="{{value.ship.winRateClass}}" ng-hide="value.ship.err">{{value.ship.winRate}}</span></td>
@@ -122,6 +124,7 @@
 						</tr>
 						<tr>
 							<th title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:90px;">{{'list_label2.ship.combatPower' | translate}}</th>
+							<th title="{{'list_label2.ship.WTR_title' | translate}}" style="width:55px;">{{'list_label2.ship.WTR' | translate}}</th>
 							<th title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:55px;">{{'list_label2.ship.KillDeath' | translate}}</th>
 							<th title="{{'list_label2.ship.winRate_title' | translate}}" style="width:75px;">{{'list_label2.ship.winRate' | translate}}</th>
@@ -150,6 +153,7 @@
 								<span class="shipclass {{value.ship.namefont_trans}}" name="shipname_trans">{{value.ship.name_trans}}</span><span class="shipclass {{value.ship.namefont}}" name="shipname_eng" style ="display:none;">{{value.ship.name}}</span><span class="key {{value.ship.namefont}}">{{value.ship.shipkakin}}</span>
 							</td>
 							<td><span class="{{value.ship.combatPowerClass}}" ng-hide="value.ship.err">{{value.ship.combatPower}}</span></td>
+							<td class="{{value.ship.WTRClass}}"><span ng-hide="value.ship.err">{{value.ship.WTR}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.avgDmg}}</span></td>
 							<td><span ng-hide="value.ship.err">{{value.ship.kdRatio}}</span></td>
 							<td><span class="{{value.ship.winRateClass}}" ng-hide="value.ship.err">{{value.ship.winRate}}</span></td>
