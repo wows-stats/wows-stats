@@ -98,6 +98,8 @@
 			"KillDeath_title": "Скорость Убийство/Смерть",
 			"winRate": "Выиграть",
 			"winRate_title": "Ставка выигрыша",
+			"WTR": "WTR",
+			"WTR_title": "WTR(WarshipsToday Рейтинг)",
 			"survival": "Выживание",
 			"survival_title": "Уровень выживания(Победа|Поражение)",
 			"sinking": "Тонущий",

@@ -99,6 +99,8 @@
 			"KillDeath_title": "艦別撃沈数÷艦別被撃沈数",
 			"winRate": "勝率",
 			"winRate_title": "艦別勝率",
+			"WTR": "WTR",
+			"WTR_title": "WTR(WarshipsToday Rating)",
 			"survival": "生存率",
 			"survival_title": "艦別生存率(勝利|敗北)",
 			"sinking": "撃沈",
