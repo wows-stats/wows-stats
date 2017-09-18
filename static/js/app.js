@@ -1,14 +1,72 @@
 const wsp_version = '0.6.0';
 const MAX_RETRY = 5;
 
+// include WTR rating calculation
+var calculateWarshipsTodayRating = function(expected, actual) {
+	var wins = actual.wins / expected.wins;
+	var damage_dealt = actual.damage_dealt / expected.damage_dealt;
+	var ship_frags = actual.frags / expected.frags;
+	var capture_points = actual.capture_points / expected.capture_points;
+	var dropped_capture_points = actual.dropped_capture_points / expected.dropped_capture_points;
+	var planes_killed = actual.planes_killed / expected.planes_killed;
+	var ship_frags_importance_weight = 10;
+	var frags = 1.0;
+
+	// fallback to avoid division by zero
+	if (expected.planes_killed + expected.frags > 0) {
+		// this should be happening virtually always
+		var aircraft_frags_coef = expected.planes_killed / (expected.planes_killed + ship_frags_importance_weight * expected.frags);
+		var ship_frags_coef = 1 - aircraft_frags_coef;
+		if (aircraft_frags_coef == 1) {
+			frags = planes_killed
+		} else if (ship_frags_coef == 1) {
+			frags = ship_frags;
+		} else {
+			frags = ship_frags * ship_frags_coef + planes_killed * aircraft_frags_coef;
+		}
+	}
+
+//	var average_level = actual.tier_points / actual.battles;
+	var average_level = 7.5;
+	var wins_weight = 0.2;
+	var damage_weight = 0.5;
+	var frags_weight = 0.3;
+	var capture_weight = 0.0;
+	var dropped_capture_weight = 0.0;
+
+	var fixNaN = function(value) {
+		if (isNaN(value)) {
+			return 0;
+		} else {
+			return value;
+		}
+	};
+
+	var wtr = fixNaN(wins) * wins_weight + fixNaN(damage_dealt) * damage_weight + fixNaN(frags) * frags_weight + fixNaN(capture_points) * capture_weight + fixNaN(dropped_capture_points) * dropped_capture_weight;
+	var nominal_rating = 1000.0;
+
+	var adjust = function(value, average_level, base) {
+		var neutral_level = 7.5;
+		var per_level_bonus = 0.1;
+		var adjusted_base = Math.min(value, base);
+		var for_adjusting = Math.max(0, value - base);
+		var coef = 1 + (average_level - neutral_level) * per_level_bonus;
+		return adjusted_base + for_adjusting * coef;
+	};
+
+	return adjust(wtr * nominal_rating, average_level, nominal_rating);
+};
+
 var lang_array = [];
 var nameConvert_array = [];
+var coefficientsList = {};
 var ship_info = {};
 var clanTagList = {};
 var ownerName = '';
 var ready_lang = false;
 var ready_shipinfo = false;
 var ready_shipTable = false;
+var ready_coefficients = false;
 var images_pre = 'images/';
 var images_prefix = '.png';
 var capture_flag = true;
@@ -46,9 +104,7 @@ function get_shipnameConvertTable() {
 		$.getJSON('js/language/shipname.json', function(data) {
 			if (data.status = 'ok') {
 //				console.log(data);
-//				for (var i in data) {
-					nameConvert_array = data;
-//				}
+				nameConvert_array = data;
 //				console.log(nameConvert_array);
 //				console.log('Success get shipname convert table');
 				resolve();
@@ -65,6 +121,31 @@ function get_shipnameConvertTable() {
 	});
 }
 
+function get_WTRcoefficientsShipList() {
+//	console.log('Enter get_WTRcoefficientsShipList');
+
+	var sync_getCoefficientsShipList = new Promise (function (resolve, reject) {
+		$.getJSON('js/coefficients.json', function(data) {
+			if (data.status = 'ok') {
+//				console.log(data);
+				coefficientsList = data.expected;
+//				console.log(coefficientsList);
+//				console.log('Success get coefficients list');
+				resolve();
+			} else {
+//				console.log('Fail get coefficients list %s', data.status);
+				reject();
+			}
+		});
+	});
+
+	sync_getCoefficientsShipList.then ( function () {
+//		console.log('Exit get_WTRcoefficientsShipList with success');
+		ready_coefficients = true;
+	});
+}
+
+get_WTRcoefficientsShipList();
 var api_url = '';
 var api_key = '';
 
@@ -72,7 +153,7 @@ function get_shipinfo(idArray) {
 //	console.log('Enter get_shipinfo');
 
 	var sync_getenv = new Promise (function (resolve, reject) {
-		$.getJSON('http://localhost:8080/api/env', function(data) {
+		$.getJSON('/api/env', function(data) {
 			if (data.status = 'ok') {
 //				console.log(data);
 				api_url = data.API_URL;
@@ -771,6 +852,44 @@ api.b_beautify = function(type, value) {
 	}
 }
 
+api.w_beautify = function(type, value) {
+	// colorization for WTR
+	switch(type) {
+		case "WTR":
+			if	(value < 300) {
+				return 'verybad_bg';
+			}
+			else if(value < 700) {
+				return 'bad_bg';
+			}
+			else if(value < 900) {
+				return 'belowaverage_bg';
+			}
+			else if(value < 1000) {
+				return 'average_bg';
+			}
+			else if(value < 1100) {
+				return 'good_bg';
+			}
+			else if(value < 1200) {
+				return 'verygood_bg';
+			}
+			else if(value < 1400) {
+				return 'great_bg';
+			}
+			else if(value < 1800) {
+				return 'unicum_bg';
+			}
+			else {
+				return 'superunicum_bg';
+			}
+			break;
+		default:
+			return null;
+			break;
+	}
+}
+
 api.rank_beautify = function(type, value) {
 	switch(type) {
 		case "rank":
@@ -825,7 +944,7 @@ api.player = function(player) {
 		if (reg.test(player.name) == false) {
 			$http({
 				method:'GET',
-				url: 'http://localhost:8080/api/player?name=' + encodeURIComponent(player.name)
+				url: '/api/player?name=' + encodeURIComponent(player.name)
 			}).success(function(data, status) {
 				angular.extend(player, data);
 				player.uri = getPlayerInfoURL() + player.id + '-' + encodeURIComponent(player.name);
@@ -866,7 +985,7 @@ api.ship = function(player) {
 	return $q(function(resolve, reject) {
 		$http({
 			method:'GET',
-			url: 'http://localhost:8080/api/ship?playerId=' + player.id + '&shipId=' + player.shipId
+			url: '/api/ship?playerId=' + player.id + '&shipId=' + player.shipId
 		}).success(function(data, status) {
 			var battles = parseInt(data.battles);
 			var victories = parseInt(data.victories);
@@ -875,8 +994,8 @@ api.ship = function(player) {
 			var kill = parseInt(data.destroyed);
 			var death = battles - survived;
 			var kakin = "";
-			var svrate= "";
-			var svgeta= "";
+			var svrate = "";
+			var wtr = "";
 			if (death == 0 && kill > 0) {
 				kdRatio ="∞";
 				combatPower = "∞";
@@ -903,29 +1022,62 @@ api.ship = function(player) {
 			if (data.noRecord !=  true) {
 				var atkavg = (parseInt(data.destroyed)/ battles).toFixed(1);
 				var sdkavg =  (parseInt(data.raw.pvp.planes_killed)/ battles).toFixed(1);
+
 				if (parseInt(data.raw.pvp.main_battery.shots) != 0){
 					var hitm = (parseInt(data.raw.pvp.main_battery.hits) / parseInt(data.raw.pvp.main_battery.shots)*100).toFixed(1);
 				}
 				else{
 					var hitm = "－";
 				}
+
 				if (parseInt(data.raw.pvp.torpedoes.shots) != 0){
 					var hitt = (parseInt("0"+data.raw.pvp.torpedoes.hits) / parseInt("0"+data.raw.pvp.torpedoes.shots)*100).toFixed(1);
 				}
 				else{
 					var hitt = "－";
 				}
-				if ( parseInt(data.victories) >10 && (parseInt(data.battles) - parseInt(data.victories)) >10 ){
-					var svwin=((parseInt(data.raw.pvp.survived_wins)/parseInt(data.victories))*100).toFixed(0);
-					var svlose=(((parseInt(data.raw.pvp.survived_battles)-parseInt(data.raw.pvp.survived_wins))/(parseInt(data.battles) - parseInt(data.victories)))*100).toFixed(0);
-					if (parseInt(svlose)<10){
-						svgeta = " ";
-					}else{
-						svgeta = "";
+
+				if (parseInt(data.victories) >1 && (parseInt(data.battles) - parseInt(data.victories)) >1){
+					var svwin;
+					var svlose;
+					if (parseInt(data.raw.pvp.survived_wins) == 0) {
+						svwin = "－";
+					} else {
+						svwin = ((parseInt(data.raw.pvp.survived_wins))*100/parseInt(data.raw.pvp.wins)).toFixed(0) + "%";
 					}
-					svrate = svwin + "-" + svgeta + svlose;
+					if ((parseInt(data.raw.pvp.battles)-(parseInt(data.raw.pvp.wins))) == 0) {
+						svlose = "－";
+					} else {
+						svlose = (((parseInt(data.raw.pvp.survived_battles))-(parseInt(data.raw.pvp.survived_wins)))*100/((parseInt(data.raw.pvp.battles))-(parseInt(data.raw.pvp.wins)))).toFixed(0) + "%";
+					}
+					svrate = svwin + " | " + svlose;
 				}else{
 					svrate = "－";
+				}
+
+				// WTR(WarshipsToday Rating)
+				var expected = {};
+				if (coefficientsList != null) {
+					for (key in coefficientsList) {
+						if (coefficientsList[key].ship_id == player.shipId) {
+							expected = coefficientsList[key];
+//							console.log("player:%s list:%s", player.shipId, coefficientsList[key].ship_id);
+							break;
+						}
+					}
+				}
+				if (expected != null) {
+					var actual = {};
+					actual.capture_points = parseFloat(data.raw.pvp.capture_points / data.raw.pvp.battles);
+					actual.damage_dealt = parseFloat(data.raw.pvp.damage_dealt / data.raw.pvp.battles);
+					actual.dropped_capture_points = parseFloat(data.raw.pvp.dropped_capture_points / data.raw.pvp.battles);
+					actual.frags = parseFloat(data.raw.pvp.frags / data.raw.pvp.battles);
+					actual.planes_killed = parseFloat(data.raw.pvp.planes_killed / data.raw.pvp.battles);
+					actual.wins = parseFloat(data.raw.pvp.wins / data.raw.pvp.battles);
+					wtr = calculateWarshipsTodayRating(expected, actual);
+//					console.log(wtr);
+				} else {
+					wtr = "－";
 				}
 			}
 
@@ -949,6 +1101,8 @@ api.ship = function(player) {
 					"bgcolor" : data.info.type+"_bg",
 					"winRate": winRate + "%",
 					"winRateClass": api.beautify("winRate", winRate),
+					"WTR": myFormatNumber(parseInt(wtr)),
+					"WTRClass": api.w_beautify("WTR", wtr),
 					"shfl" : atkavg,
 					"ftfl" : sdkavg,
 					"hitratem" : hitm ,
@@ -980,6 +1134,8 @@ api.ship = function(player) {
 					"bgcolor" :ship_info.data[sid].type+"_bg",  
 					"winRate": '',
 					"winRateClass": '',
+					"WTR": '',
+					"WTRClass": '',
 					"shfl" : '',
 					"ftfl" : '',
 					"hitratem" : '',
@@ -1104,12 +1260,12 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 		UpdateViewMode();
 		$scope.captureFlag = capture_flag;
 
-		// view handling after sync-loaded of languages.json & shipname covert table
-		if (ready_lang && ready_shipTable) {
+		// view handling after sync-loaded of languages.json & shipname covert table & WTR expected data
+		if (ready_lang && ready_shipTable && ready_coefficients) {
 
 		$http({
 			method: 'GET',
-			url: 'http://localhost:8080/api/arena'
+			url: '/api/arena'
 		}).success(function(data, status) {
 			if ($scope.dateTime != data.dateTime) {
 				var nameArray = [];
@@ -1199,7 +1355,6 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 								$scope.ui_label = translationId.ui_label;
 							});
 						});
-						console.log($scope.ui_label.display);
 						$scope.battleTime = localeFormatDate($scope.dateTime, 'label', $scope.select);
 
 						for (var key in kariload) {
