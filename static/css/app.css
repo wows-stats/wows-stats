@@ -268,36 +268,41 @@ color: #FFD0FF;
 font-weight: bold;
 }
 
-
-.player .wtr {
+.player .verybad_bg {
+background-color: rgba(147, 13, 13, 1.0);
 color: #FFFFFF;
 }
-.player .verybad_bg {
-background-color: #930D0D;
-}
 .player .bad_bg {
-background-color: #CD3333;
+background-color: rgba(205, 51, 51, 1.0);
+color: #FFFFFF;
 }
 .player .belowaverage_bg {
-background-color: #CC7A00;
+background-color: rgba(204, 122, 0, 1.0);
+color: #FFFFFF;
 }
 .player .average_bg {
-background-color: #CCB800;
+background-color: rgba(204, 184, 0, 1.0);
+color: #FFFFFF;
 }
 .player .good_bg {
-background-color: #4D7326;
+background-color: rgba(77, 115, 38, 1.0);
+color: #FFFFFF;
 }
 .player .verygood_bg {
-background-color: #4099BF;
+background-color: rgba(64, 153, 191, 1.0);
+color: #FFFFFF;
 }
 .player .great_bg {
-background-color: #3972C6;
+background-color: rgba(57, 114, 198, 1.0);
+color: #FFFFFF;
 }
 .player .unicum_bg {
-background-color: #793DB6;
+background-color: rgba(121, 61, 182, 1.0);
+color: #FFFFFF;
 }
 .player .superunicum_bg {
-background-color: #401070;
+background-color: rgba(64, 16, 112, 1.0);
+color: #FFFFFF;
 }
 
 
