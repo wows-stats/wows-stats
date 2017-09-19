@@ -506,10 +506,10 @@ function localeFormatDate(str, type, lang) {
 }
 
 function short_id(str) {
-	if (str.length < 18) {
+	if (str.length < 20) {
 		return(str);
 	}
-	return (str.substring(0,16)+"...");
+	return (str.substring(0,18)+"...");
 }
 
 function countLength(str) { 
