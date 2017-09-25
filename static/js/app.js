@@ -391,7 +391,6 @@ function prepare_ss(target) {
 				array[i] = data.charCodeAt(i);
 			}
 			imgData = URL.createObjectURL(new Blob([array]));
-			console.log(imgData);
 
 			var link = document.createElement("a");
 			link.download = imgFilename;
