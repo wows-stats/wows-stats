@@ -1181,6 +1181,110 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 	$scope.select = $translate.proposedLanguage();
 	$scope.captureFlag = capture_flag;
 
+	$.cookie.json = true;
+	var settingsCookie = { "shipColumn": 64704, "playerColumn": 52224, "statsSite": 0 };
+	var tmpCookie = $.cookie('wsp-settings');
+	if (tmpCookie != null) {
+		if (Object.keys(tmpCookie).length != 0) {
+//			console.log(tmpCookie);
+			for (key in tmpCookie) {
+				settingsCookie[key] = tmpCookie[key];
+			}
+		}
+	}
+
+	// switch displaying data column
+	var sc = settingsCookie.shipColumn;
+	$scope.ship_colList = (new Array(16)).fill(0);
+	for(var bit=16; bit>0; bit--) {
+		$scope.ship_colList.push((sc & 1));
+		sc >>>= 1;
+	}
+	$scope.ship_colList.reverse();
+//	console.log($scope.ship_colList);
+	$scope.player_colList = (new Array(16)).fill(0);
+	var pc = settingsCookie.playerColumn;
+	for(var bit=16; bit>0; bit--) {
+		$scope.player_colList.push((pc & 1));
+		pc >>>= 1;
+	}
+	$scope.player_colList.reverse();
+//	console.log($scope.player_colList);
+
+	// set colspan
+	$scope.ship_span = $scope.ship_colList.reduce((a,x) => a+=x, 0);
+	$scope.player_span = $scope.player_colList.reduce((a,x) => a+=x, 0);
+
+	// switch column display
+	$scope.disp_column = function (type, col) {
+		var list = (type === 's')? $scope.ship_colList : $scope.player_colList;
+		if (list[col] == 1) {
+			return { 'display': 'table-cell' };
+		} else {
+			return { 'display': 'none' };
+		}
+	}
+
+	// set checkbox
+	$('input[name="s_items"]').each(function() {
+		var s_pos = ($(this).val()).slice(2);
+		$('#s_' + s_pos).prop('checked', false);
+		if ($scope.ship_colList[s_pos] == 1) {
+			$('#s_' + s_pos).prop('checked', true);
+			$('#tr_s_' + s_pos).addClass('checked_tr');
+//			console.log(s_pos);
+		}
+	});
+	$('input[name="p_items"]').each(function() {
+		var p_pos = ($(this).val()).slice(2);
+		$('#p_' + p_pos).prop('checked', false);
+		if ($scope.player_colList[p_pos] == 1) {
+			$('#p_' + p_pos).prop('checked', true);
+			$('#tr_p_' + p_pos).addClass('checked_tr');
+//			console.log(p_pos);
+		}
+	});
+
+	// get checked settings for displaying data column with storing cookie
+	$scope.apply_change = function () {
+		$scope.ship_colList.fill(0);
+		$('input[name="s_items"]:checked').each(function() {
+			var s_pos = ($(this).val()).slice(2);
+//			console.log(s_pos);
+			$scope.ship_colList[s_pos] = 1;
+		});
+		$scope.player_colList.fill(0);
+		$('input[name="p_items"]:checked').each(function() {
+			var p_pos = ($(this).val()).slice(2);
+//			console.log(p_pos);
+			$scope.player_colList[p_pos] = 1;
+		});
+//		console.log($scope.ship_colList);
+//		console.log($scope.player_colList);
+
+		$scope.ship_span = $scope.ship_colList.reduce((a,x) => a+=x, 0);
+		$scope.player_span = $scope.player_colList.reduce((a,x) => a+=x, 0);
+
+		// preparetion to store cookie
+		var s_string = '';
+		for (var i=0; i<16 ; i++) {
+			s_string += $scope.ship_colList[i];
+		}
+		var p_string = '';
+		for (var j=0; j<16 ; j++) {
+			p_string += $scope.player_colList[j];
+		}
+//		console.log(s_string);
+//		console.log(p_string);
+
+		settingsCookie.shipColumn = parseInt(s_string, 2);
+		settingsCookie.playerColumn = parseInt(p_string, 2);
+		settingsCookie.statsSite = 0;
+		$.cookie('wsp-settings', settingsCookie, {expires: 60});
+//		console.log(settingsCookie);
+	}
+
+	// initialize traslation labels
 	$translate(['title','numero_sign','btn_top','btn_bottom','game','map','mode','list_label1','list_label2','ui_label']).then(function (translations) {
 		$scope.title = translations.title;
 		$scope.numero_sign = translations.numero_sign;
@@ -1205,6 +1309,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 		$scope.ui_label = translationIds.ui_label;
 	});
 
+	// handling language changer menu
 	$scope.changeLanguage = function () {
 		if ($scope.select != '') {
 			$translate.use($scope.select);
@@ -1417,6 +1522,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 							player.api = {};
 							$scope.players.push(player);
 							api.fetchPlayer(player);
+
 							$scope.link_disabled = function () {
 								if (player.is_bot)
 									return false;
@@ -1429,7 +1535,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 			ready_shipinfo = false;
 
 		}).error(function(data, status) {
-//			$scope.dateTime = "";
+			$scope.dateTime = "";
 			$scope.inGame = false;
 		});
 
