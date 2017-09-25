@@ -30,11 +30,20 @@ $(function() {
 		$('#' + targetID).trigger('open');
 	});
 
+	// when click data-openmodal (submit)
+	$(document).on('click', '[data-submitmodal]', function(e) {
+		var check_count_s = $('input[name="s_items"]:checked').length;
+		var check_count_p = $('input[name="p_items"]:checked').length;
+		if ((check_count_s >= 2) && (check_count_p >= 2)) {
+			var targetID = $(this).attr('data-submitmodal');
+			$('#' + targetID).trigger('close');
+		}
+	});
+
 	// when click data-openmodal (close)
 	$(document).on('click', '[data-closemodal]', function(e) {
 		var targetID = $(this).attr('data-closemodal');
 		$('#' + targetID).trigger('close');
-
 	});
 
 	// when click overlay (close)
