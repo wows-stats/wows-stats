@@ -45,10 +45,10 @@
 .modalwindow .body {
   position: relative;
   left: 50%;
-  top: 0;
+  top: 10%;
   width: 320px;
   margin-left: -160px;
-  margin-top: 40px;
+  margin-top: 60px;
   margin-bottom: 10px;
   background: #393E46;
   border-radius: 4px;
