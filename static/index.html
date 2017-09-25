@@ -21,7 +21,7 @@
 	<script src="https://github.com/niklasvh/html2canvas/releases/download/0.5.0-alpha1/html2canvas.js"></script>
 	<script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-	<script type="text/javascript" src="js/modalwindow.js"></script>
+<!--	<script type="text/javascript" src="js/modalwindow.js"></script>	-->
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript">
 	(function($) {
@@ -212,7 +212,7 @@
 				</div>
 				<div class="setting">
 					<label>
-						<input type="button" class="setting_button" data-openmodal="modalWindow" value="{{'btn_bottom.settings' | translate}}" />
+						<input type="button" class="setting_button" data-openmodal="modalWindow" ng-click="pre_setting()" value="{{'btn_bottom.settings' | translate}}" />
 					</label>
 				</div>
 			</div>
@@ -308,7 +308,7 @@
 
 	            </div>
     	        <footer style="text-align:center">
-        	        <button data-closemodal="modalWindow" class="close_modal apply_button" ng-click="apply_change()">{{'ui_label.apply' | translate}}</button>&nbsp;
+        	        <button data-submitmodal="modalWindow" class="close_modal apply_button" ng-click="apply_change()">{{'ui_label.apply' | translate}}</button>&nbsp;
         	        <button data-closemodal="modalWindow" class="close_modal">{{'ui_label.cancel' | translate}}</button>
             	</footer>
 	        </div>
