@@ -22,7 +22,8 @@ var calculateWarshipsTodayRating = function(expected, actual) {
 		}
 	}
 
-	var average_level = actual.tier_points / actual.battles;
+//	var average_level = actual.tier_points / actual.battles;
+	var average_level = 7.5;
 	var wins_weight = 0.2;
 	var damage_weight = 0.5;
 	var frags_weight = 0.3;
