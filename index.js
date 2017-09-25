@@ -36,8 +36,26 @@ function get_season_num() {
 		}
 	});
 }
-
 get_season_num();
+
+function update_WTRcoefficientsJSON() {
+	request('https://api.asia.warships.today/json/wows/ratings/warships-today-rating/coefficients', function (error, response, body) {
+		if ((!error && response.statusCode == 200) || (!error && response.statusCode == 304)) {
+//			console.log('Got coefficients json file for WTR.');
+
+			fs.writeFile('static/js/coefficients.json', body, function (err) {
+			  	if (!err) {
+					console.log('Overwrite ./static/js/coefficients json file.');
+			  	}
+			  	else {
+		  			console.log(err);
+			  	}
+			});
+		} else
+			console.log('Error getting coefficients data.');
+	});
+}
+update_WTRcoefficientsJSON();
 
 // static endpoint
 app.use(express.static(__dirname + '/static'));
