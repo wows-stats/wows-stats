@@ -7,12 +7,11 @@
 	<title>wows stats plus</title>
 	<link rel="stylesheet" href="css/app.css">
 	<link rel="stylesheet" href="css/modalwindow.css">
-	<link rel="stylesheet" href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-cookies.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-sanitize.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.15.0/angular-translate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-sanitize.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.15.0/angular-translate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-storage-cookie/2.15.0/angular-translate-storage-cookie.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-storage-local/2.15.0/angular-translate-storage-local.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-loader-static-files/2.15.0/angular-translate-loader-static-files.min.js"></script>
@@ -25,7 +24,7 @@
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript">
 	(function($) {
-		var preloadImages = ['AU.png','BB.png','CA.png','CV.png','CW.png','DD.png','DE.png','ES.png','FR.png','IT.png','JP.png','NL.png','other.png','PA.png','PL.png','SU.png','UK.png','US.png','wows_logo_small.png','pattern.png','arrow.png','setting.png','camera.png'];
+		var preloadImages = ['AU.png','BB.png','CA.png','CV.png','CW.png','DD.png','DE.png','ES.png','FR.png','IT.png','JP.png','NL.png','other.png','PA.png','PL.png','SU.png','UK.png','US.png','wows_logo_small.png','pattern.png','arrow.png','setting.png','camera.png','Paypal_donate_btn_v2.png'];
 
 		for (var i=0; i<preloadImages.length; i++) {
 			(new Image()).src = '/images/' + preloadImages[i];
@@ -62,6 +61,7 @@
 						<tr>
 							<th id="s_0_0" ng-style="disp_column('s', 0)" title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:90px;">{{'list_label2.ship.combatPower' | translate}}</th>
 							<th id="s_0_1" ng-style="disp_column('s', 1)" title="{{'list_label2.ship.WTR_title' | translate}}" style="width:55px;">{{'list_label2.ship.WTR' | translate}}</th>
+							<th id="s_0_10" ng-style="disp_column('s', 10)" title="{{'list_label2.ship.PR_title' | translate}}" style="width:55px;">{{'list_label2.ship.PR' | translate}}</th>
 							<th id="s_0_2" ng-style="disp_column('s', 2)" title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th id="s_0_3" ng-style="disp_column('s', 3)" title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:55px;">{{'list_label2.ship.KillDeath' | translate}}</th>
 							<th id="s_0_4" ng-style="disp_column('s', 4)" title="{{'list_label2.ship.winRate_title' | translate}}" style="width:75px;">{{'list_label2.ship.winRate' | translate}}</th>
@@ -81,7 +81,7 @@
 					<tbody>
 						<tr ng-repeat="(key, value) in players" ng-if="value.relation!=2" name="{{value.ship.shipty}}" class="player {{value.ship.highlightClass}} {{value.ship.ownerClass}}">
 							<td class="tdata_l highlight_cancel" style="height:24px;">
-								<a ng-click="link_disabled()" ng-class="{linkDisabled: value.is_bot}" href="{{value.uri}}/" name="user_own" style=" Color:#38c38c;" target="_blank" title="{{value.clan}} {{value.name}}"><span style="color: #eeeeee">{{value.clan}}</span> {{value.name_s}}</a>
+								<a ng-click="link_disabled()" ng-class="{linkDisabled: value.is_bot}"  ng-show="value.clan_uri" href="{{value.clan_uri}}" name="clan_own" style=" color:#eeeeee;" target="_blank" title="{{value.clan}}">{{value.clan}}</a> <a ng-click="link_disabled()" ng-class="{linkDisabled: value.is_bot}" href="{{value.uri}}" id="link_{{$parent.$index}}" name="user_own" style=" color:#38c38c;" target="_blank" title="{{value.name}}">{{value.name_s}}</a>
 								<span name="user_buta"style ="color: #38c38c; display:none;">&nbsp;(｀･ω･´)ゞ&nbsp;</span>
 							</td>
 							<td class="highlight_cancel">{{value.ship.shiptia_s}}</td>
@@ -91,8 +91,9 @@
 								<span class="shipclass {{value.ship.namefont}}" name="shipname_eng" style ="display:none;">{{value.ship.name}}</span>
 								<span class="key {{value.ship.namefont}}">{{value.ship.shipkakin}}</span>
 							</td>
-							<td id="s_0_0_{{$parent.$index}}" ng-style="disp_column('s', 0)"><span class="{{value.ship.combatPowerClass}}" ng-hide="value.ship.err">{{value.ship.combatPower}}</span></td>
+							<td id="s_0_0_{{$parent.$index}}" ng-style="disp_column('s', 0)" class="{{value.ship.combatPowerClass}}"><span ng-hide="value.ship.err">{{value.ship.combatPower}}</span></td>
 							<td id="s_0_1_{{$parent.$index}}" ng-style="disp_column('s', 1)" class="{{value.ship.WTRClass}}"><span ng-hide="value.ship.err">{{value.ship.WTR}}</span></td>
+							<td id="s_0_10_{{$parent.$index}}" ng-style="disp_column('s', 10)" class="{{value.ship.PRClass}}"><span ng-hide="value.ship.err">{{value.ship.PR}}</span></td>
 							<td id="s_0_2_{{$parent.$index}}" ng-style="disp_column('s', 2)"><span ng-hide="value.ship.err">{{value.ship.avgDmg}}</span></td>
 							<td id="s_0_3_{{$parent.$index}}" ng-style="disp_column('s', 3)"><span ng-hide="value.ship.err">{{value.ship.kdRatio}}</span></td>
 							<td id="s_0_4_{{$parent.$index}}" ng-style="disp_column('s', 4)"><span class="{{value.ship.winRateClass}}" ng-hide="value.ship.err">{{value.ship.winRate}}</span></td>
@@ -135,6 +136,7 @@
 						<tr>
 							<th id="s_1_0" ng-style="disp_column('s', 0)" title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:90px;">{{'list_label2.ship.combatPower' | translate}}</th>
 							<th id="s_1_1" ng-style="disp_column('s', 1)" title="{{'list_label2.ship.WTR_title' | translate}}" style="width:55px;">{{'list_label2.ship.WTR' | translate}}</th>
+							<th id="s_1_10" ng-style="disp_column('s', 10)" title="{{'list_label2.ship.PR_title' | translate}}" style="width:55px;">{{'list_label2.ship.PR' | translate}}</th>
 							<th id="s_1_2" ng-style="disp_column('s', 2)" title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th id="s_1_3" ng-style="disp_column('s', 3)" title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:55px;">{{'list_label2.ship.KillDeath' | translate}}</th>
 							<th id="s_1_4" ng-style="disp_column('s', 4)" title="{{'list_label2.ship.winRate_title' | translate}}" style="width:75px;">{{'list_label2.ship.winRate' | translate}}</th>
@@ -154,7 +156,7 @@
 					<tbody>
 						<tr ng-repeat="(key, value) in players" ng-if="value.relation==2" name="{{value.ship.shipty}}" class="player {{value.ship.highlightClass}} {{value.ship.ownerClass}}">
 							<td class="tdata_l highlight_cancel" style="height:24px;">
-								<a ng-click="link_disabled()" ng-class="{linkDisabled: value.is_bot}" href="{{value.uri}}/" name="user_own" style=" Color:#38c38c;" target="_blank" title="{{value.clan}} {{value.name}}"><span style="color: #eeeeee">{{value.clan}}</span> {{value.name_s}}</a>
+								<a ng-click="link_disabled()" ng-class="{linkDisabled: value.is_bot}"  ng-show="value.clan_uri" href="{{value.clan_uri}}" name="clan_own" style=" color:#eeeeee;" target="_blank" title="{{value.clan}}">{{value.clan}}</a> <a ng-click="link_disabled()" ng-class="{linkDisabled: value.is_bot}" href="{{value.uri}}" id="link_{{$parent.$index}}" name="user_own" style=" color:#38c38c;" target="_blank" title="{{value.name}}">{{value.name_s}}</a>
 								<span name="user_buta"style ="color: #38c38c; display:none;">&nbsp;(´・ω・`)&nbsp;</span>
 							</td>
 							<td class="highlight_cancel">{{value.ship.shiptia_s}}</td>
@@ -162,8 +164,9 @@
 							<td class="tdata_l highlight_cancel {{value.ship.bgcolor}}" style="padding-left: 3px; padding-right: 3px;">
 								<span class="shipclass {{value.ship.namefont_trans}}" name="shipname_trans">{{value.ship.name_trans}}</span><span class="shipclass {{value.ship.namefont}}" name="shipname_eng" style ="display:none;">{{value.ship.name}}</span><span class="key {{value.ship.namefont}}">{{value.ship.shipkakin}}</span>
 							</td>
-							<td id="s_1_0_{{$parent.$index}}" ng-style="disp_column('s', 0)"><span class="{{value.ship.combatPowerClass}}" ng-hide="value.ship.err">{{value.ship.combatPower}}</span></td>
+							<td id="s_1_0_{{$parent.$index}}" ng-style="disp_column('s', 0)" class="{{value.ship.combatPowerClass}}"><span ng-hide="value.ship.err">{{value.ship.combatPower}}</span></td>
 							<td id="s_1_1_{{$parent.$index}}" ng-style="disp_column('s', 1)" class="{{value.ship.WTRClass}}"><span ng-hide="value.ship.err">{{value.ship.WTR}}</span></td>
+							<td id="s_1_10_{{$parent.$index}}" ng-style="disp_column('s', 10)" class="{{value.ship.PRClass}}"><span ng-hide="value.ship.err">{{value.ship.PR}}</span></td>
 							<td id="s_1_2_{{$parent.$index}}" ng-style="disp_column('s', 2)"><span ng-hide="value.ship.err">{{value.ship.avgDmg}}</span></td>
 							<td id="s_1_3_{{$parent.$index}}" ng-style="disp_column('s', 3)"><span ng-hide="value.ship.err">{{value.ship.kdRatio}}</span></td>
 							<td id="s_1_4_{{$parent.$index}}" ng-style="disp_column('s', 4)"><span class="{{value.ship.winRateClass}}" ng-hide="value.ship.err">{{value.ship.winRate}}</span></td>
@@ -195,7 +198,7 @@
 				</table>
 			</div>
 			<div class="footer" ng-show="players.length>0">
-				<div class="copyright">wows-stats-plus {{ version }} &nbsp;&nbsp; Powered by <a href="https://github.com/tianweiliu/wows-stats" id="footerurl" target="_blank">wows-stats</a>&nbsp;&nbsp;modified by <a href="https://moon-light-oasis.net/" id="footerurl" target="_blank">AnMoreNight</a></div>
+				<div class="copyright"><a href="https://github.com/anmonite/wows-stats-plus" target="_blank">wows-stats-plus</a> {{ version }} &nbsp;&nbsp; Powered by <a href="https://github.com/tianweiliu/wows-stats" target="_blank">wows-stats</a>&nbsp;&nbsp;modified by <a href="https://moon-light-oasis.net/" target="_blank">AnMoreNight</a></div>
 				<div class="buttonpro2">
 					<span translate>{{'btn_bottom.label_visible'}}</span>&nbsp;
 					<input type="checkbox" class="buttonitem2" name="idhi" value="id_pr10" onclick="idhide(this.checked)"> {{'btn_bottom.hide' | translate}}</input>
@@ -205,8 +208,8 @@
 				</div>
 				<div class="menu">
 					<label>
-						<select size="1" name="lang_select" class="language" ng-model="select" ng-change="changeLanguage()">
-							<option value="{{option.value}}" ng-repeat="option in options">{{option.label}}</option>
+						<select size="1" name="lang_select" class="language" ng-model="lang_select" ng-change="changeLanguage()">
+							<option ng-repeat="l_option in lang_options" value="{{l_option.value}}">{{l_option.label}}</option>
 						</select>
 					</label>
 				</div>
@@ -216,104 +219,152 @@
 					</label>
 				</div>
 			</div>
+
 			<div class="status" ng-hide="inGame">{{'title.game_status'| translate}} {{'title.game_waiting'| translate}}</div>
+
+			<div class="copyright" style="display: block; text-align: center; margin-top: 15px;" ng-hide="players.length>0"><a href="https://github.com/anmonite/wows-stats-plus" target="_blank">wows-stats-plus</a> {{ version }} &nbsp;&nbsp; Powered by <a href="https://github.com/tianweiliu/wows-stats" target="_blank">wows-stats</a>&nbsp;&nbsp;modified by <a href="https://moon-light-oasis.net/" target="_blank">AnMoreNight</a></div>
+			<div class="donate_waiting" ng-hide="players.length>0">
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+					<input type="hidden" name="cmd" value="_s-xclick" />
+					<input type="hidden" name="hosted_button_id" value="Q3XLKJRFMQH98" />
+					<div class="effect">
+						<input class="donate_btn" type="image" src="images/Paypal_donate_btn_v2.png" border="0" name="submit" alt="{{'ui_label.donate' | translate}}" title="{{'ui_label.donate' | translate}}" />
+					</div>
+					<img alt="" border="0" src="https://www.paypalobjects.com/ja_JP/i/scr/pixel.gif" width="1" height="1" />
+				</form>
+			</div>
+			<div class="ui_waiting" ng-hide="players.length>0">
+				<div class="menu start">
+					<label>
+						<select size="1" name="lang_select" class="language start" ng-model="lang_select" ng-change="changeLanguage()">
+							<option ng-repeat="l_option in lang_options" value="{{l_option.value}}">{{l_option.label}}</option>
+						</select>
+					</label>
+				</div>
+				<div class="setting start">
+					<label>
+						<input type="button" class="setting_button" data-openmodal="modalWindow" ng-click="pre_setting()" value="{{'btn_bottom.settings' | translate}}" />
+					</label>
+				</div>
+			</div>
 		</div>
 
-	    <div id="modalWindow" class="modalwindow no_overlay_close" ng-show="players.length>0">
-    	    <div class="body">
-        	    <div class="modal_content">
-
-				<table class="setting_list">
-					<thead>
-						<tr>
-							<th class="label" style="width: 260px;">{{'list_label1.ship_score' | translate}}</th>
-							<th class="check" style="width: 30px;"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr id="tr_s_0">
-							<td class="label">{{'list_label2.ship.combatPower' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="s_0" type="checkbox" name="s_items" value="s_0" /></td>
-						</tr>
-						<tr id="tr_s_1">
-							<td class="label">{{'list_label2.ship.WTR' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="s_1" type="checkbox" name="s_items" value="s_1" /></td>
-						</tr>
-						<tr id="tr_s_2">
-							<td class="label">{{'list_label2.ship.damage' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="s_2" type="checkbox" name="s_items" value="s_2" /></td>
-						</tr>
-						<tr id="tr_s_3">
-							<td class="label">{{'list_label2.ship.KillDeath' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="s_3" type="checkbox" name="s_items" value="s_3" /></td>
-						</tr>
-						<tr id="tr_s_4">
-							<td class="label">{{'list_label2.ship.winRate' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="s_4" type="checkbox" name="s_items" value="s_4" /></td>
-						</tr>
-						<tr id="tr_s_5">
-							<td class="label">{{'list_label2.ship.survival' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="s_5" type="checkbox" name="s_items" value="s_5" /></td>
-						</tr>
-						<tr id="tr_s_6">
-							<td class="label">{{'list_label2.ship.sinking' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="s_6" type="checkbox" name="s_items" value="s_6" /></td>
-						</tr>
-						<tr id="tr_s_7">
-							<td class="label">{{'list_label2.ship.shootDown' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="s_7" type="checkbox" name="s_items" value="s_7" /></td>
-						</tr>
-						<tr id="tr_s_8">
-							<td class="label">{{'list_label2.ship.exp' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="s_8" type="checkbox" name="s_items" value="s_8" /></td>
-						</tr>
-						<tr id="tr_s_9">
-							<td class="label">{{'list_label2.ship.numBattle' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="s_9" type="checkbox" name="s_items" value="s_9" /></td>
-						</tr>
-					</tbody>
-					<thead>
-						<tr>
-							<th class="label" style="width: 260px;">{{'list_label1.player_score' | translate}}</th>
-							<th style="width: 30px;"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr id="tr_p_0">
-							<td class="label">{{'list_label2.player.rank' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="p_0" type="checkbox" name="p_items" value="p_0" /></td>
-						</tr>
-						<tr id="tr_p_1">
-							<td class="label">{{'list_label2.player.winRate' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="p_1" type="checkbox" name="p_items" value="p_1" /></td>
-						</tr>
-						<tr id="tr_p_2">
-							<td class="label">{{'list_label2.player.damage' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="p_2" type="checkbox" name="p_items" value="p_2" /></td>
-						</tr>
-						<tr id="tr_p_3">
-							<td class="label">{{'list_label2.player.KillDeath' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="p_3" type="checkbox" name="p_items" value="p_3" /></td>
-						</tr>
-						<tr id="tr_p_4">
-							<td class="label">{{'list_label2.player.exp' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="p_4" type="checkbox" name="p_items" value="p_4" /></td>
-						</tr>
-						<tr id="tr_p_5">
-							<td class="label">{{'list_label2.player.numBattle' | translate}}</td>
-							<td class="check" style="width: 30px;"><input id="p_5" type="checkbox" name="p_items" value="p_5" /></td>
-						</tr>
-					</tbody>
-				</table>
-
-	            </div>
-    	        <footer style="text-align:center">
-        	        <button data-submitmodal="modalWindow" class="close_modal apply_button" ng-click="apply_change()">{{'ui_label.apply' | translate}}</button>&nbsp;
-        	        <button data-closemodal="modalWindow" class="close_modal">{{'ui_label.cancel' | translate}}</button>
-            	</footer>
-	        </div>
-    	</div>
-
+		<!-- display modal window for settings -->
+		<div id="modalWindow" class="modalwindow no_overlay_close" ng-show="true">
+			<div class="body">
+				<div class="modal_content">
+					<div class="column_label">{{'ui_label.column'| translate}}</div>
+					<table class="setting_list">
+						<thead>
+							<tr>
+								<th class="label">{{'list_label1.ship_score' | translate}}</th>
+								<th class="check"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="tr_s_0">
+								<td class="label">{{'list_label2.ship.combatPower' | translate}}</td>
+								<td class="check"><input id="s_0" type="checkbox" name="s_items" value="s_0" /></td>
+							</tr>
+							<tr id="tr_s_1">
+								<td class="label">{{'list_label2.ship.WTR' | translate}}</td>
+								<td class="check"><input id="s_1" type="checkbox" name="s_items" value="s_1" /></td>
+							</tr>
+							<tr id="tr_s_10">
+								<td class="label">{{'list_label2.ship.PR' | translate}}</td>
+								<td class="check"><input id="s_10" type="checkbox" name="s_items" value="s_10" /></td>
+							</tr>
+							<tr id="tr_s_2">
+								<td class="label">{{'list_label2.ship.damage' | translate}}</td>
+								<td class="check"><input id="s_2" type="checkbox" name="s_items" value="s_2" /></td>
+							</tr>
+							<tr id="tr_s_3">
+								<td class="label">{{'list_label2.ship.KillDeath' | translate}}</td>
+								<td class="check"><input id="s_3" type="checkbox" name="s_items" value="s_3" /></td>
+							</tr>
+							<tr id="tr_s_4">
+								<td class="label">{{'list_label2.ship.winRate' | translate}}</td>
+								<td class="check"><input id="s_4" type="checkbox" name="s_items" value="s_4" /></td>
+							</tr>
+							<tr id="tr_s_5">
+								<td class="label">{{'list_label2.ship.survival' | translate}}</td>
+								<td class="check"><input id="s_5" type="checkbox" name="s_items" value="s_5" /></td>
+							</tr>
+							<tr id="tr_s_6">
+								<td class="label">{{'list_label2.ship.sinking' | translate}}</td>
+								<td class="check"><input id="s_6" type="checkbox" name="s_items" value="s_6" /></td>
+							</tr>
+							<tr id="tr_s_7">
+								<td class="label">{{'list_label2.ship.shootDown' | translate}}</td>
+								<td class="check"><input id="s_7" type="checkbox" name="s_items" value="s_7" /></td>
+							</tr>
+							<tr id="tr_s_8">
+								<td class="label">{{'list_label2.ship.exp' | translate}}</td>
+								<td class="check"><input id="s_8" type="checkbox" name="s_items" value="s_8" /></td>
+							</tr>
+							<tr id="tr_s_9">
+								<td class="label">{{'list_label2.ship.numBattle' | translate}}</td>
+								<td class="check"><input id="s_9" type="checkbox" name="s_items" value="s_9" /></td>
+							</tr>
+						</tbody>
+						<thead>
+							<tr>
+								<th class="label">{{'list_label1.player_score' | translate}}</th>
+								<th ></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr id="tr_p_0">
+								<td class="label">{{'list_label2.player.rank' | translate}}</td>
+								<td class="check"><input id="p_0" type="checkbox" name="p_items" value="p_0" /></td>
+							</tr>
+							<tr id="tr_p_1">
+								<td class="label">{{'list_label2.player.winRate' | translate}}</td>
+								<td class="check"><input id="p_1" type="checkbox" name="p_items" value="p_1" /></td>
+							</tr>
+							<tr id="tr_p_2">
+								<td class="label">{{'list_label2.player.damage' | translate}}</td>
+								<td class="check"><input id="p_2" type="checkbox" name="p_items" value="p_2" /></td>
+							</tr>
+							<tr id="tr_p_3">
+								<td class="label">{{'list_label2.player.KillDeath' | translate}}</td>
+								<td class="check"><input id="p_3" type="checkbox" name="p_items" value="p_3" /></td>
+							</tr>
+							<tr id="tr_p_4">
+								<td class="label">{{'list_label2.player.exp' | translate}}</td>
+								<td class="check"><input id="p_4" type="checkbox" name="p_items" value="p_4" /></td>
+							</tr>
+							<tr id="tr_p_5">
+								<td class="label">{{'list_label2.player.numBattle' | translate}}</td>
+								<td class="check"><input id="p_5" type="checkbox" name="p_items" value="p_5" /></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="smenu">
+						<div class="site_label">{{'ui_label.site'| translate}}</div>
+						<label>
+							<select size="1" name="site_select" class="site" ng-model="site_select" ng-change="changeSite()">
+								<option ng-repeat="s_option in site_options" value="{{s_option.value}}">{{s_option.label}}</option>
+							</select>
+						</label>
+					</div>
+					<div class="donate">
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+							<input type="hidden" name="cmd" value="_s-xclick" />
+							<input type="hidden" name="hosted_button_id" value="Q3XLKJRFMQH98" />
+							<div class="figure">
+								<input class="donate_btn" type="image" src="images/Paypal_donate_btn_v2.png" border="0" name="submit" alt="{{'ui_label.donate' | translate}}" title="{{'ui_label.donate' | translate}}" />
+							</div>
+							<img alt="" border="0" src="https://www.paypalobjects.com/ja_JP/i/scr/pixel.gif" width="1" height="1" />
+						</form>
+					</div>
+				</div>
+				<footer style="text-align:center">
+					<button data-submitmodal="modalWindow" class="close_modal apply_button" ng-click="apply_change()">{{'ui_label.apply' | translate}}</button>&nbsp;
+					<button data-closemodal="modalWindow" class="close_modal cancel_button">{{'ui_label.cancel' | translate}}</button>
+				</footer>
+			</div>
+		</div>
 	</div>
 </div>
 
