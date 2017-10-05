@@ -48,7 +48,7 @@ function update_WTRcoefficientsJSON() {
 					console.log('Overwrite ./static/js/coefficients json file.');
 			  	}
 			  	else {
-		  			console.log(err);
+		  			console.log("Update error ./static/js/coefficients json file. : %s", err);
 			  	}
 			});
 		} else
@@ -134,9 +134,11 @@ router.get('/player', jsonParser, function(req, res) {
 
 																if ((clanInfo.data[player.id] != null) && (clanInfo.data[player.id]['clan'] != null)) {
 																	var cstat = clanInfo.data[player.id];
+																	player.clan_id = cstat['clan']['clan_id'];
 																	player.clan = '[' + cstat['clan']['tag'] + ']';
 //																	console.log("%s : %s", player.name, player.clan);
 																} else {
+																	player.clan_id = '';
 																	player.clan = '';
 //																	console.log('null clan info data');
 																}
