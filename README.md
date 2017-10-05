@@ -4,6 +4,7 @@ A [XVM](http://www.modxvm.com/en/) like statistics engine for [World of Warships
 Figure 1 - Main window.
 ![Screenshot](https://i.imgur.com/b3CKQSO.png?1)
 
+
 Figure 2 - Settings window.
 ![Screenshot](https://i.imgur.com/fiPjqXI.png?1)
 
