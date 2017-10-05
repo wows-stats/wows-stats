@@ -25,7 +25,7 @@ var latest_season_num = 0;
 
 function get_season_num() {
 	request(process.env.WOWS_API_URL + '/wows/seasons/info/?application_id=' + api_key, function (error, response, body) {
-		if (!error && response.statusCode == 200) {
+		if ((!error && response.statusCode == 200) || (!error && response.statusCode == 304)) {
 			var json = JSON.parse(body);
 			if (json.status == "ok") {
 				if (json.meta.count >= 0) {
@@ -36,8 +36,26 @@ function get_season_num() {
 		}
 	});
 }
-
 get_season_num();
+
+function update_WTRcoefficientsJSON() {
+	request('https://api.asia.warships.today/json/wows/ratings/warships-today-rating/coefficients', function (error, response, body) {
+		if ((!error && response.statusCode == 200) || (!error && response.statusCode == 304)) {
+//			console.log('Got coefficients json file for WTR.');
+
+			fs.writeFile('static/js/coefficients.json', body, function (err) {
+			  	if (!err) {
+					console.log('Overwrite ./static/js/coefficients json file.');
+			  	}
+			  	else {
+		  			console.log("Update error ./static/js/coefficients json file. : %s", err);
+			  	}
+			});
+		} else
+			console.log('Error getting coefficients data.');
+	});
+}
+update_WTRcoefficientsJSON();
 
 // static endpoint
 app.use(express.static(__dirname + '/static'));
@@ -49,8 +67,8 @@ app.use('/api', router);
 router.get('/', function(req, res) {
 	res.json({
 		status: "ok",
-		name: "wows-stats api",
-		version: "v2"
+		name: "wows-stats-plus api",
+		version: "v1"
 	});
 });
 
@@ -73,7 +91,7 @@ router.get('/player', jsonParser, function(req, res) {
 
 			// search and get account_id
 			request(process.env.WOWS_API_URL + '/wows/account/list/?application_id=' + api_key + '&search=' + encodeURIComponent(req.query.name), function (error, response, body) {
-				if (!error && response.statusCode == 200) {
+				if ((!error && response.statusCode == 200) || (!error && response.statusCode == 304)) {
 					var json = JSON.parse(body);
 					if (json.status == "ok") {
 						if (json.meta.count >= 0) {
@@ -94,7 +112,7 @@ router.get('/player', jsonParser, function(req, res) {
 
 								// get player info
 								request(process.env.WOWS_API_URL + '/wows/account/info/?application_id=' + api_key + '&account_id=' + player.id, function (err, rep, statsBody) {
-									if (!err && rep.statusCode == 200) {
+									if ((!err && rep.statusCode == 200) || (!err && rep.statusCode == 304)) {
 										var stats = JSON.parse(statsBody);
 										if (stats.status == "ok") {
 											if (stats.data[player.id] != null) {
@@ -109,23 +127,25 @@ router.get('/player', jsonParser, function(req, res) {
 
 													// get player clan info
 													request(process.env.WOWS_API_URL + '/wows/clans/accountinfo/?application_id=' + api_key + '&account_id=' + player.id + '&extra=clan', function (cl_error, cl_response, clanBody) {
-														if (!cl_error && cl_response.statusCode == 200) {
+														if ((!cl_error && cl_response.statusCode == 200) || (!cl_error && cl_response.statusCode == 304)) {
 															var clanInfo = JSON.parse(clanBody);
 															if (clanInfo.status == "ok") {
 //																console.log(clanInfo.data);
 
 																if ((clanInfo.data[player.id] != null) && (clanInfo.data[player.id]['clan'] != null)) {
 																	var cstat = clanInfo.data[player.id];
+																	player.clan_id = cstat['clan']['clan_id'];
 																	player.clan = '[' + cstat['clan']['tag'] + ']';
 //																	console.log("%s : %s", player.name, player.clan);
 																} else {
+																	player.clan_id = '';
 																	player.clan = '';
 //																	console.log('null clan info data');
 																}
 
 																// get player rank battle info
 																request(process.env.WOWS_API_URL + '/wows/seasons/accountinfo/?application_id=' + api_key + '&account_id=' + player.id + '&season_id=' + (latest_season_num -1) + '%2C' + latest_season_num, function (rk_error, rk_response, rankBody) {
-																	if (!rk_error && rk_response.statusCode == 200) {
+																	if ((!rk_error && rk_response.statusCode == 200) || (!rk_error && rk_response.statusCode == 304)) {
 																		var seasons = JSON.parse(rankBody);
 																		if (seasons.status == "ok") {
 																			if (seasons.data != null) {
@@ -240,7 +260,7 @@ router.get('/player', jsonParser, function(req, res) {
 router.get('/ship', jsonParser, function(req, res) {
 	if (req.query.playerId && req.query.shipId) {
 		request(process.env.WOWS_API_URL + '/wows/encyclopedia/ships/?application_id=' + api_key + '&ship_id=' + req.query.shipId + '&language=en', function (err, rep, infoBody) {
-			if (!err && rep.statusCode == 200) {
+			if ((!err && rep.statusCode == 200) || (!err && rep.statusCode == 304)) {
 				var info = JSON.parse(infoBody);
 				if (info.status == "ok") {
 					if (info.data[req.query.shipId] != null) {
@@ -250,7 +270,7 @@ router.get('/ship', jsonParser, function(req, res) {
 						ship.img = info.images.small;
 						ship.info = info;
 						request(process.env.WOWS_API_URL + '/wows/ships/stats/?application_id=' + api_key + '&account_id=' + req.query.playerId + '&ship_id=' + req.query.shipId, function (error, response, body) {
-							if (!error && response.statusCode == 200) {
+							if ((!error && response.statusCode == 200) || (!error && response.statusCode == 304)) {
 								var json = JSON.parse(body);
 								if (json.status == "ok") {
 									if (json.data[req.query.playerId] != null) {

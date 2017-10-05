@@ -18,7 +18,8 @@
 		"original": "Оригинал",
 		"translated": "Перевод",
 		"label_visible": "Имя игрока",
-		"hide": "Спрятать"
+		"hide": "Спрятать",
+		"settings": "Настройки отображения"
 	},
 	"game": {
 		"end_status": "Законченный"
@@ -97,6 +98,12 @@
 			"KillDeath_title": "Скорость Убийство/Смерть",
 			"winRate": "Выиграть",
 			"winRate_title": "Ставка выигрыша",
+			"WTR": "WTR",
+			"WTR_title": "WTR(WarshipsToday рейтинг)",
+			"PR": "PR",
+			"PR_title": "PR(Персональный рейтинг)",
+			"survival": "Выживание",
+			"survival_title": "Уровень выживания(Победа|Поражение)",
 			"sinking": "Тонущий",
 			"sinking_title": "Среднее значение снижения",
 			"shootDown": "Застрелить",
@@ -120,5 +127,13 @@
 			"numBattle": "Боевой",
 			"numBattle_title": "Количество битв"
 		}
+	},
+	"ui_label": {
+		"column": "Выберите столбцы для отображения.",
+		"site": "Выберите игровой сайт.",
+		"display": "дисплей",
+		"apply": "подать заявление",
+		"cancel": "Отмена",
+		"donate": "Пожертвуйте 1US$ с помощью PayPal."
 	}
 }

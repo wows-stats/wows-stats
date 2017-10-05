@@ -1,0 +1,238 @@
+@charset "UTF-8";
+/* animation of .body when openning */
+@keyframes modalwindow_body_in {
+  0% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes modalwindow_body_out {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+.modalwindow {
+/* layer for ovaelay and scroll area */
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+overflow: auto;
+z-index: 1001;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+border-bottom: 100px solid transparent;
+cursor: pointer;
+opacity: 1;
+}
+
+.modalwindow.no_overlay_close {
+cursor: default;
+}
+
+.modalwindow.lock .close_modal {
+background: #ccc;
+}
+
+.modalwindow .body {
+position: relative;
+left: 50%;
+top: 2%;
+width: 320px;
+margin-left: -160px;
+margin-top: 20px;
+margin-bottom: 10px;
+background-color: #393E46;
+border-radius: 4px;
+cursor: default;
+box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+transform: translateY(-20px);
+animation: 200ms modalwindow_body_out;
+color: #ffffff;
+border: 3px double #d68000;
+}
+
+.modalwindow .body .modal_content {
+padding: 10px;
+}
+
+.modalwindow .column_label {
+padding: 3px 4px 3px 4px;
+font-weight: normal;
+color: #ffffff;
+font-size: 14px;
+text-align: center;
+border: 1px solid #40ff20;
+margin-top: 2px;
+margin-bottom: 3px;
+}
+
+.modalwindow .setting_list .label {
+width: 260px;
+}
+
+.modalwindow .setting_list .check {
+width: 30px;
+}
+
+.modalwindow .site_label {
+padding: 3px 4px 3px 4px;
+font-weight: normal;
+color: #ffffff;
+font-size: 14px;
+text-align: center;
+border: 1px solid #40ff20;
+margin-top: 6px;
+margin-bottom: 3px;
+}
+
+.modalwindow .smenu {
+display: inline-block;
+margin-top: 6px;
+white-space: nowrap;
+}
+
+.modalwindow .smenu label {
+position: relative;
+}
+
+.modalwindow .smenu label:after {
+display: inline-block;
+position: absolute;
+content: "";
+width: 18px;
+height: 18px;
+top: 50%;
+right: 4px;
+background: url("/images/arrow.png") 0 0 no-repeat;
+background-size: 18px;
+margin-top: -9px;
+pointer-events: none;
+}
+
+.modalwindow .site {
+position: relative;
+width: 300px;
+color: #000000;
+text-shadow: 0px 1px 0px #d0b060;
+font-size: 15px;
+border-radius: 3px;
+padding: 8px 0px 8px 4px;
+cursor: pointer;
+-webkit-appearance: none;
+appearance: none;
+-moz-appearance: none;
+background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffd28a), color-stop(1, #d68000));
+background:-moz-linear-gradient(top, #ffd28a 5%, #d68000 100%);
+background:-webkit-linear-gradient(top, #ffd28a 5%, #d68000 100%);
+background:-o-linear-gradient(top, #ffd28a 5%, #d68000 100%);
+background:-ms-linear-gradient(top, #ffd28a 5%, #d68000 100%);
+background:linear-gradient(to bottom, #ffd28a 5%, #d68000 100%);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd28a', endColorstr='#d68000',GradientType=0);
+text-decoration:none;
+background-color:#ffd28a;
+}
+
+.modalwindow .donate {
+border-radius: 0 0 4px 4px;
+border-top: 1px solid #ffffff;
+margin-top: 10px;
+padding: 0px 10px;
+background: #393E46;
+}
+
+.modalwindow .donate > form {
+height: 65px;
+padding: 0;
+margin-top: 10px;
+margin-bottom: -5px;
+margin-left: -10px;
+}
+
+.modalwindow .figure {
+width: 300px;
+height: 65px;
+background-color: #393E46;
+overflow: hidden;
+position: relative;
+}
+
+.modalwindow .figure::before {
+position: absolute;
+top: 0;
+left: -75%;
+z-index: 1005;
+display: block;
+content: '';
+width: 50%;
+height: 100%;
+background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+-webkit-transform: skewX(-25deg);
+transform: skewX(-25deg);
+}
+
+.modalwindow .figure:hover::before {
+-webkit-animation: shine .75s;
+animation: shine .75s;
+}
+
+@-webkit-keyframes shine {
+100% { left: 125%; }
+}
+
+@keyframes shine {
+100% { left: 125%; }
+}
+
+.modalwindow .figure .donate_btn:active {
+position: relative;
+top: 1px;
+}
+
+.modalwindow .body > footer {
+padding: 10px 0px;
+background: #393E46;
+border-radius: 0 0 4px 4px;
+border-top: 1px solid #ffffff;
+}
+
+.modalwindow.is_visible .body {
+transform: translateY(0px);
+animation: 400ms modalwindow_body_in;
+}
+
+.modalwindow_header_close {
+/* close botton with dynamic creation */
+position: absolute;
+right: 0;
+top: 5px;
+background: none;
+border: none;
+cursor: pointer;
+}
+
+.modalwindow_header_close:before {
+content: "\D7";
+font-size: 24px;
+font-family: serif;
+color: #ccc;
+}
+
+@media screen and (max-width: 360px) {
+.modalwindow .body { position: relative; width: calc(100% - 20px); margin: 10px; left: 0; }
+}
+
+.fixedlay {
+position: fixed;
+width: 100%;
+height: 100%;
+}

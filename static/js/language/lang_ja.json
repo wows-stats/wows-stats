@@ -18,7 +18,8 @@
 		"original": "ゲーム内表記",
 		"translated": "翻訳表記",
 		"label_visible": "プレイヤー名表示",
-		"hide": "非表示"
+		"hide": "非表示",
+		"settings": "表示設定"
 	},
 	"game": {
 		"end_status": "戦闘終了"
@@ -92,12 +93,18 @@
 		"ship": {
 			"combatPower": "戦闘力",
 			"combatPower_title": "平均ダメージ*K/D比率*平均経験値*Tier&艦種係数",
-			"damage": "Damage",
+			"damage": "ダメージ",
 			"damage_title": "平均ダメージ",
 			"KillDeath": "K/D",
 			"KillDeath_title": "艦別撃沈数÷艦別被撃沈数",
 			"winRate": "勝率",
 			"winRate_title": "艦別勝率",
+			"WTR": "WTR",
+			"WTR_title": "WTR(WarshipsToday Rating)",
+			"PR": "PR",
+			"PR_title": "PR(Personal Rating)",
+			"survival": "生存率",
+			"survival_title": "艦別生存率(勝利|敗北)",
 			"sinking": "撃沈",
 			"sinking_title": "平均撃沈数",
 			"shootDown": "撃墜",
@@ -108,11 +115,11 @@
 			"numBattle_title": "艦別戦闘数"
 		},
 		"player": {
-			"rank": "Rank",
+			"rank": "ランク",
 			"rank_title": "前シーズン＆直近シーズン最高到達ランク",
 			"winRate": "勝率",
 			"winRate_title": "総合勝率",
-			"damage": "Damage",
+			"damage": "ダメージ",
 			"damage_title": "総合平均ダメージ",
 			"KillDeath": "K/D",
 			"KillDeath_title": "総撃沈数÷総被撃沈数",
@@ -121,5 +128,13 @@
 			"numBattle": "戦闘数",
 			"numBattle_title": "総戦闘数"
 		}
+	},
+	"ui_label": {
+		"column": "表示項目選択",
+		"site": "プレイヤー情報サイト選択",
+		"display": "表示",
+		"apply": "適用",
+		"cancel": "キャンセル",
+		"donate": "1ドルの寄付をお願いします"
 	}
 }
