@@ -19,7 +19,7 @@
 		"translated": "Перевод",
 		"label_visible": "Имя игрока",
 		"hide": "Спрятать",
-		"settings": "Настройки столбца"
+		"settings": "Настройки отображения"
 	},
 	"game": {
 		"end_status": "Законченный"
@@ -99,7 +99,9 @@
 			"winRate": "Выиграть",
 			"winRate_title": "Ставка выигрыша",
 			"WTR": "WTR",
-			"WTR_title": "WTR(WarshipsToday Рейтинг)",
+			"WTR_title": "WTR(WarshipsToday рейтинг)",
+			"PR": "PR",
+			"PR_title": "PR(Персональный рейтинг)",
 			"survival": "Выживание",
 			"survival_title": "Уровень выживания(Победа|Поражение)",
 			"sinking": "Тонущий",
@@ -127,8 +129,11 @@
 		}
 	},
 	"ui_label": {
+		"column": "Выберите столбцы для отображения.",
+		"site": "Выберите игровой сайт.",
 		"display": "дисплей",
 		"apply": "подать заявление",
-		"cancel": "Отмена"
+		"cancel": "Отмена",
+		"donate": "Пожертвуйте 1US$ с помощью PayPal."
 	}
 }

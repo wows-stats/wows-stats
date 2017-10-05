@@ -19,7 +19,7 @@
 		"translated": "Translated",
 		"label_visible": "Display player name",
 		"hide": "Hide",
-		"settings": "Column settings"
+		"settings": "Display settings"
 	},
 	"game": {
 		"end_status": "Finished"
@@ -101,6 +101,8 @@
 			"winRate_title": "Rate of win",
 			"WTR": "WTR",
 			"WTR_title": "WTR(WarshipsToday Rating)",
+			"PR": "PR",
+			"PR_title": "PR(Personal Rating)",
 			"survival": "SurvivalRate",
 			"survival_title": "Rate of survival(Win|Lose)",
 			"sinking": "Sink",
@@ -128,8 +130,11 @@
 		}
 	},
 	"ui_label": {
+		"column": "Select columns to display.",
+		"site": "Select players information site.",
 		"display": "Display",
 		"apply": "Apply",
-		"cancel": "Cancel"
+		"cancel": "Cancel",
+		"donate": "Donate 1US$ with PayPal."
 	}
 }

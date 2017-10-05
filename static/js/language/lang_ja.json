@@ -19,7 +19,7 @@
 		"translated": "翻訳表記",
 		"label_visible": "プレイヤー名表示",
 		"hide": "非表示",
-		"settings": "表示項目設定"
+		"settings": "表示設定"
 	},
 	"game": {
 		"end_status": "戦闘終了"
@@ -101,6 +101,8 @@
 			"winRate_title": "艦別勝率",
 			"WTR": "WTR",
 			"WTR_title": "WTR(WarshipsToday Rating)",
+			"PR": "PR",
+			"PR_title": "PR(Personal Rating)",
 			"survival": "生存率",
 			"survival_title": "艦別生存率(勝利|敗北)",
 			"sinking": "撃沈",
@@ -128,8 +130,11 @@
 		}
 	},
 	"ui_label": {
+		"column": "表示項目選択",
+		"site": "プレイヤー情報サイト選択",
 		"display": "表示",
 		"apply": "適用",
-		"cancel": "キャンセル"
+		"cancel": "キャンセル",
+		"donate": "1ドルの寄付をお願いします"
 	}
 }
