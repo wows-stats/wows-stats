@@ -39,7 +39,7 @@ function get_season_num() {
 get_season_num();
 
 function update_WTRcoefficientsJSON() {
-	request('https://api.asia.warships.today/json/wows/ratings/warships-today-rating/coefficients', function (error, response, body) {
+	request('https://asia.wows-numbers.com/personal/rating/expected/json/', function (error, response, body) {
 		if ((!error && response.statusCode == 200) || (!error && response.statusCode == 304)) {
 //			console.log('Got coefficients json file for WTR.');
 
