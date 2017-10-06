@@ -1077,8 +1077,8 @@ api.ship = function(player) {
 					kdRatio ="？";
 					combatPower = "？";
 				} else if(death == 0 && kill == 0) {
-					kdRatio = "－";
-					combatPower = "－";
+					kdRatio = "？";
+					combatPower = "？";
 				} else {
 					var kdRatio = (kill / death).toFixed(2);
 					if (kdRatio == 0) {
