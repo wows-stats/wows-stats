@@ -66,12 +66,14 @@
 		"Anshan": "鞍山",
 		"Lo Yang": "洛陽",
 		"Fu Shun": "撫順",
+		"Cheng An": "成安",
 		"Long Jiang": "龍江",
 		"Shen Yang": "瀋陽",
 		"Jian Wei": "建威",
 		"Hsiang Yang": "襄陽",
 		"Chung Mu": "忠武",
-		"Hsien Yang": "咸陽"
+		"Hsien Yang": "咸陽",
+		"Oktyabrskaya Revolutsiya": "Okt. Revolutsiya"
 	},
 	"ru": {
 		"Orlan": "Орлан",
@@ -85,8 +87,8 @@
 		"Gnevny": "Гневный",
 		"Moskva": "Москва",
 		"Izyaslav": "Изяслав",
-		"Dmitri Donskoi": "Дмитрий Донской",
-		"Mikhail Kutuzov": "Михаил Кутузов",
+		"Dmitri Donskoi": "Дм. Донской",
+		"Mikhail Kutuzov": "Кутузов",
 		"Budyonny": "Будённый",
 		"Krasny Krym": "Красный Крым",
 		"Svietlana": "Светлана",
@@ -98,7 +100,7 @@
 		"Kiev": "Киев",
 		"Khabarovsk": "Хабаровск",
 		"Murmansk": "Мурманск",
-		"Imperator Nikolai I": "Император Николай I",
+		"Imperator Nikolai I": "Николай I",
 		"Diana": "Диана",
 		"Diana Lima": "Диана Lima",
 		"Grozovoi": "Грозовой",
@@ -107,7 +109,8 @@
 		"Shchors": "Щорс",
 		"Derzki": "Дерзкий",
 		"Aurora": "Аврора",
-		"Okhotnik": "Охотник"
+		"Okhotnik": "Охотник",
+		"Oktyabrskaya Revolutsiya": "Окт. революция"
 	},
 	"zh-tw": {
 		"Hashidate": "橋立",
@@ -176,11 +179,16 @@
 		"Anshan": "鞍山",
 		"Lo Yang": "洛陽",
 		"Fu Shun": "撫順",
+		"Cheng An": "成安",
 		"Long Jiang": "龍江",
-		"Shen Yang": "沉陽",
+		"Shen Yang": "瀋陽",
 		"Jian Wei": "建威",
 		"Hsiang Yang": "襄陽",
 		"Chung Mu": "忠武",
-		"Hsien Yang": "咸陽"
+		"Hsien Yang": "咸陽",
+		"Oktyabrskaya Revolutsiya": "Okt. Revolutsiya"
+	},
+	"en": {
+		"Oktyabrskaya Revolutsiya": "Okt. Revolutsiya"
 	}
 }
