@@ -19,7 +19,7 @@
 		"translated": "翻譯",
 		"label_visible": "顯示玩家名稱",
 		"hide": "隱藏",
-		"settings": "顯示設置"
+		"settings": "顯示設定"
 	},
 	"game": {
 		"end_status": "戰鬥結束"
@@ -71,10 +71,10 @@
 		"Skirmish_Domination_2_BASES": "聯合作戰: 一般戰鬥",
 		"Skirmish_Domination_rhombus": "聯合作戰: 制海權",
 		"Skirmish_Domination": "聯合作戰: 制海權",
-		"Skirmish_MegaBase": "聯合作戰: 要塞",
+		"Skirmish_MegaBase": "聯合作戰: 棱堡",
 		"Skirmish_Epicenter": "聯合作戰: 震央",
 		"Domination_2_BASES": "隨機戰鬥: 一般戰鬥",
-		"MegaBase": "隨機戰鬥: 要塞",
+		"MegaBase": "隨機戰鬥: 棱堡",
 		"Domination": "隨機戰鬥: 制海權",
 		"Domination_rhombus": "隨機戰鬥: 制海權",
 		"Epicenter": "隨機戰鬥: 震央",
@@ -95,7 +95,7 @@
 			"combatPower_title": "平均傷害*K/D比率*平均經驗值*階級&艦種係數",
 			"damage": "傷害",
 			"damage_title": "平均傷害",
-			"KillDeath": "撃沈/死亡",
+			"KillDeath": "K/D",
 			"KillDeath_title": "該艦撃沈數÷該艦被撃沈數",
 			"winRate": "勝率",
 			"winRate_title": "該艦勝率",
@@ -104,7 +104,7 @@
 			"PR": "PR",
 			"PR_title": "PR(Personal Rating)",
 			"survival": "存活率",
-			"survival_title": "該艦存活率(勝利|敗)",
+			"survival_title": "該艦存活率(勝|敗)",
 			"sinking": "撃沈",
 			"sinking_title": "平均撃沈數",
 			"shootDown": "撃墜",
@@ -131,10 +131,10 @@
 	},
 	"ui_label": {
 		"column": "選擇顯示項目",
-		"site": "選擇玩家信息網站",
+		"site": "選擇玩家資訊網站",
 		"display": "顯示",
-		"apply": "申請",
+		"apply": "儲存變更",
 		"cancel": "取消",
-		"donate": "用PayPal捐款1US$"
+		"donate": "用PayPal捐款US$1"
 	}
 }
