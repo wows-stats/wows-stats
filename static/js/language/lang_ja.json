@@ -30,6 +30,7 @@
 		"s01_NavalBase": "キラー・ホエール作戦",
 		"s02_Naval_Defense": "ニューポート海軍基地防衛戦",
 		"s03_Labyrinth": "ラプター救出作戦",
+		"e02_Halloween_2017": "暗闇を照らす光",
 		"00_CO_ocean": "大海原",
 		"02_Fiords": "フィヨルド",
 		"01_solomon_islands": "ソロモン諸島",
@@ -64,7 +65,8 @@
 		"46_Estuary": "河口",
 		"47_Sleeping_giant": "眠れる巨人",
 		"49_Shoreside": "沿岸",
-		"50_Gold_harbor": "安息の地"
+		"50_Gold_harbor": "安息の地",
+		"50_VanHellsing": "Transylvaniaを救え"
 	},
 	"mode": {
 		"Default_test": "入門ミッション",
@@ -79,7 +81,10 @@
 		"Domination_rhombus": "ランダム戦: 制圧",
 		"Epicenter": "ランダム戦: 中央攻略",
 		"Ranked_Domination": "ランク戦: 制圧",
-		"Ranked_Epicenter": "ランク戦: 中央攻略"
+		"Ranked_Epicenter": "ランク戦: 中央攻略",
+		"CvC_Domination": "クラン戦: 制圧",
+		"PVEVanHellsingRight": "ハロウィーン： パートⅠ",
+		"Halloween_2017": "ハロウィーン： パートⅡ"
 	},
 	"list_label1": {
 		"name": "名前",

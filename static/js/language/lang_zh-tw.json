@@ -30,6 +30,7 @@
 		"s01_NavalBase": "殺人鯨",
 		"s02_Naval_Defense": "防守海軍基地紐波特",
 		"s03_Labyrinth": "營救Raptor",
+		"e02_Halloween_2017": "黑暗中的光芒",
 		"00_CO_ocean": "海洋之戰",
 		"02_Fiords": "峽灣",
 		"01_solomon_islands": "所羅門群島",
@@ -64,7 +65,8 @@
 		"46_Estuary": "海口",
 		"47_Sleeping_giant": "沈睡的巨人",
 		"49_Shoreside": "沿岸",
-		"50_Gold_harbor": "避風港"
+		"50_Gold_harbor": "避風港",
+		"50_VanHellsing": "拯救外西凡尼亞"
 	},
 	"mode": {
 		"Default_test": "入門任務",
@@ -79,7 +81,10 @@
 		"Domination_rhombus": "隨機戰鬥: 制海權",
 		"Epicenter": "隨機戰鬥: 震央",
 		"Ranked_Domination": "排名戰: 制海權",
-		"Ranked_Epicenter": "排名戰: 震央"
+		"Ranked_Epicenter": "排名戰: 震央",
+		"CvC_Domination": "公會戰鬥: 制海權",
+		"PVEVanHellsingRight": "萬聖節活動： 第一部份",
+		"Halloween_2017": "萬聖節活動： 第二部份"
 	},
 	"list_label1": {
 		"name": "玩家名稱",

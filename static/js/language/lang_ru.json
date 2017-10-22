@@ -30,6 +30,7 @@
 		"s01_NavalBase": "Операция «Косатка»",
 		"s02_Naval_Defense": "Защита базы ВМФ «Ньюпорт»",
 		"s03_Labyrinth": "Лабиринт",
+		"e02_Halloween_2017": "Луч во тьме",
 		"00_CO_ocean": "Океан",
 		"01_solomon_islands": "Соломоновы острова",
 		"02_Fiords": "Фьорды",
@@ -63,7 +64,9 @@
 		"46_Estuary": "Устье",
 		"47_Sleeping_giant": "Спящий великан",
 		"49_Shoreside": "береговые",
-		"50_Gold_harbor": "Гавань"
+		"50_Gold_harbor": "Гавань",
+		"50_VanHellsing": "Спасение Трансильвании"
+
 	},
 	"mode": {
 		"Default_test": "Вводная миссия",
@@ -78,7 +81,10 @@
 		"Domination_rhombus": "Случайный: Доминирование",
 		"Epicenter": "Случайный: Эпицентр",
 		"Ranked_Domination": "Ранговый: Доминирование",
-		"Ranked_Epicenter": "Ранговый: Эпицентр"
+		"Ranked_Epicenter": "Ранговый: Эпицентр",
+		"CvC_Domination": "Клан: Доминирование",
+		"PVEVanHellsingRight": "Хэллоуин: Часть Ⅰ",
+		"Halloween_2017": "Хэллоуин: Часть Ⅱ"
 	},
 	"list_label1": {
 		"name": "Имя игрока",
