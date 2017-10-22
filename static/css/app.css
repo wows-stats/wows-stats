@@ -188,8 +188,25 @@ text-align:left;
 margin: 0 auto;
 }
 
-.hint {
+#imgPreviewStyles {
+text-align: center;
+margin-top: 80px;
+background-color: #222831;
+padding: 15px;
+border: 3px #ffffff double;
+z-index: 999;
 }
+
+#imgPreviewStyles span {
+color: white;
+text-align: center;
+display: block;
+padding: 10px 0 3px 0;
+}
+#imgPreviewStyles img {
+border: 1px #ffffff solid;
+}
+
 
 .player:hover {
 box-shadow: 0px 0px 5px 0px #222831;
