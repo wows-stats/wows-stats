@@ -1,4 +1,4 @@
-const wsp_version = '1.0.1';
+const wsp_version = '1.0.2';
 const MAX_RETRY = 5;
 
 // include WTR rating calculation
@@ -577,13 +577,14 @@ app.factory('api',['$translate','$rootScope','$http','$q', function($translate, 
 			// retry if rejected
 			if (!player.ship)
 				player.ship = {};
+
 			if (!player.ship.hasOwnProperty('retry'))
 				player.ship.retry = MAX_RETRY;
+
 			if (player.ship.retry > 0) {
-				player.ship.retry --; 
+				player.ship.retry --;
 				api.fetchShip(player);
-			}
-			else {
+			} else {
 				// report error if max retry reached
 				if (player.api.ship.status == 404)
 					player.ship.err = "no record";
@@ -636,8 +637,7 @@ app.factory('api',['$translate','$rootScope','$http','$q', function($translate, 
 					player.ship.err = player.err;
 					api.fetchShip(player);
 				}
-			}
-			else {
+			} else {
 				player.retry --;
 				api.fetchPlayer(player);
 			}
@@ -1177,19 +1177,19 @@ api.ship = function(player) {
 					"shipkakin": kakin,
 					"name": data.name.toUpperCase(),
 					"name_trans": api.shipnameTranslated(data.name),
-					"namefont" : api.shipnamefont(countLength(data.name)),
-					"namefont_trans" : api.shipnamefont(countLength(api.shipnameTranslated(data.name))),
-					"bgcolor" : data.info.type+"_bg",
+					"namefont": api.shipnamefont(countLength(data.name)),
+					"namefont_trans": api.shipnamefont(countLength(api.shipnameTranslated(data.name))),
+					"bgcolor": data.info.type+"_bg",
 					"winRate": winRate + "%",
 					"winRateClass": api.beautify("winRate", winRate),
 					"WTR": myFormatNumber(parseInt(wtr)),
 					"WTRClass": api.w_beautify("WTR", wtr),
 					"PR": myFormatNumber(parseInt(pr)),
 					"PRClass": api.p_beautify("PR", pr),
-					"shfl" : atkavg,
-					"ftfl" : sdkavg,
-					"hitratem" : hitm ,
-					"hitratet" : hitt ,
+					"shfl": atkavg,
+					"ftfl": sdkavg,
+					"hitratem": hitm ,
+					"hitratet": hitt ,
 					"kdRatio": kdRatio,
 					"battles": myFormatNumber(battles),
 					"avgExp": myFormatNumber(data.avgExp),
@@ -1199,7 +1199,7 @@ api.ship = function(player) {
 					"highlightClass": (player.is_private != true)? api.highlight("combatPower", combatPower):'highlight_private',
 					"ownerClass": api.owner("owner", player.name),
 					"svrate": svrate
-				}
+				};
 			} else {
 				var sid = player.shipId;
 				player.ship = {
@@ -1212,19 +1212,19 @@ api.ship = function(player) {
 					"shipkakin": kakin,
 					"name": ship_info.data[sid].name.toUpperCase(),
 					"name_trans": api.shipnameTranslated(ship_info.data[sid].name),
-					"namefont" : api.shipnamefont(countLength(ship_info.data[sid].name)),
-					"namefont_trans" : api.shipnamefont(countLength(api.shipnameTranslated(ship_info.data[sid].name))),
-					"bgcolor" :ship_info.data[sid].type+"_bg",  
+					"namefont": api.shipnamefont(countLength(ship_info.data[sid].name)),
+					"namefont_trans": api.shipnamefont(countLength(api.shipnameTranslated(ship_info.data[sid].name))),
+					"bgcolor": ship_info.data[sid].type+"_bg",
 					"winRate": ((player.is_private != true) && (player.is_bot != true))? '－':'',
 					"winRateClass": '',
 					"WTR": ((player.is_private != true) && (player.is_bot != true))? '－':'',
 					"WTRClass": '',
 					"PR": ((player.is_private != true) && (player.is_bot != true))? '－':'',
 					"PRClass": '',
-					"shfl" : ((player.is_private != true) && (player.is_bot != true))? '－':'',
-					"ftfl" : ((player.is_private != true) && (player.is_bot != true))? '－':'',
-					"hitratem" : '',
-					"hitratet" : '',
+					"shfl": ((player.is_private != true) && (player.is_bot != true))? '－':'',
+					"ftfl": ((player.is_private != true) && (player.is_bot != true))? '－':'',
+					"hitratem": '',
+					"hitratet": '',
 					"kdRatio": ((player.is_private != true) && (player.is_bot != true))? '－':'',
 					"battles": ((player.is_private != true) && (player.is_bot != true))? '0':'',
 					"avgExp": ((player.is_private != true) && (player.is_bot != true))? '－':'',
@@ -1234,14 +1234,60 @@ api.ship = function(player) {
 					"highlightClass": (player.is_private != true)? 'highlight_normal':'highlight_private',
 					"ownerClass": '',
 					"svrate": ((player.is_private != true) && (player.is_bot != true))? '－':''
-				}
+				};
 //				player.ship.err = "no battle record";
 			}
 			resolve(player);
 
 		}).error(function(data, status) {
+			var battles = "";
+			var victories = "";
+			var winRate = "";
+			var survived = "";
+			var kill = "";
+			var death = "";
+			var kakin = "";
+			var svrate = "";
+			var wtr = "";
+			var pr = "";
+			var combatPower = "";
+			var sid = player.shipId;
+//			player.ship = {
+				"shiptia_s": '',
+				"shipty": '',
+				"shiptype_s": '',
+				"shiptype_alt": '',
+				"shipnation_s": '',
+				"shipnation_alt": '',
+				"shipkakin": '',
+				"name": '',
+				"name_trans": '',
+				"namefont" : '',
+				"namefont_trans" : '',
+				"bgcolor" : '',
+				"winRate": ((player.is_private != true) && (player.is_bot != true))? '－':'',
+				"winRateClass": '',
+				"WTR": ((player.is_private != true) && (player.is_bot != true))? '－':'',
+				"WTRClass": '',
+				"PR": ((player.is_private != true) && (player.is_bot != true))? '－':'',
+				"PRClass": '',
+				"shfl" : ((player.is_private != true) && (player.is_bot != true))? '－':'',
+				"ftfl" : ((player.is_private != true) && (player.is_bot != true))? '－':'',
+				"hitratem" : '',
+				"hitratet" : '',
+				"kdRatio": ((player.is_private != true) && (player.is_bot != true))? '－':'',
+				"battles": ((player.is_private != true) && (player.is_bot != true))? '0':'',
+				"avgExp": ((player.is_private != true) && (player.is_bot != true))? '－':'',
+				"avgDmg": ((player.is_private != true) && (player.is_bot != true))? '－':'',
+				"combatPower": ((player.is_private != true) && (player.is_bot != true))? '－':'',
+				"combatPowerClass": '',
+				"highlightClass": (player.is_private != true)? 'highlight_normal':'highlight_private',
+				"ownerClass": '',
+				"svrate": ((player.is_private != true) && (player.is_bot != true))? '－':''
+			};
 			player.api.ship.response = data;
 			player.api.ship.status = status;
+			player.ship.err = "no battle record";
 			reject(player);
 		});
 	});
