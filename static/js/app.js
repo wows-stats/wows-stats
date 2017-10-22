@@ -27,6 +27,7 @@ var ready_coefficients = false;
 const images_pre = 'images/';
 const images_prefix = '.png';
 var capture_flag = true;
+var Interval_timer;
 
 var api_url = '';
 var api_key = '';
@@ -575,14 +576,16 @@ app.factory('api',['$translate','$rootScope','$http','$q', function($translate, 
 			// nothing needs to be done after fetching ship stats
 		}, function(player) {
 			// retry if rejected
-			if (!player.ship)
+			if (!player.ship) {
 				player.ship = {};
+				player.ship.err = '';
+			}
 
 			if (!player.ship.hasOwnProperty('retry'))
 				player.ship.retry = MAX_RETRY;
 
-			if (player.ship.retry > 0) {
-				player.ship.retry --;
+			if ((player.ship.retry > 0) && (player.ship.err == '')) {
+				player.ship.retry--;
 				api.fetchShip(player);
 			} else {
 				// report error if max retry reached
@@ -638,7 +641,7 @@ app.factory('api',['$translate','$rootScope','$http','$q', function($translate, 
 					api.fetchShip(player);
 				}
 			} else {
-				player.retry --;
+				player.retry--;
 				api.fetchPlayer(player);
 			}
 		});
@@ -1252,7 +1255,7 @@ api.ship = function(player) {
 			var pr = "";
 			var combatPower = "";
 			var sid = player.shipId;
-//			player.ship = {
+			player.ship = {
 				"shiptia_s": '',
 				"shipty": '',
 				"shiptype_s": '',
@@ -1507,10 +1510,6 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 		}
 	};
 
-	// handling site changer menu
-	$scope.changeSite = function () {
-	};
-
 	var updateArena = function() {
 		UpdateViewMode();
 
@@ -1696,7 +1695,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 
 	}
 
-	var timer = setInterval(function() {
+	Interval_timer = setInterval(function() {
 		$scope.$apply(updateArena);
 	}, 2000);
 
