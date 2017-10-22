@@ -442,7 +442,7 @@ function prepare_ss(target) {
     }
 }
 
-function  shipname_ex(val) {
+function shipname_ex(val) {
 	if (val == 1) {
 		dispeng ="none";
 		disptrans="";
