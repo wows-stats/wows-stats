@@ -8,6 +8,7 @@ var jsonfile 	= require('jsonfile')
 var app = express();
 var port = process.env.PORT || 8080;
 var api_key = process.env.WOWS_API_KEY || "demo";
+var Interval_timer;
 var capture_flag = process.env.NODE_CAPTURE;
 if (capture_flag === 'true') {
 	capture_flag = true;
@@ -345,3 +346,11 @@ router.get('/arena', jsonParser, function(req, res) {
 
 app.listen(port);
 console.log('wows-stats-plus is running on port: ' + port);
+
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+
+process.on('SIGINT', function() {
+    console.log('process terminated by Ctrl+C.');
+    process.exit(0);
+});
