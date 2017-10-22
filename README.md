@@ -68,5 +68,7 @@ Because of my poor linguistic ability, anyone please touch up translate text for
 And also anyone please try to create new JSON files for the other language(Thai(th), and more!) by modifying from lang_ja.json. 
 
 # Acknowledgements
-Original wows-stats [tianweiliu](https://github.com/tianweiliu/wows-stats).
+Original wows-stats [tianweiliu](https://github.com/tianweiliu/wows-stats)
 zh-tw translation support [AaronChern](https://github.com/AaronChern)
+Tips images for CP/WTR/PR provider {space_of_ice]
+Many thanks for whole testings to my WoWs clan [SWAN] members!!
