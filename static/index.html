@@ -20,11 +20,11 @@
 	<script src="https://github.com/niklasvh/html2canvas/releases/download/0.5.0-alpha1/html2canvas.js"></script>
 	<script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<!--	<script type="text/javascript" src="js/modalwindow.js"></script>	-->
+	<script type="text/javascript" src="js/imgpreview.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript">
 	(function($) {
-		var preloadImages = ['AU.png','BB.png','CA.png','CV.png','CW.png','DD.png','DE.png','ES.png','FR.png','IT.png','JP.png','NL.png','other.png','PA.png','PL.png','SU.png','UK.png','US.png','wows_logo_small.png','pattern.png','arrow.png','setting.png','camera.png','Paypal_donate_btn_v2.png'];
+		var preloadImages = ['AU.png','BB.png','CA.png','CV.png','CW.png','DD.png','DE.png','ES.png','FR.png','IT.png','JP.png','NL.png','other.png','PA.png','PL.png','SU.png','UK.png','US.png','wows_logo_small.png','pattern.png','arrow.png','setting.png','camera.png','Paypal_donate_btn_v2.png','CP_ja.png','CP_en.png','CP_ru.png','CP_zh-tw.png','WTR_ja.png','WTR_en.png','WTR_ru.png','WTR_zh-tw.png','PR_ja.png','PR_en.png','PR_ru.png','PR_zh-tw.png'];
 
 		for (var i=0; i<preloadImages.length; i++) {
 			(new Image()).src = '/images/' + preloadImages[i];
@@ -59,9 +59,9 @@
 							<th colspan="{{player_span}}">{{'list_label1.player_score' | translate}}</th>
 						</tr>
 						<tr>
-							<th id="s_0_0" ng-style="disp_column('s', 0)" title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:90px;">{{'list_label2.ship.combatPower' | translate}}</th>
-							<th id="s_0_1" ng-style="disp_column('s', 1)" title="{{'list_label2.ship.WTR_title' | translate}}" style="width:45px;">{{'list_label2.ship.WTR' | translate}}</th>
-							<th id="s_0_10" ng-style="disp_column('s', 10)" title="{{'list_label2.ship.PR_title' | translate}}" style="width:45px;">{{'list_label2.ship.PR' | translate}}</th>
+							<th id="s_0_0" ng-style="disp_column('s', 0)" style="width:90px;"><a href="images/CP_{{lang_select}}.png" tips="{{'list_label2.ship.combatPower_title' | translate}}">{{'list_label2.ship.combatPower' | translate}}</a></th>
+							<th id="s_0_1" ng-style="disp_column('s', 1)" style="width:45px;"><a href="images/WTR_{{lang_select}}.png" tips="{{'list_label2.ship.WTR_title' | translate}}">{{'list_label2.ship.WTR' | translate}}</a></th>
+							<th id="s_0_10" ng-style="disp_column('s', 10)" style="width:45px;"><a href="images/PR_{{lang_select}}.png" tips="{{'list_label2.ship.PR_title' | translate}}">{{'list_label2.ship.PR' | translate}}</a></th>
 							<th id="s_0_2" ng-style="disp_column('s', 2)" title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th id="s_0_3" ng-style="disp_column('s', 3)" title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:40px;">{{'list_label2.ship.KillDeath' | translate}}</th>
 							<th id="s_0_4" ng-style="disp_column('s', 4)" title="{{'list_label2.ship.winRate_title' | translate}}" style="width:75px;">{{'list_label2.ship.winRate' | translate}}</th>
@@ -85,7 +85,7 @@
 								<span name="user_buta"style ="color: #38c38c; display:none;">&nbsp;(｀･ω･´)ゞ&nbsp;</span>
 							</td>
 							<td class="highlight_cancel">{{value.ship.shiptia_s}}</td>
-							<td class="tdata_l {{value.ship.bgcolor}}"><img class="icon" ng-src="{{value.ship.shipnation_s}}" title="{{value.ship.shipnation_alt}}" /><img class="icon" ng-src="{{value.ship.shiptype_s}}" title="{{value.ship.shiptype_alt}}" /></td>
+							<td class="tdata_l highlight_cancel {{value.ship.bgcolor}}"><img class="icon" ng-src="{{value.ship.shipnation_s}}" title="{{value.ship.shipnation_alt}}" /><img class="icon" ng-src="{{value.ship.shiptype_s}}" title="{{value.ship.shiptype_alt}}" /></td>
 							<td class="tdata_l highlight_cancel {{value.ship.bgcolor}}" style="padding-left: 3px; padding-right: 3px;">
 								<span class="shipclass {{value.ship.namefont_trans}}" name="shipname_trans">{{value.ship.name_trans}}</span>
 								<span class="shipclass {{value.ship.namefont}}" name="shipname_eng" style ="display:none;">{{value.ship.name}}</span>
@@ -134,9 +134,9 @@
 							<th colspan="{{player_span}}">{{'list_label1.player_score' | translate}}</th>
 						</tr>
 						<tr>
-							<th id="s_1_0" ng-style="disp_column('s', 0)" title="{{'list_label2.ship.combatPower_title' | translate}}" style="width:90px;">{{'list_label2.ship.combatPower' | translate}}</th>
-							<th id="s_1_1" ng-style="disp_column('s', 1)" title="{{'list_label2.ship.WTR_title' | translate}}" style="width:45px;">{{'list_label2.ship.WTR' | translate}}</th>
-							<th id="s_1_10" ng-style="disp_column('s', 10)" title="{{'list_label2.ship.PR_title' | translate}}" style="width:45px;">{{'list_label2.ship.PR' | translate}}</th>
+							<th id="s_1_0" ng-style="disp_column('s', 0)" style="width:90px;"><a href="images/CP_{{lang_select}}.png" tips="{{'list_label2.ship.combatPower_title' | translate}}">{{'list_label2.ship.combatPower' | translate}}</a></th>
+							<th id="s_1_1" ng-style="disp_column('s', 1)" style="width:45px;"><a href="images/WTR_{{lang_select}}.png" tips="{{'list_label2.ship.WTR_title' | translate}}">{{'list_label2.ship.WTR' | translate}}</a></th>
+							<th id="s_1_10" ng-style="disp_column('s', 10)" style="width:45px;"><a href="images/PR_{{lang_select}}.png" tips="{{'list_label2.ship.PR_title' | translate}}">{{'list_label2.ship.PR' | translate}}</a></th>
 							<th id="s_1_2" ng-style="disp_column('s', 2)" title="{{'list_label2.ship.damage_title' | translate}}" style="width:70px;">{{'list_label2.ship.damage' | translate}}</th>
 							<th id="s_1_3" ng-style="disp_column('s', 3)" title="{{'list_label2.ship.KillDeath_title' | translate}}" style="width:40px;">{{'list_label2.ship.KillDeath' | translate}}</th>
 							<th id="s_1_4" ng-style="disp_column('s', 4)" title="{{'list_label2.ship.winRate_title' | translate}}" style="width:75px;">{{'list_label2.ship.winRate' | translate}}</th>
@@ -160,7 +160,7 @@
 								<span name="user_buta"style ="color: #38c38c; display:none;">&nbsp;(´・ω・`)&nbsp;</span>
 							</td>
 							<td class="highlight_cancel">{{value.ship.shiptia_s}}</td>
-							<td class="tdata_l {{value.ship.bgcolor}}"><img class="icon" ng-src="{{value.ship.shipnation_s}}" title="{{value.ship.shipnation_alt}}" /><img class="icon" ng-src="{{value.ship.shiptype_s}}" title="{{value.ship.shiptype_alt}}" /></td>
+							<td class="tdata_l highlight_cancel {{value.ship.bgcolor}}"><img class="icon" ng-src="{{value.ship.shipnation_s}}" title="{{value.ship.shipnation_alt}}" /><img class="icon" ng-src="{{value.ship.shiptype_s}}" title="{{value.ship.shiptype_alt}}" /></td>
 							<td class="tdata_l highlight_cancel {{value.ship.bgcolor}}" style="padding-left: 3px; padding-right: 3px;">
 								<span class="shipclass {{value.ship.namefont_trans}}" name="shipname_trans">{{value.ship.name_trans}}</span><span class="shipclass {{value.ship.namefont}}" name="shipname_eng" style ="display:none;">{{value.ship.name}}</span><span class="key {{value.ship.namefont}}">{{value.ship.shipkakin}}</span>
 							</td>
@@ -368,6 +368,20 @@
 	</div>
 </div>
 
+
+<script type="text/javascript">
+$(function() {
+	$('th a').imgPreview({
+		containerID: 'imgPreviewStyles',
+		onShow: function(link){
+			$('<span>' + $(link).attr('tips') + '</span>').appendTo(this);
+		},
+		onHide: function(link){
+			$('span', this).remove();
+		}
+	});
+});
+</script>
 
 <script type="text/javascript">
 $(function() {
