@@ -24,11 +24,6 @@ app.controller('InstallCtrl', function ($scope, $http) {
 			url: "http://api.worldofwarships.asia",
 			devRoom: "http://asia.wargaming.net/developers/"
 		},
-		{
-			name: "Korea",
-			url: "http://api.worldofwarships.kr",
-			devRoom: "http://kr.wargaming.net/developers/"
-		}
 	];
 	$scope.api.path = {};
 	$scope.api.appId = {};
@@ -36,7 +31,7 @@ app.controller('InstallCtrl', function ($scope, $http) {
 
 	$http({
 		method:'GET',
-		url: 'http://localhost:8080/api/env'
+		url: 'http://'+window.location.hostname+':'+window.location.port+'/api/env'
 	}).success(function(data, status) {
 		$scope.path = data.path;
 		$scope.key = data.key;
@@ -102,7 +97,7 @@ app.controller('InstallCtrl', function ($scope, $http) {
 		$scope.api.loading = true;
 		$http({
 			method:'POST',
-			url: 'http://localhost:8080/api/path',
+			url: 'http://'+window.location.hostname+':'+window.location.port+'/api/path',
 			data: { path: $scope.path }
 		}).success(function(data, status) {
 			$scope.api.loading = false;
@@ -120,7 +115,7 @@ app.controller('InstallCtrl', function ($scope, $http) {
 			return;
 		$http({
 			method:'POST',
-			url: 'http://localhost:8080/api/install',
+			url: 'http://'+window.location.hostname+':'+window.location.port+'/api/install',
 			data: { action: "cancel" }
 		});
 		window.location.href="about:blank";
@@ -131,7 +126,7 @@ app.controller('InstallCtrl', function ($scope, $http) {
 			return;
 		$http({
 			method:'POST',
-			url: 'http://localhost:8080/api/install',
+			url: 'http://'+window.location.hostname+':'+window.location.port+'/api/install',
 			data: { 
 				action: "save",
 				path: $scope.path,

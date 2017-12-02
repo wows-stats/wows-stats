@@ -1,7 +1,7 @@
 {
-  "name": "wows-stats",
-  "version": "1.2.1",
-  "description": "Statistics engine for World of Warships",
+  "name": "wows-stats-plus",
+  "version": "1.0.1",
+  "description": "Statistics advanced engine for World of Warships",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tianweiliu/wows-stats.git"
+    "url": "git+https://github.com/anmonite/wows-stats-plus.git"
   },
-  "author": "Tianwei Liu <tianwei.liu89@gmail.com>",
+  "author": "Norihiro Martsushita <night77@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tianweiliu/wows-stats/issues"
+    "url": "https://github.com/anmonite/wows-stats-plus/issues"
   },
-  "homepage": "https://github.com/tianweiliu/wows-stats#readme",
+  "homepage": "https://github.com/anmonite/wows-stats-plus#readme",
   "dependencies": {
     "body-parser": "^1.14.1",
     "dotenv": "^1.2.0",

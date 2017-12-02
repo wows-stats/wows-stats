@@ -1,0 +1,22 @@
+[
+	{
+		"site": "Word of Warships (official)",
+		"uri": "https://worldofwarships.%%REGION%%/%%LANG%%/community/accounts/%%ID%%-%%NAME%%/"
+	},
+	{
+		"site": "WoWs Statinfo",
+		"uri": "http://vzhabin.ru/US_WoWsStatInfo/?realm_search=%%REGION%%&nickname=%%NAME%%"
+	},
+	{
+		"site": "WoWs Stats & Nmbers",
+		"uri": "https://%%REGION%%.wows-numbers.com/player/%%ID%%,%%NAME%%/"
+	},
+	{
+		"site": "Warships.Today",
+		"uri": "https://%%REGION%%.warships.today/player/%%ID%%/%%NAME%%"
+	},
+	{
+		"site": "WoWStats.org",
+		"uri": "http://www.wowstats.org/stats/%%REGION%%/%%NAME%%/"
+	}
+]
